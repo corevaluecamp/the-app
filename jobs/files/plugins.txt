@@ -1,7 +1,1 @@
-git
-github
-terraform
-ssh
-job-dsl
-workflow-aggregator
-blueocean
+git github terraform ssh job-dsl workflow-aggregator blueocean
