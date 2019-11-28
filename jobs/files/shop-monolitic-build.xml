@@ -13,7 +13,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>/var/lib/jenkins/repo-cache/appstash</url>
+        <url>/var/lib/jenkins/repo-cache/appstash/the-app</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
