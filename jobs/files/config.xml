@@ -279,7 +279,7 @@
         <string>GIT_REPOSITORY</string>
         <string>https://github.com/devops-dojo/the-app.git</string>
         <string>BRANCH_TO_BUILD</string>
-        <string>refs/tags/v1.0</string>
+        <string></string>
         <string>PROD_SERVERS</string>
         <string>app-server-node-4 app-server-node-5</string>
 <!-- END ANSIBLE MANAGED BLOCK JENKINS VAR -->
