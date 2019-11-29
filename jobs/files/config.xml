@@ -282,6 +282,13 @@
         <string></string>
         <string>PROD_SERVERS</string>
         <string>app-server-node-4 app-server-node-5</string>
+        <int>3</int>
+      <string>GIT_REPOSITORY</string>
+      <string>{{ github_url }}</string>
+      <string>BRANCH_TO_BUILD</string>
+      <string>{{ github_branch }}</string>
+      <string>PROD_SERVERS</string>
+      <string>{{ prod_servers }}</string>
 <!-- END ANSIBLE MANAGED BLOCK JENKINS VAR -->
       </tree-map>
     </envVars>
