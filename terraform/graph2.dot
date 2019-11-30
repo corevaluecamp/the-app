@@ -1,0 +1,208 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] module.instances.aws_instance.dos-bastion" [label = "module.instances.aws_instance.dos-bastion", shape = "box"]
+		"[root] module.instances.aws_instance.dos-mongodb" [label = "module.instances.aws_instance.dos-mongodb", shape = "box"]
+		"[root] module.instances.var.bastion-name" [label = "module.instances.var.bastion-name", shape = "note"]
+		"[root] module.instances.var.id-sg-bastion" [label = "module.instances.var.id-sg-bastion", shape = "note"]
+		"[root] module.instances.var.id-sg-mongodb" [label = "module.instances.var.id-sg-mongodb", shape = "note"]
+		"[root] module.instances.var.instance-ami" [label = "module.instances.var.instance-ami", shape = "note"]
+		"[root] module.instances.var.instance-type" [label = "module.instances.var.instance-type", shape = "note"]
+		"[root] module.instances.var.key-name" [label = "module.instances.var.key-name", shape = "note"]
+		"[root] module.instances.var.mongodb-name" [label = "module.instances.var.mongodb-name", shape = "note"]
+		"[root] module.instances.var.subnet-db-a-id" [label = "module.instances.var.subnet-db-a-id", shape = "note"]
+		"[root] module.instances.var.subnet-pub-a-id" [label = "module.instances.var.subnet-pub-a-id", shape = "note"]
+		"[root] module.network.aws_eip.dos-eip-nat" [label = "module.network.aws_eip.dos-eip-nat", shape = "box"]
+		"[root] module.network.aws_internet_gateway.dos-igw" [label = "module.network.aws_internet_gateway.dos-igw", shape = "box"]
+		"[root] module.network.aws_main_route_table_association.set-main-routetb" [label = "module.network.aws_main_route_table_association.set-main-routetb", shape = "box"]
+		"[root] module.network.aws_nat_gateway.dos-nat" [label = "module.network.aws_nat_gateway.dos-nat", shape = "box"]
+		"[root] module.network.aws_route.dos-private-route" [label = "module.network.aws_route.dos-private-route", shape = "box"]
+		"[root] module.network.aws_route.dos-public-route" [label = "module.network.aws_route.dos-public-route", shape = "box"]
+		"[root] module.network.aws_route_table.dos-routetb-db" [label = "module.network.aws_route_table.dos-routetb-db", shape = "box"]
+		"[root] module.network.aws_route_table.dos-routetb-private" [label = "module.network.aws_route_table.dos-routetb-private", shape = "box"]
+		"[root] module.network.aws_route_table.dos-routetb-public" [label = "module.network.aws_route_table.dos-routetb-public", shape = "box"]
+		"[root] module.network.aws_route_table_association.db-subnet-association" [label = "module.network.aws_route_table_association.db-subnet-association", shape = "box"]
+		"[root] module.network.aws_route_table_association.private-subnet-association" [label = "module.network.aws_route_table_association.private-subnet-association", shape = "box"]
+		"[root] module.network.aws_route_table_association.public-subnet-association" [label = "module.network.aws_route_table_association.public-subnet-association", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-db-a" [label = "module.network.aws_subnet.dos-subnet-db-a", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-db-b" [label = "module.network.aws_subnet.dos-subnet-db-b", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-private-a" [label = "module.network.aws_subnet.dos-subnet-private-a", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-private-b" [label = "module.network.aws_subnet.dos-subnet-private-b", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-public-a" [label = "module.network.aws_subnet.dos-subnet-public-a", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-public-b" [label = "module.network.aws_subnet.dos-subnet-public-b", shape = "box"]
+		"[root] module.network.aws_vpc.dos-vpc" [label = "module.network.aws_vpc.dos-vpc", shape = "box"]
+		"[root] module.network.data.aws_availability_zones.available" [label = "module.network.data.aws_availability_zones.available", shape = "box"]
+		"[root] module.network.output.subnet-db-a-id" [label = "module.network.output.subnet-db-a-id", shape = "note"]
+		"[root] module.network.output.subnet-pub-a-id" [label = "module.network.output.subnet-pub-a-id", shape = "note"]
+		"[root] module.network.output.vpc-id" [label = "module.network.output.vpc-id", shape = "note"]
+		"[root] module.network.var.all-ip" [label = "module.network.var.all-ip", shape = "note"]
+		"[root] module.network.var.igw-name" [label = "module.network.var.igw-name", shape = "note"]
+		"[root] module.network.var.nat-eip" [label = "module.network.var.nat-eip", shape = "note"]
+		"[root] module.network.var.nat-name" [label = "module.network.var.nat-name", shape = "note"]
+		"[root] module.network.var.routetb-name" [label = "module.network.var.routetb-name", shape = "note"]
+		"[root] module.network.var.subnet-a-name" [label = "module.network.var.subnet-a-name", shape = "note"]
+		"[root] module.network.var.subnet-b-name" [label = "module.network.var.subnet-b-name", shape = "note"]
+		"[root] module.network.var.vpc-cidr" [label = "module.network.var.vpc-cidr", shape = "note"]
+		"[root] module.network.var.vpc-name" [label = "module.network.var.vpc-name", shape = "note"]
+		"[root] module.security.aws_key_pair.dos-key" [label = "module.security.aws_key_pair.dos-key", shape = "box"]
+		"[root] module.security.aws_security_group.dos-bastion-access" [label = "module.security.aws_security_group.dos-bastion-access", shape = "box"]
+		"[root] module.security.aws_security_group.dos-mongodb-connect" [label = "module.security.aws_security_group.dos-mongodb-connect", shape = "box"]
+		"[root] module.security.aws_security_group.dos-private-access" [label = "module.security.aws_security_group.dos-private-access", shape = "box"]
+		"[root] module.security.aws_security_group.dos-redis" [label = "module.security.aws_security_group.dos-redis", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-mongodb-egress" [label = "module.security.aws_security_group_rule.dos-mongodb-egress", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-mongodb-ingress" [label = "module.security.aws_security_group_rule.dos-mongodb-ingress", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-private-access-ssh" [label = "module.security.aws_security_group_rule.dos-private-access-ssh", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-redis-egress" [label = "module.security.aws_security_group_rule.dos-redis-egress", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-redis-ingress" [label = "module.security.aws_security_group_rule.dos-redis-ingress", shape = "box"]
+		"[root] module.security.data.http.my-ipaddress" [label = "module.security.data.http.my-ipaddress", shape = "box"]
+		"[root] module.security.output.id-sg-bastion" [label = "module.security.output.id-sg-bastion", shape = "note"]
+		"[root] module.security.output.id-sg-mongodb" [label = "module.security.output.id-sg-mongodb", shape = "note"]
+		"[root] module.security.output.id-sg-private" [label = "module.security.output.id-sg-private", shape = "note"]
+		"[root] module.security.output.key-name" [label = "module.security.output.key-name", shape = "note"]
+		"[root] module.security.var.key-name" [label = "module.security.var.key-name", shape = "note"]
+		"[root] module.security.var.my-ip" [label = "module.security.var.my-ip", shape = "note"]
+		"[root] module.security.var.pub-key" [label = "module.security.var.pub-key", shape = "note"]
+		"[root] module.security.var.sg-name" [label = "module.security.var.sg-name", shape = "note"]
+		"[root] module.security.var.vpc-id" [label = "module.security.var.vpc-id", shape = "note"]
+		"[root] provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] provider.http" [label = "provider.http", shape = "diamond"]
+		"[root] var.aws-region" [label = "var.aws-region", shape = "note"]
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.instances.aws_instance.dos-bastion"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.instances.aws_instance.dos-mongodb"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_main_route_table_association.set-main-routetb"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route.dos-private-route"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route.dos-public-route"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route_table_association.db-subnet-association"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route_table_association.private-subnet-association"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route_table_association.public-subnet-association"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_subnet.dos-subnet-db-b"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_subnet.dos-subnet-private-b"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_subnet.dos-subnet-public-b"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_key_pair.dos-key"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-mongodb-egress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-mongodb-ingress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-private-access-ssh"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-redis-egress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-redis-ingress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.output.id-sg-private"
+		"[root] module.instances.aws_instance.dos-bastion" -> "[root] module.instances.var.bastion-name"
+		"[root] module.instances.aws_instance.dos-bastion" -> "[root] module.instances.var.id-sg-bastion"
+		"[root] module.instances.aws_instance.dos-bastion" -> "[root] module.instances.var.instance-ami"
+		"[root] module.instances.aws_instance.dos-bastion" -> "[root] module.instances.var.instance-type"
+		"[root] module.instances.aws_instance.dos-bastion" -> "[root] module.instances.var.key-name"
+		"[root] module.instances.aws_instance.dos-bastion" -> "[root] module.instances.var.subnet-pub-a-id"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.id-sg-bastion"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.id-sg-mongodb"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.instance-ami"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.instance-type"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.key-name"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.mongodb-name"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.subnet-db-a-id"
+		"[root] module.instances.var.id-sg-bastion" -> "[root] module.security.output.id-sg-bastion"
+		"[root] module.instances.var.id-sg-mongodb" -> "[root] module.security.output.id-sg-mongodb"
+		"[root] module.instances.var.key-name" -> "[root] module.security.output.key-name"
+		"[root] module.instances.var.subnet-db-a-id" -> "[root] module.network.output.subnet-db-a-id"
+		"[root] module.instances.var.subnet-pub-a-id" -> "[root] module.network.output.subnet-pub-a-id"
+		"[root] module.network.aws_eip.dos-eip-nat" -> "[root] module.network.var.nat-eip"
+		"[root] module.network.aws_eip.dos-eip-nat" -> "[root] provider.aws"
+		"[root] module.network.aws_internet_gateway.dos-igw" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_internet_gateway.dos-igw" -> "[root] module.network.var.igw-name"
+		"[root] module.network.aws_main_route_table_association.set-main-routetb" -> "[root] module.network.aws_route_table.dos-routetb-public"
+		"[root] module.network.aws_nat_gateway.dos-nat" -> "[root] module.network.aws_eip.dos-eip-nat"
+		"[root] module.network.aws_nat_gateway.dos-nat" -> "[root] module.network.aws_internet_gateway.dos-igw"
+		"[root] module.network.aws_nat_gateway.dos-nat" -> "[root] module.network.aws_subnet.dos-subnet-public-a"
+		"[root] module.network.aws_nat_gateway.dos-nat" -> "[root] module.network.var.nat-name"
+		"[root] module.network.aws_route.dos-private-route" -> "[root] module.network.aws_nat_gateway.dos-nat"
+		"[root] module.network.aws_route.dos-private-route" -> "[root] module.network.aws_route_table.dos-routetb-private"
+		"[root] module.network.aws_route.dos-private-route" -> "[root] module.network.var.all-ip"
+		"[root] module.network.aws_route.dos-public-route" -> "[root] module.network.aws_internet_gateway.dos-igw"
+		"[root] module.network.aws_route.dos-public-route" -> "[root] module.network.aws_route_table.dos-routetb-public"
+		"[root] module.network.aws_route.dos-public-route" -> "[root] module.network.var.all-ip"
+		"[root] module.network.aws_route_table.dos-routetb-db" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_route_table.dos-routetb-db" -> "[root] module.network.var.routetb-name"
+		"[root] module.network.aws_route_table.dos-routetb-private" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_route_table.dos-routetb-private" -> "[root] module.network.var.routetb-name"
+		"[root] module.network.aws_route_table.dos-routetb-public" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_route_table.dos-routetb-public" -> "[root] module.network.var.routetb-name"
+		"[root] module.network.aws_route_table_association.db-subnet-association" -> "[root] module.network.aws_route_table.dos-routetb-db"
+		"[root] module.network.aws_route_table_association.db-subnet-association" -> "[root] module.network.aws_subnet.dos-subnet-db-a"
+		"[root] module.network.aws_route_table_association.private-subnet-association" -> "[root] module.network.aws_route_table.dos-routetb-private"
+		"[root] module.network.aws_route_table_association.private-subnet-association" -> "[root] module.network.aws_subnet.dos-subnet-private-a"
+		"[root] module.network.aws_route_table_association.public-subnet-association" -> "[root] module.network.aws_route_table.dos-routetb-public"
+		"[root] module.network.aws_route_table_association.public-subnet-association" -> "[root] module.network.aws_subnet.dos-subnet-public-a"
+		"[root] module.network.aws_subnet.dos-subnet-db-a" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-db-a" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-db-a" -> "[root] module.network.var.subnet-a-name"
+		"[root] module.network.aws_subnet.dos-subnet-db-b" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-db-b" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-db-b" -> "[root] module.network.var.subnet-b-name"
+		"[root] module.network.aws_subnet.dos-subnet-private-a" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-private-a" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-private-a" -> "[root] module.network.var.subnet-a-name"
+		"[root] module.network.aws_subnet.dos-subnet-private-b" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-private-b" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-private-b" -> "[root] module.network.var.subnet-b-name"
+		"[root] module.network.aws_subnet.dos-subnet-public-a" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-public-a" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-public-a" -> "[root] module.network.var.subnet-a-name"
+		"[root] module.network.aws_subnet.dos-subnet-public-b" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-public-b" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-public-b" -> "[root] module.network.var.subnet-b-name"
+		"[root] module.network.aws_vpc.dos-vpc" -> "[root] module.network.var.vpc-cidr"
+		"[root] module.network.aws_vpc.dos-vpc" -> "[root] module.network.var.vpc-name"
+		"[root] module.network.aws_vpc.dos-vpc" -> "[root] provider.aws"
+		"[root] module.network.data.aws_availability_zones.available" -> "[root] provider.aws"
+		"[root] module.network.output.subnet-db-a-id" -> "[root] module.network.aws_subnet.dos-subnet-db-a"
+		"[root] module.network.output.subnet-pub-a-id" -> "[root] module.network.aws_subnet.dos-subnet-public-a"
+		"[root] module.network.output.vpc-id" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.security.aws_key_pair.dos-key" -> "[root] module.security.var.key-name"
+		"[root] module.security.aws_key_pair.dos-key" -> "[root] module.security.var.pub-key"
+		"[root] module.security.aws_key_pair.dos-key" -> "[root] provider.aws"
+		"[root] module.security.aws_security_group.dos-bastion-access" -> "[root] module.security.data.http.my-ipaddress"
+		"[root] module.security.aws_security_group.dos-bastion-access" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-bastion-access" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-mongodb-connect" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-mongodb-connect" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-private-access" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-private-access" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-redis" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-redis" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group_rule.dos-mongodb-egress" -> "[root] module.security.aws_security_group.dos-mongodb-connect"
+		"[root] module.security.aws_security_group_rule.dos-mongodb-ingress" -> "[root] module.security.aws_security_group.dos-mongodb-connect"
+		"[root] module.security.aws_security_group_rule.dos-private-access-ssh" -> "[root] module.security.aws_security_group.dos-bastion-access"
+		"[root] module.security.aws_security_group_rule.dos-private-access-ssh" -> "[root] module.security.aws_security_group.dos-private-access"
+		"[root] module.security.aws_security_group_rule.dos-redis-egress" -> "[root] module.security.aws_security_group.dos-redis"
+		"[root] module.security.aws_security_group_rule.dos-redis-ingress" -> "[root] module.security.aws_security_group.dos-redis"
+		"[root] module.security.data.http.my-ipaddress" -> "[root] module.security.var.my-ip"
+		"[root] module.security.data.http.my-ipaddress" -> "[root] provider.http"
+		"[root] module.security.output.id-sg-bastion" -> "[root] module.security.aws_security_group.dos-bastion-access"
+		"[root] module.security.output.id-sg-mongodb" -> "[root] module.security.aws_security_group.dos-mongodb-connect"
+		"[root] module.security.output.id-sg-private" -> "[root] module.security.aws_security_group.dos-private-access"
+		"[root] module.security.output.key-name" -> "[root] module.security.var.key-name"
+		"[root] module.security.var.vpc-id" -> "[root] module.network.output.vpc-id"
+		"[root] provider.aws (close)" -> "[root] module.instances.aws_instance.dos-bastion"
+		"[root] provider.aws (close)" -> "[root] module.instances.aws_instance.dos-mongodb"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_main_route_table_association.set-main-routetb"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route.dos-private-route"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route.dos-public-route"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route_table_association.db-subnet-association"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route_table_association.private-subnet-association"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route_table_association.public-subnet-association"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_subnet.dos-subnet-db-b"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_subnet.dos-subnet-private-b"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_subnet.dos-subnet-public-b"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_key_pair.dos-key"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-mongodb-egress"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-mongodb-ingress"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-private-access-ssh"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-redis-egress"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-redis-ingress"
+		"[root] provider.aws" -> "[root] var.aws-region"
+		"[root] provider.http (close)" -> "[root] module.security.data.http.my-ipaddress"
+		"[root] root" -> "[root] meta.count-boundary (EachMode fixup)"
+		"[root] root" -> "[root] provider.aws (close)"
+		"[root] root" -> "[root] provider.http (close)"
+	}
+}
+
