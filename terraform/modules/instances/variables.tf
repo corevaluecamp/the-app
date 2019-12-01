@@ -25,8 +25,13 @@ variable "mongodb-name" {
   type    = "string"
   default = "dos-mongodb"
 }
+variable "name-prefix" {
+  default = "launch-temlate"
+}
 variable "key-name" {}
 variable "id-sg-bastion" {}
+variable "id-sg-private" {}
 variable "id-sg-mongodb" {}
 variable "subnet-pub-a-id" {}
+variable "subnet-pub-b-id" {}
 variable "subnet-db-a-id" {}
