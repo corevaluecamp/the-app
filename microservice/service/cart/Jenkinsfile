@@ -1,0 +1,32 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building...'
+        sh 'cd ../../../'
+        sh './gradlew -p ./microservice/service/cart build'
+      }
+    }
+    stage('Test') { 
+        steps {
+          echo 'Testing...'
+          }
+    }
+    stage('Deploy'){
+        steps{
+         echo 'Deploying...'
+         echo 'Uploading artifact to s3...'
+         sh 'python3 s3.py microservice/service/cart/build/libs/cart-microservice-0.6.$BUILD_NUMBER.jar cart.jar'
+        }
+    }
+//need to fix build num
+    stage('Archive Artifacts') {
+      steps {
+        archiveArtifacts(fingerprint: true, artifacts: '**/*.jar')
+      }
+    }
+
+  }
+}
+

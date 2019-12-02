@@ -1,0 +1,33 @@
+pipeline {
+  agent any
+  stages {
+    //change to deb
+    stage('Build') {
+      steps {
+        echo 'Building...'
+        sh 'cd ../../../'
+        sh './gradlew -p ./microservice/service/product build'
+      }
+    }
+    stage('Test') { 
+        steps {
+          echo 'Testing...'
+          }
+          }
+    stage('Deploy'){
+        steps{
+        echo 'Deploying...'
+        echo 'Uploading artifact to s3...'
+        sh 'python3 s3.py microservice/service/product/build/distributions/product-0.6.$BUILD_NUMBER.tar product.tar'
+        }
+    }
+
+    stage('Archive Artifacts') {
+      steps {
+        archiveArtifacts(fingerprint: true, artifacts: '**/*.tar')
+      }
+    }
+
+  }
+}
+

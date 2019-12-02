@@ -7,3 +7,10 @@
 
 # .tfvars files
 *.tfvars
+
+# Build files
+**/.gradle
+**/build/
+
+# Ignored vscode files
+.vscode/

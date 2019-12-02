@@ -1,0 +1,33 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building...'
+        sh 'cd ../../../'
+        sh './gradlew -p ./microservice/service/navigation build'
+      }
+    }
+    stage('Test') { 
+        steps {
+          echo 'Testing...'
+          }
+          }
+    stage('Deploy'){
+        steps{
+        echo 'Deploying...'
+        echo 'Uploading artifact to s3...'
+        sh 'python3 s3.py microservice/service/navigation/build/libs/navigation-microservice-0.6.$BUILD_NUMBER.jar navigation.jar'
+        }
+    }
+    
+
+    stage('Archive Artifacts') {
+      steps {
+        archiveArtifacts(fingerprint: true, artifacts: '**/*.jar')
+      }
+    }
+
+  }
+}
+
