@@ -1,6 +1,6 @@
 variable "userdata-path" {
   type    = "string"
-  default = "/userdata-templates/"
+  default = "userdata-templates"
 }
 
 variable "instance-ami" {
