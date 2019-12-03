@@ -1,1 +1,3 @@
-
+cart-pipeline
+navigation-pipeline
+product-pipeline
