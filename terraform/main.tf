@@ -23,6 +23,11 @@ module "instances" {
   mongodb-server-domain = module.network.mongodb-server-domain
 }
     
-    module "jenkins" {
+module "jenkins" {
   source                = "./modules/jenkins/"
+  id-sg-bastion         = module.security.id-sg-bastion
+	key-name              = module.security.key-name
+	subnet-pub-a-id       = module.network.subnet-pub-a-id
+	jenkins_user1 = 1
 }
+
