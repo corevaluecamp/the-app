@@ -3,3 +3,6 @@ variable "aws-region" {
   type        = "string"
   description = "AWS region"
 }
+
+jenkins_user = "adminJ"
+jenkins_pass = "passJ"
