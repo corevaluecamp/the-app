@@ -25,4 +25,7 @@ module "instances" {
     
     module "jenkins" {
   source                = "./modules/jenkins/"
+  jenkins_user = "module.jenkins_user"
+  jenkins_pass = "module.jenkins_pass"
+
 }
