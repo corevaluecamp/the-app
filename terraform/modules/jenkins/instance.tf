@@ -9,5 +9,6 @@ resource "aws_instance" "jenkins" {
 
   user_data = templatefile("${var.userdata-path}/install_jenkins.sh", {
     jenkins_user = "1"
+jenkins_pass = "1"
   })
 }
