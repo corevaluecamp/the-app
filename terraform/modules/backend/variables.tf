@@ -1,6 +1,6 @@
 variable "region" {
   type    = string
-  default = "us-east-1"
+  default = ""
 }
 
 variable "instance_type" {
@@ -15,7 +15,7 @@ variable "image_id" {
 
 variable "key" {
   type    = string
-  default = "clivpc"
+  default = ""
 }
 
 variable "s3_bucket_name" {
@@ -35,4 +35,7 @@ variable "my_private_subnet" {
 }
 variable "my_sg" {
   default = []
+}
+variable "mongo_ip" {
+  default = ""
 }

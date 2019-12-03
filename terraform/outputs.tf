@@ -16,3 +16,7 @@ output "mongodb-server-ip" {
   description = "MongoDB IP address"
   value       = module.network.mongodb-server-ip
 }
+output "backend_s3_created_bucket_name" {
+  description = "Name of s3 artifacts bucket"
+  value       = "${var.s3_bucket_name}"
+}

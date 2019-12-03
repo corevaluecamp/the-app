@@ -26,3 +26,4 @@ output "backend_image_id" {
   description = ""
   value       = "${var.instance_type}"
 }
+
