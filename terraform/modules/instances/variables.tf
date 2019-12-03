@@ -32,7 +32,7 @@ variable "name-prefix" {
 }
 variable "userdata-path" {
   type    = "string"
-  default = "/userdata-templates/"
+  default = "./userdata-templates/"
 }
 variable "mongodb-server-domain" {}
 variable "key-name" {}
