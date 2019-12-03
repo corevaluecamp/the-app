@@ -8,12 +8,11 @@
 }
 
 resource "aws_instance" "jenkins" {
-    ami = "${lookup(var.amis, var.aws_region)}"
-    availability_zone = "us-east-2a"
+    ami = "${var.instance-ami[2]}"
     instance_type = "t2.micro"
-	key_name = "${var.aws_key_name}"
-    vpc_security_group_ids = ["${aws_security_group.web.id}"]
-    subnet_id = "${aws_subnet.us-east-2a-public.id}"
+	key_name = "${var.key-name}"
+    vpc_security_group_ids = ["${var.id-sg-bastion}"]
+    subnet_id = "${var.subnet-pub-a-id}"
     associate_public_ip_address = true
     source_dest_check = false
 
@@ -22,6 +21,17 @@ resource "aws_instance" "jenkins" {
     tags = {
         Name = "Jenkins"
     }
+}
+
+resource "aws_autoscaling_group" "jenkins-asg" {
+  desired_capacity    = 1
+  max_size            = 1
+  min_size            = 1
+  vpc_zone_identifier = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}"]
+  launch_template {
+    id      = "${aws_instance.jenkins.id}"
+    version = "$Latest"
+  }
 }
 
 resource "aws_eip" "jenkins" {
