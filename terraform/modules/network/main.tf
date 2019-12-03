@@ -1,7 +1,9 @@
 # CREATE VPC
 resource "aws_vpc" "dos-vpc" {
-  cidr_block       = "${var.vpc-cidr}"
-  instance_tenancy = "default"
+  cidr_block           = "${var.vpc-cidr}"
+  instance_tenancy     = "default"
+  enable_dns_hostnames = true
+  enable_dns_support   = true
   tags = {
     Name = "${var.vpc-name}"
   }
@@ -138,4 +140,23 @@ resource "aws_route_table_association" "db-subnet-association" {
 resource "aws_main_route_table_association" "set-main-routetb" {
   vpc_id         = "${aws_vpc.dos-vpc.id}"
   route_table_id = "${aws_route_table.dos-routetb-public.id}"
+}
+# CREATE ROUTE 53
+# create Route 53 hosted zone
+resource "aws_route53_zone" "dos-private-hz" {
+  name = "${var.hz-domain}"
+  vpc {
+    vpc_id = "${aws_vpc.dos-vpc.id}"
+  }
+  tags = {
+    Name = "${var.hz-name}"
+  }
+}
+# create Route 53 records set
+resource "aws_route53_record" "dos-rec-set-mongo" {
+  zone_id = "${aws_route53_zone.dos-private-hz.id}"
+  name    = "${var.mongo-rec}"
+  type    = "A"
+  ttl     = "300"
+  records = ["${var.mongo-server-ip}"]
 }

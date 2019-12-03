@@ -1,11 +1,13 @@
-# FOR eu-west-3 ONLY
-# [0] - for Amazon Linux
-# [1] - for Ubuntu
+# FOR eu-west-3 ONLY!
+# [0] - for Amazon Linux 2
+# [1] - for Ubuntu 18.04
+# [2] - for RHEL 8
 variable "instance-ami" {
   type = "list"
   default = [
     "ami-0e9e6ba6d3d38faa8",
-    "ami-087855b6c8b59a9e4"
+    "ami-087855b6c8b59a9e4",
+    "ami-0556a158653dad0ba"
   ]
   description = "List of AMIs"
 }
@@ -28,6 +30,11 @@ variable "mongodb-name" {
 variable "name-prefix" {
   default = "launch-temlate"
 }
+variable "userdata-path" {
+  type    = "string"
+  default = "./userdata-templates/"
+}
+variable "mongodb-server-domain" {}
 variable "key-name" {}
 variable "id-sg-bastion" {}
 variable "id-sg-private" {}
