@@ -1,15 +1,20 @@
 variable "vpc-name" {
+  description = "VPC name"
   default     = "dos-vpc"
   type        = "string"
-  description = "VPC name"
 }
 variable "vpc-cidr" {
+  description = "VPC CIDR"
   default     = "10.10.0.0/16"
   type        = "string"
-  description = "VPC CIDR"
 }
+
+# [0] - for dos-subnet-public-A
+# [1] - for dos-subnet-private-A
+# [2] - for dos-subnet-db-A
 variable "subnet-a-name" {
-  type = "list"
+  description = "Subnet names in AZ-A"
+  type        = "list"
   default = [
     "dos-subnet-public-A",
     "dos-subnet-private-A",
@@ -17,7 +22,8 @@ variable "subnet-a-name" {
   ]
 }
 variable "subnet-b-name" {
-  type = "list"
+  description = "Subnet names in AZ-B"
+  type        = "list"
   default = [
     "dos-subnet-public-B",
     "dos-subnet-private-B",
@@ -25,21 +31,23 @@ variable "subnet-b-name" {
   ]
 }
 variable "nat-eip" {
-  type    = "string"
-  default = "dos-eip-nat"
+  description = "Elastic IP address"
+  type        = "string"
+  default     = "dos-eip-nat"
 }
 variable "igw-name" {
+  description = "Internet gateway name"
   default     = "dos-IGW"
   type        = "string"
-  description = "Internet gateway name"
 }
 variable "nat-name" {
+  description = "NAT gateway name"
   default     = "dos-NAT"
   type        = "string"
-  description = "NAT gateway name"
 }
 variable "routetb-name" {
-  type = "list"
+  description = "Route table names list"
+  type        = "list"
   default = [
     "dos-public-route-table",
     "dos-private-route-table",
@@ -47,5 +55,23 @@ variable "routetb-name" {
   ]
 }
 variable "all-ip" {
-  default = "0.0.0.0/0"
+  description = "All IP addresses allowed"
+  type        = "string"
+  default     = "0.0.0.0/0"
 }
+variable "hz-domain" {
+  description = "Hosted zone domain name"
+  type        = "string"
+  default     = "dos.net"
+}
+variable "hz-name" {
+  description = "Hosted zone name"
+  type        = "string"
+  default     = "dos-private-hz"
+}
+variable "mongo-rec" {
+  description = "mongodb.dos.net"
+  type        = "string"
+  default     = "mongodb"
+}
+variable "mongo-server-ip" {}
