@@ -4,7 +4,8 @@ sudo su
 yum -y update 
 rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
-yum -y install java-1.8.0-openjdk jenkins git maven	golang python-pip ruby docker
+yum -y install java-1.8.0-openjdk-devel jenkins git maven golang python-pip ruby docker python3
+pip3 install boto3
 sudo systemctl enable jenkins.service
 sudo systemctl start jenkins.service
 mkdir /var/lib/jenkins/init.groovy.d
