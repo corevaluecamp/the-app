@@ -4,5 +4,5 @@ variable "aws-region" {
   description = "AWS region"
 }
 
-jenkins_user = "adminJ"
-jenkins_pass = "passJ"
+variable "jenkins_user" {}
+variable "jenkins_pass" {}
