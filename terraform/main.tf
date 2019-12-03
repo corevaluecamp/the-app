@@ -35,7 +35,7 @@ module "jenkins" {
   jenkins_user1   = 1
 }
 
-module "backend" {
+/* module "backend" {
   source         = "./modules/backend"
   key            = module.security.key-name
   s3_bucket_name = "${var.s3_bucket_name}"
@@ -45,3 +45,4 @@ module "backend" {
   my_vpc   = module.network.vpc-id
   mongo_ip = module.instances.mongo-server-ip
 }
+ */
