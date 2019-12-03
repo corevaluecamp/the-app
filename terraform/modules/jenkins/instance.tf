@@ -7,7 +7,7 @@ resource "aws_instance" "jenkins" {
     associate_public_ip_address = true
     source_dest_check = false
 
-  user_data = templatefile("${var.userdata-path}install_jenkins.tpl", {
+  user_data = templatefile("${var.userdata-path}/install_jenkins.tpl", {
     jenkins_user = "1"
   })
 }
