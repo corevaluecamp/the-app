@@ -1,7 +1,7 @@
 resource "aws_instance" "jenkins" {
-    ami = "${var.instance-ami[2]}"
-    instance_type = "t2.micro"
-	key_name = "${var.key-name}"
+    ami = "${var.instance-ami[0]}"
+    instance_type = "${var.instance_type[1]}"
+    key_name = "${var.key-name}"
     vpc_security_group_ids = ["${var.id-sg-bastion}"]
     subnet_id = "${var.subnet-pub-a-id}"
     associate_public_ip_address = true
