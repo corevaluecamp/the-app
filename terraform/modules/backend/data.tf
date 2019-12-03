@@ -3,6 +3,7 @@ data "template_file" "backend_cart_template" {
 
   vars = {
     s3_bucketname = "${var.s3_bucket_name}"
+    elastic_ip = "${var.es_ip}"
   }
 }
 
@@ -11,6 +12,7 @@ data "template_file" "backend_product_template" {
 
   vars = {
     s3_bucketname = "${var.s3_bucket_name}"
+    elastic_ip = "${var.es_ip}"
   }
 }
 
@@ -19,18 +21,7 @@ data "template_file" "backend_navigation_template" {
 
   vars = {
     s3_bucketname = "${var.s3_bucket_name}"
+    elastic_ip = "${var.es_ip}"
   }
 }
 
-
-data "template_file" "jenkins_instances_template" {
-  template = "${file("${path.module}/jenkins_template_file.sh")}"
-  vars = {
-    s3_bucketname_jen = "${var.s3_bucket_name}"
-  }
-}
-
-data "template_file" "frontend_instances_template" {
-  template = "${file("${path.module}/frontend_template_file.sh")}"
-
-}

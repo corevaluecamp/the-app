@@ -3,7 +3,7 @@ resource "aws_instance" "cart_service" {
   instance_type               = "${var.instance_type}"
   key_name                    = "${var.key}"
   iam_instance_profile        = "${aws_iam_instance_profile.s3_profile.name}"
-  associate_public_ip_address = true
+  #associate_public_ip_address = true
   subnet_id                   = "${var.my_public_subnet}"
   security_groups             = ["${var.my_sg}"]
 
@@ -21,7 +21,7 @@ resource "aws_instance" "navigation_service" {
   instance_type               = "${var.instance_type}"
   key_name                    = "${var.key}"
   iam_instance_profile        = "${aws_iam_instance_profile.s3_profile.name}"
-  associate_public_ip_address = true
+ # associate_public_ip_address = true
   subnet_id                   = "${var.my_public_subnet}"
   security_groups             = ["${var.my_sg}"]
 
@@ -38,7 +38,7 @@ resource "aws_instance" "product_service" {
   instance_type               = "${var.instance_type}"
   key_name                    = "${var.key}"
   iam_instance_profile        = "${aws_iam_instance_profile.s3_profile.name}"
-  associate_public_ip_address = true
+  #associate_public_ip_address = true
   subnet_id                   = "${var.my_public_subnet}"
   security_groups             = ["${var.my_sg}"]
 
@@ -46,37 +46,6 @@ resource "aws_instance" "product_service" {
   tags = {
     Name = "Product"
 
-  }
-}
-
-#for build change to micro to medium 
-resource "aws_instance" "jenkins" {
-  ami                         = "${var.image_id}"
-  instance_type               = "${var.instance_type}"
-  key_name                    = "${var.key}"
-  iam_instance_profile        = "${aws_iam_instance_profile.s3_profile.name}"
-  associate_public_ip_address = true
-  subnet_id                   = "${var.my_public_subnet}"
-  security_groups             = ["${var.my_sg}"]
-
-  user_data = "${data.template_file.jenkins_instances_template.rendered}"
-  tags = {
-    Name = "Jenkins"
-  }
-}
-
-resource "aws_instance" "frontend" {
-  ami                         = "${var.image_id}"
-  instance_type               = "${var.instance_type}"
-  key_name                    = "${var.key}"
-  iam_instance_profile        = "${aws_iam_instance_profile.s3_profile.name}"
-  associate_public_ip_address = true
-  subnet_id                   = "${var.my_public_subnet}"
-  security_groups             = ["${var.my_sg}"]
-
-  user_data = "${data.template_file.frontend_instances_template.rendered}"
-  tags = {
-    Name = "front"
   }
 }
 

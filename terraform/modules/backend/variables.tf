@@ -39,3 +39,6 @@ variable "my_sg" {
 variable "mongo_ip" {
   default = ""
 }
+variable "es_ip" {
+  default = ""
+}
