@@ -1,14 +1,25 @@
 #! /bin/bash
+
+###################################
+# Installing and settings Jenkins #
+###################################
+
+# Install pre-requisites and updates
 echo "Install Jenkins"
-sudo su
 yum -y update 
 rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
-curl -sL https://deb.nodesource.com/setup_8.x | bash -
-yum -y install java-1.8.0-openjdk-devel jenkins git maven golang python-pip python3 ruby docker nodejs npm
+curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+yum -y install java-1.8.0-openjdk-devel jenkins git maven golang python-pip python3 ruby docker gcc-c++ make nodejs npm 
 pip3 install boto3
-sudo systemctl enable jenkins.service
-sudo systemctl start jenkins.service
+
+# Enabling Jenkins service
+systemctl enable jenkins.service
+
+# Starting Jenkins with new credintials
+systemctl start jenkins.service
+
+# Creating Jenkins groovy script that create new user from terraform template
 mkdir /var/lib/jenkins/init.groovy.d
 touch /var/lib/jenkins/init.groovy.d/basic-security.groovy
 cat > /var/lib/jenkins/init.groovy.d/basic-security.groovy << EOF
@@ -16,43 +27,46 @@ cat > /var/lib/jenkins/init.groovy.d/basic-security.groovy << EOF
 import jenkins.model.*
 import hudson.security.*
 import jenkins.install.InstallState
-
 def instance = Jenkins.getInstance()
-
-// Create user with custom pass
 def user = instance.getSecurityRealm().createAccount('${jenkins_user}', '${jenkins_pass}')
 user.save()
-
 def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
 strategy.setAllowAnonymousRead(false)
 instance.setAuthorizationStrategy(strategy)
-
 instance.setInstallState(InstallState.INITIAL_SETUP_COMPLETED)
-
 instance.save()
 EOF
-sleep 120
-sudo cp /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar /tmp/jenkins-cli.jar
 
-sudo systemctl restart jenkins.service
-sleep 120
-sudo mkdir /tmp/temp/
-cd /tmp/temp/
-git clone https://github.com/corevaluecamp/the-app/
-
-sudo cp tmp/temp/the-app/jobs/files/config.xml /var/lib/jenkins/config.xml
-sudo cp tmp/temp/the-app/jobs/files/jenkins.mvn.GlobalMavenConfig.xml /var/lib/jenkins/jenkins.mvn.GlobalMavenConfig.xml
-sudo cp tmp/temp/the-app/jobs/files/hudson.tasks.Maven.xml /var/lib/jenkins/hudson.tasks.Maven.xml
-sudo cp tmp/temp/the-app/jobs/files/org.jenkinsci.plugins.xvfb.Xvfb.xml /var/lib/jenkins/org.jenkinsci.plugins.xvfb.Xvfb.xml
-sudo cp tmp/temp/the-app/jobs/files/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml /var/lib/jenkins/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml
-
-sudo mkdir /var/lib/jenkins/repo-cache/
-
-sudo java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} install-plugin git:4.0.0 github:1.29.5 terraform:1.0.9 ssh:2.6.1 job-dsl:1.76 workflow-aggregator:2.6 blueocean:1.21.0 pipeline-maven chucknorris:1.2 htmlpublisher:1.21 buildgraph-view:1.8 copyartifact:1.43 jacoco:3.0.4 greenballs -restart
-
+# Waiting for Jenkins start
 sleep 120
 
-echo "restore Jobs"
+# Downloading Jenkins CLI
+cp /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar /tmp/jenkins-cli.jar
+
+# Waiting for Jenkins restart
+systemctl restart jenkins.service
+sleep 120
+
+# Cloning github project
+mkdir /tmp/temp/
+git clone https://github.com/corevaluecamp/the-app/ /tmp/temp/
+
+# Copying Jenkins settings
+cp /tmp/temp/the-app/jobs/files/config.xml /var/lib/jenkins/config.xml
+cp /tmp/temp/the-app/jobs/files/jenkins.mvn.GlobalMavenConfig.xml /var/lib/jenkins/jenkins.mvn.GlobalMavenConfig.xml
+cp /tmp/temp/the-app/jobs/files/hudson.tasks.Maven.xml /var/lib/jenkins/hudson.tasks.Maven.xml
+cp /tmp/temp/the-app/jobs/files/org.jenkinsci.plugins.xvfb.Xvfb.xml /var/lib/jenkins/org.jenkinsci.plugins.xvfb.Xvfb.xml
+cp /tmp/temp/the-app/jobs/files/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml /var/lib/jenkins/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml
+
+mkdir /var/lib/jenkins/repo-cache/
+
+# Installing Jenkins Plugins and restart Jenkins
+java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} install-plugin git:4.0.0 github:1.29.5 terraform:1.0.9 ssh:2.6.1 job-dsl:1.76 workflow-aggregator:2.6 blueocean:1.21.0 pipeline-maven chucknorris:1.2 htmlpublisher:1.21 buildgraph-view:1.8 copyartifact:1.43 jacoco:3.0.4 greenballs -restart
+
+# Waiting for Jenkins restart
+sleep 120
+
+# Restoring(Updating) Jobs
 for BUILD in $(cat /tmp/temp/the-app/jobs/files/jobs.txt)
 do
 		cat "/tmp/temp/the-app/jobs/files/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} create-job "$BUILD"
@@ -60,3 +74,44 @@ do
 	    cat "/tmp/temp/the-app/jobs/files/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} create-job update-job "$BUILD"
     fi
 done
+
+######################################
+# Installing Node Exporter user-data #
+######################################
+
+# Downloading the node exporter package
+wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
+
+# Unpacking the tarball 
+sudo tar xf /tmp/node_exporter-0.18.1.linux-amd64.tar.gz -C /opt/
+
+# Moving the node export binary to /usr/local/bin
+sudo mv /opt/node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
+
+# Creating a node_exporter user to run the node exporter service *}
+sudo useradd -rs /bin/false node_exporter
+
+# Creating a node_exporter service file under systemd
+sudo bash -c 'cat << EOF > /etc/systemd/system/node_exporter.service
+[Unit]
+Description=Node Exporter
+After=network.target
+
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=multi-user.target
+EOF'
+
+# Reloading the system daemon and starting the node exporter service
+sudo systemctl daemon-reload
+sudo systemctl start node_exporter
+
+# systemctl is-active --quiet node_exporter && echo "node_exporter is running" || echo "node_exporter is NOT running"
+
+# Enabling the node exporter service to the system startup *}
+sudo systemctl enable node_exporter
