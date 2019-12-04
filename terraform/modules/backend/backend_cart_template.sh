@@ -6,7 +6,7 @@ yum install python3 -y
 pip3 install boto3 
 
 #echo "ip redis-node" >> /etc/hosts
-#echo "ip mongodb-node" >> /etc/hosts
+echo "${mongo} mongodb-node" >> /etc/hosts
 echo "export BUCKET_NAME=${s3_bucketname}" >>  /home/ec2-user/.bashrc
 echo "export NOW=$(date +'%b-%d-%H-%M-%S')" >>  /home/ec2-user/.bashrc
 
@@ -43,7 +43,9 @@ chmod +rw /home/ec2-user/jar
 
 systemctl restart crond
 
+#**************************************************************************#
 #logging
+#**************************************************************************#
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 cat > /etc/yum.repos.d/elasticsearch.repo <<- EOF
 [elasticsearch-7.x]
@@ -61,7 +63,9 @@ sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
 systemctl enable filebeat
 systemctl start filebeat
 
+#**************************************************************************#
 #monitoring
+#**************************************************************************#
 # Downloading the node exporter package
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
 

@@ -46,5 +46,6 @@ module "jenkins" {
   my_vpc   = module.network.vpc-id
   mongo_ip = module.instances.mongo-server-ip
   es_ip = module.logging.elasticsearch_ip
+  iam_instance_profile = module.backend.iam_s3
 }
  */
