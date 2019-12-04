@@ -41,7 +41,6 @@ module "jenkins" {
   s3_bucket_name = "${var.s3_bucket_name}"
   id-sg-bastion  = module.security.id-sg-bastion
   #my_private_subnet = ""
-  #my_public_subnet  = ""
   #my_sg             = ""
   my_vpc   = module.network.vpc-id
   mongo_ip = module.instances.mongo-server-ip
