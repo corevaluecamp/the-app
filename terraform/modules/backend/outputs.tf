@@ -26,4 +26,8 @@ output "backend_image_id" {
   description = ""
   value       = "${var.instance_type}"
 }
+output "iam_s3" {
+  description = ""
+  value       = "${aws_iam_instance_profile.s3_profile.name}"
+}
 

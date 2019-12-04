@@ -7,7 +7,7 @@ resource "aws_alb" "main" {
 #*---------------------ALB target group ------------------------*#
 ##################################################################
 
-resource "aws_alb_target_group" "frontend" {
+/* resource "aws_alb_target_group" "frontend" {
   name     = "frontend-target-group"
   port     = 80
   protocol = "HTTP"
@@ -22,7 +22,7 @@ resource "aws_alb_target_group" "frontend" {
     timeout             = "3"
     unhealthy_threshold = "2"
   }
-}
+} */
 
 resource "aws_alb_target_group" "app-cart" {
   name     = "app-cart-target-group"
