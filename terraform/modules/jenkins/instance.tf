@@ -11,7 +11,7 @@ resource "aws_launch_template" "jenkins-launch-tmpl" {
       Name = "Jenkins"
     }
   }
-    user_data = templatefile("${var.userdata-path}/install_jenkins.sh", {
+    user_data = templatefile("${var.userdata-path}/install_jenkins64.sh", {
     jenkins_user = "1"
     jenkins_pass = "1"
   })
