@@ -50,3 +50,12 @@ module "jenkins" {
   #force_des = true
 }
 
+module "monitoring" {
+  source                     = "./modules/monitoring"
+  key-name                   = module.security.key-name
+  subnet_id                  = module.network.subnet-pub-a-id
+  # s3_bucket_name = "${var.s3_bucket_name}"
+  id-sg-metrics              = module.security.id-sg-metrics
+  id-sg-monitoring-access    = module.security.id-sg-monitoring-access
+}
+

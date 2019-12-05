@@ -119,6 +119,61 @@ resource "aws_security_group_rule" "dos-redis-egress" {
   self              = true
   security_group_id = "${aws_security_group.dos-redis.id}"
 }
+
+resource "aws_security_group" "dos-metrics-connect" {
+  name        = "dos-metrics-connect"
+  description = "Allow Node Exporter metrics exchange"
+  vpc_id      = "${var.vpc-id}"
+  tags = {
+    Name = "${var.sg-name[4]}"
+  }
+}
+resource "aws_security_group_rule" "dos-metrics-ingress" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  # self              = true
+  security_group_id = "${aws_security_group.dos-metrics-connect.id}"
+}
+resource "aws_security_group_rule" "dos-metrics-egress" {
+  type              = "egress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  # self              = true
+  security_group_id = "${aws_security_group.dos-metrics-connect.id}"
+}
+
+resource "aws_security_group" "dos-monitoring-access" {
+  name        = "dos-monitoring-access"
+  description = "Allows Grafana and Prometheus to work properly on monitoring machine"
+  vpc_id      = "${var.vpc-id}"
+
+  # Makes Prometheus closed to outher connections
+  # ingress {
+  #   from_port   = 9090
+  #   to_port     = 9090
+  #   protocol    = "tcp"
+  #   # cidr_blocks = ["${var.my_IP}"]
+  # }
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    # cidr_blocks = ["${var.my_IP}"]
+  }
+  egress {
+    from_port       = 3000
+    to_port         = 3000
+    protocol        = "tcp"
+    # cidr_blocks     = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "${var.sg-name[5]}"
+  }
+}
+
 # CREATE KEY PAIR
 resource "aws_key_pair" "dos-key" {
   key_name   = "${var.key-name}"
