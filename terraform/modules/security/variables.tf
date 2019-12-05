@@ -10,6 +10,7 @@ variable "sg-name" {
     "dos-private-access",
     "dos-mongodb-connect",
     "dos-redis-connect",
+    "dos-jenkins-connect"
   ]
   description = "List of security group's names"
 }

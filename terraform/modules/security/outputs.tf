@@ -14,3 +14,7 @@ output "id-sg-mongodb" {
   description = "The ID of security group for MongoDB"
   value       = "${aws_security_group.dos-mongodb-connect.id}"
 }
+output "id-sg-jenkins" {
+  description = "The ID of security group for Jenkins"
+  value       = "${aws_security_group.dos-jenkins.id}"
+}

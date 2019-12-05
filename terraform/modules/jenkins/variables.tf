@@ -24,12 +24,15 @@ variable "userdata-path" {
 
 variable "key-name" {}
 variable "id-sg-bastion" {}
+variable "id-sg-jenkins" {}
+variable "id-sg-private" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
-
+variable "subnet-priv-a-id" {}
+variable "subnet-priv-b-id" {}
 variable "jenkins_user" {
   description = "User name for Jenkins login"
 }
 variable "jenkins_pass" {
   description = "Password for Jenkins login"
-  }
+}

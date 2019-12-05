@@ -1,6 +1,3 @@
-# module "network" {
-#   source = "../../modules/network/"
-# }
 # MY IP ADDRESS LOCATION
 data "http" "my-ipaddress" {
   url = "${var.my-ip}"
@@ -118,6 +115,47 @@ resource "aws_security_group_rule" "dos-redis-egress" {
   protocol          = "tcp"
   self              = true
   security_group_id = "${aws_security_group.dos-redis.id}"
+}
+# Jenkins security group
+resource "aws_security_group" "dos-jenkins" {
+  name        = "dos-jenkins"
+  description = "For jenkins jobs"
+  vpc_id      = "${var.vpc-id}"
+  tags = {
+    Name = "${var.sg-name[4]}"
+  }
+}
+resource "aws_security_group_rule" "dos-jenkins-ingress" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-jenkins.id}"
+}
+resource "aws_security_group_rule" "dos-jenkins-egress" {
+  type              = "egress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-jenkins.id}"
+}
+resource "aws_security_group_rule" "dos-jenkins-ingress-ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-jenkins.id}"
+}
+resource "aws_security_group_rule" "dos-jenkins-egress-ssh" {
+  type              = "egress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-jenkins.id}"
 }
 # CREATE KEY PAIR
 resource "aws_key_pair" "dos-key" {

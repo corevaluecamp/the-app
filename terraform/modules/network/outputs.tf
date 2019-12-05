@@ -16,6 +16,14 @@ output "subnet-pub-b-id" {
   description = "The ID of public subnet in AZ-A"
   value       = "${aws_subnet.dos-subnet-public-b.id}"
 }
+output "subnet-priv-a-id" {
+  description = "The ID of public subnet in AZ-A"
+  value       = "${aws_subnet.dos-subnet-private-a.id}"
+}
+output "subnet-priv-b-id" {
+  description = "The ID of public subnet in AZ-A"
+  value       = "${aws_subnet.dos-subnet-private-b.id}"
+}
 output "subnet-db-a-id" {
   description = "The ID of public subnet in AZ-A"
   value       = "${aws_subnet.dos-subnet-db-a.id}"
