@@ -48,7 +48,7 @@ systemctl restart jenkins.service
 sleep 120
 
 # Cloning github project
-mkdir ~/tmp/
+mkdir /tmp/temp
 git clone https://github.com/corevaluecamp/the-app/ /tmp/temp/
 
 # Copying Jenkins settings
