@@ -1,8 +1,3 @@
-variable "userdata-path" {
-  type    = "string"
-  default = "userdata-templates"
-}
-
 variable "instance-ami" {
   type = "list"
   default = [
@@ -12,6 +7,7 @@ variable "instance-ami" {
   ]
   description = "List of AMIs"
 }
+
 variable "instance-type" {
   type = "list"
   default = [
@@ -21,12 +17,13 @@ variable "instance-type" {
   ]
 }
 
+variable "userdata-path" {
+  type    = "string"
+  default = "userdata-templates"
+}
+
 variable "key-name" {}
-
-
 variable "id-sg-bastion" {}
-
-
 variable "subnet-pub-a-id" {}
-
+variable "subnet-pub-b-id" {}
 variable "jenkins_user1" {}
