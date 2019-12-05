@@ -24,6 +24,7 @@ resource "aws_autoscaling_group" "jenkins" {
   desired_capacity    = 1
   max_size            = 1
   min_size            = 1
+  health_check_type   = "EC2"
   vpc_zone_identifier = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}"]
   launch_template {
     id      = "${aws_launch_template.jenkins-launch-tmpl.id}"
