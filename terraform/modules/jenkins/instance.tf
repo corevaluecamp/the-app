@@ -1,8 +1,8 @@
-	data "template_file" "install-jenkins" {
+data "template_file" "install-jenkins" {
 	template = "${file("${var.userdata-path}/install_jenkins.sh")}"
 	vars = {
-    jenkins_user = "1"
-	jenkins_pass = "1"
+        jenkins_user = "${var.jenkins_user}"
+	jenkins_pass = "${var.jenkins_pass}"
   }
 }
 
