@@ -25,6 +25,7 @@ variable "userdata-path" {
 variable "key-name" {}
 variable "id-sg-bastion" {}
 variable "id-sg-jenkins" {}
+variable "id-sg-jenkins-ssh" {}
 variable "id-sg-private" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
