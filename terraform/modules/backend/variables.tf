@@ -45,3 +45,8 @@ variable "es_ip" {
 variable "force_des" {
   default = ""
 }
+
+variable "id-sg-backend" {}
+variable "id-sg-private" {}
+variable "id-sg-mongodb" {}
+variable "id-sg-jenkins" {}

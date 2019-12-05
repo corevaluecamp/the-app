@@ -2,6 +2,7 @@ resource "aws_alb" "main" {
   name            = "app-load-balancer"
   subnets         = ["${var.my_public_subnet}", "${var.my_private_subnet}"]
   security_groups = ["${aws_security_group.my_sg.id}"]
+  # security_groups = ["${var.id-sg-backend}", "${var.id-sg-private}"]
 }
 ##################################################################
 #*---------------------ALB target group ------------------------*#

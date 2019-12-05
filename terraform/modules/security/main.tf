@@ -116,13 +116,21 @@ resource "aws_security_group_rule" "dos-redis-egress" {
   self              = true
   security_group_id = "${aws_security_group.dos-redis.id}"
 }
-# Jenkins security group
+# Jenkins security groups
 resource "aws_security_group" "dos-jenkins" {
   name        = "dos-jenkins"
   description = "For jenkins jobs"
   vpc_id      = "${var.vpc-id}"
   tags = {
     Name = "${var.sg-name[4]}"
+  }
+}
+resource "aws_security_group" "dos-jenkins-ssh" {
+  name        = "dos-jenkins-ssh"
+  description = "For jenkins publish over ssh"
+  vpc_id      = "${var.vpc-id}"
+  tags = {
+    Name = "${var.sg-name[5]}"
   }
 }
 resource "aws_security_group_rule" "dos-jenkins-ingress" {
@@ -147,7 +155,7 @@ resource "aws_security_group_rule" "dos-jenkins-ingress-ssh" {
   to_port           = 22
   protocol          = "tcp"
   self              = true
-  security_group_id = "${aws_security_group.dos-jenkins.id}"
+  security_group_id = "${aws_security_group.dos-jenkins-ssh.id}"
 }
 resource "aws_security_group_rule" "dos-jenkins-egress-ssh" {
   type              = "egress"
@@ -155,7 +163,64 @@ resource "aws_security_group_rule" "dos-jenkins-egress-ssh" {
   to_port           = 22
   protocol          = "tcp"
   self              = true
-  security_group_id = "${aws_security_group.dos-jenkins.id}"
+  security_group_id = "${aws_security_group.dos-jenkins-ssh.id}"
+}
+# Backend security group
+resource "aws_security_group" "dos-backend" {
+  name        = "dos-backend"
+  description = "For backend"
+  vpc_id      = "${var.vpc-id}"
+  tags = {
+    Name = "${var.sg-name[6]}"
+  }
+}
+resource "aws_security_group_rule" "dos-backend-ingress-18080" {
+  type              = "ingress"
+  from_port         = 18080
+  to_port           = 18080
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-backend.id}"
+}
+resource "aws_security_group_rule" "dos-backend-ingress-18090" {
+  type              = "ingress"
+  from_port         = 18090
+  to_port           = 18090
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-backend.id}"
+}
+resource "aws_security_group_rule" "dos-backend-ingress-18100" {
+  type              = "ingress"
+  from_port         = 18100
+  to_port           = 18100
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-backend.id}"
+}
+resource "aws_security_group_rule" "dos-backend-egress-18080" {
+  type              = "egress"
+  from_port         = 18080
+  to_port           = 18080
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-backend.id}"
+}
+resource "aws_security_group_rule" "dos-backend-egress-18090" {
+  type              = "egress"
+  from_port         = 18090
+  to_port           = 18090
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-backend.id}"
+}
+resource "aws_security_group_rule" "dos-backend-egress-18100" {
+  type              = "egress"
+  from_port         = 18100
+  to_port           = 18100
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-backend.id}"
 }
 # CREATE KEY PAIR
 resource "aws_key_pair" "dos-key" {

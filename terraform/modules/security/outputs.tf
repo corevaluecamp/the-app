@@ -18,3 +18,11 @@ output "id-sg-jenkins" {
   description = "The ID of security group for Jenkins"
   value       = "${aws_security_group.dos-jenkins.id}"
 }
+output "id-sg-jenkins-ssh" {
+  description = "The ID of security group for Jenkins"
+  value       = "${aws_security_group.dos-jenkins-ssh.id}"
+}
+output "id-sg-backend" {
+  description = "The ID of security group for Jenkins"
+  value       = "${aws_security_group.dos-backend.id}"
+}
