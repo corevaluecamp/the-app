@@ -3,7 +3,8 @@ variable "aws-region" {
   type        = "string"
   description = "AWS region"
 }
+# bucket name must contain "artifacts"
 variable "s3_bucket_name" {
   type    = string
-  default = "artifacts-devops-school.bucket-bicycle"
+  default = ""
 }

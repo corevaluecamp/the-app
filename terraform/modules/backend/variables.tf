@@ -10,7 +10,7 @@ variable "instance_type" {
 
 variable "image_id" {
   type    = string
-  default = "ami-0b69ea66ff7391e80"
+  default = "ami-0e9e6ba6d3d38faa8"
 }
 
 variable "key" {
@@ -33,12 +33,15 @@ variable "my_public_subnet" {
 variable "my_private_subnet" {
   default = ""
 }
-variable "my_sg" {
-  default = []
-}
+/*  variable "my_sg" {
+  default = ["${aws_security_group.my_sg.id}]"]
+}  */
 variable "mongo_ip" {
   default = ""
 }
 variable "es_ip" {
+  default = "127.0.0.1"
+}
+variable "force_des" {
   default = ""
 }

@@ -41,8 +41,8 @@ chmod +x /home/ec2-user/run.sh
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/5 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} product.tar /home/ec2-user/tar/product.tar
-*/6 * * * * root /home/ec2-user/run.sh 
+*/15 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} product.tar /home/ec2-user/tar/product.tar
+*/16 * * * * root /home/ec2-user/run.sh 
 EOF
 
 chmod +rw /home/ec2-user/logs

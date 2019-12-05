@@ -5,7 +5,7 @@ resource "aws_instance" "cart_service" {
   iam_instance_profile        = "${aws_iam_instance_profile.s3_profile.name}"
   #associate_public_ip_address = true
   subnet_id                   = "${var.my_public_subnet}"
-  security_groups             = ["${var.my_sg}"]
+  security_groups             = ["${aws_security_group.my_sg.id}"]
 
   user_data = "${data.template_file.backend_cart_template.rendered}"
 
@@ -23,7 +23,7 @@ resource "aws_instance" "navigation_service" {
   iam_instance_profile        = "${aws_iam_instance_profile.s3_profile.name}"
  # associate_public_ip_address = true
   subnet_id                   = "${var.my_public_subnet}"
-  security_groups             = ["${var.my_sg}"]
+  security_groups             = ["${aws_security_group.my_sg.id}"]
 
   user_data = "${data.template_file.backend_navigation_template.rendered}"
 
@@ -40,7 +40,7 @@ resource "aws_instance" "product_service" {
   iam_instance_profile        = "${aws_iam_instance_profile.s3_profile.name}"
   #associate_public_ip_address = true
   subnet_id                   = "${var.my_public_subnet}"
-  security_groups             = ["${var.my_sg}"]
+  security_groups             = ["${aws_security_group.my_sg.id}"]
 
   user_data = "${data.template_file.backend_product_template.rendered}"
   tags = {

@@ -1,7 +1,7 @@
 resource "aws_alb" "main" {
   name            = "app-load-balancer"
   subnets         = ["${var.my_public_subnet}", "${var.my_private_subnet}"]
-  security_groups = ["${var.my_sg}"]
+  security_groups = ["${aws_security_group.my_sg.id}"]
 }
 ##################################################################
 #*---------------------ALB target group ------------------------*#
@@ -79,7 +79,7 @@ resource "aws_alb_target_group" "app-product" {
 ##################################################################
 
 # Redirect all traffic from the ALB to the target group
-resource "aws_alb_listener" "frontend" {
+/* resource "aws_alb_listener" "frontend" {
   load_balancer_arn = "${aws_alb.main.id}"
   port              = 80
   protocol          = "HTTP"
@@ -91,8 +91,8 @@ resource "aws_alb_listener" "frontend" {
   }
 
 
-}
-resource "aws_alb_listener_rule" "frontend_rule" {
+} */
+/* resource "aws_alb_listener_rule" "frontend_rule" {
   listener_arn = "${aws_alb_listener.frontend.arn}"
   action {
     type             = "forward"
@@ -102,7 +102,7 @@ resource "aws_alb_listener_rule" "frontend_rule" {
     field  = "path-pattern"
     values = ["/shop/*"]
   }
-}
+} */
 
 resource "aws_alb_listener" "app-cart-backend" {
   load_balancer_arn = "${aws_alb.main.id}"
@@ -177,12 +177,12 @@ resource "aws_alb_listener_rule" "app-product-backend_rule" {
 ##################################################################
 #*---------------------ALB attachment---------------------------*#
 ##################################################################
-resource "aws_alb_target_group_attachment" "frontend-attachment" {
+/* resource "aws_alb_target_group_attachment" "frontend-attachment" {
   target_group_arn = "${aws_alb_target_group.frontend.arn}"
   target_id        = "${aws_instance.frontend.id}"
   port             = 80
 }
-
+ */
 resource "aws_alb_target_group_attachment" "app-cart-attachment" {
   target_group_arn = "${aws_alb_target_group.app-cart.arn}"
   target_id        = "${aws_instance.cart_service.id}"

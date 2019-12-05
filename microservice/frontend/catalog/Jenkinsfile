@@ -4,8 +4,9 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building...'
-        sh 'cd ../../'
-        sh './gradlew -p ./monolithic/ui build'
+        sh 'cd ../../../'
+        sh './gradlew -p ./microservice/frontend/catalog bower grunt_build'
+        sh './gradlew -p ./microservice/frontend/catalog build'
       }
     }
     stage('Test') { 
@@ -28,4 +29,3 @@ pipeline {
 
   }
 }
-
