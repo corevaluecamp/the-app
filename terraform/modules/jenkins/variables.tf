@@ -26,4 +26,10 @@ variable "key-name" {}
 variable "id-sg-bastion" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
-variable "jenkins_user1" {}
+
+variable "jenkins_user" {
+  description = "User name for Jenkins login"
+}
+variable "jenkins_pass" {
+  description = "Password for Jenkins login"
+  }
