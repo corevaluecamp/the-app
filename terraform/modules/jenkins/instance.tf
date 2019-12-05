@@ -1,3 +1,12 @@
+	data "template_file" "install-jenkins" {
+	template = "${file("${var.userdata-path}/install_jenkins.sh")}"
+	vars = {
+    jenkins_user = "1"
+	jenkins_pass = "1"
+  }
+}
+
+
 resource "aws_launch_template" "jenkins-launch-tmpl" {
   name                    = "Jenkins"
   image_id                = "${var.instance-ami[0]}"
@@ -11,11 +20,8 @@ resource "aws_launch_template" "jenkins-launch-tmpl" {
       Name = "Jenkins"
     }
   }
-    user_data = templatefile("${var.userdata-path}/install_jenkins64.sh", {
-    jenkins_user = "1"
-    jenkins_pass = "1"
-  })
-  
+	user_data = "${base64encode(data.template_file.install-jenkins.rendered)}"
+
   tags = {
     Name = "jenkins-launch-tmpl"
   }
@@ -24,7 +30,6 @@ resource "aws_autoscaling_group" "jenkins" {
   desired_capacity    = 1
   max_size            = 1
   min_size            = 1
-  health_check_type   = "EC2"
   vpc_zone_identifier = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}"]
   launch_template {
     id      = "${aws_launch_template.jenkins-launch-tmpl.id}"
