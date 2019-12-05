@@ -3,7 +3,7 @@
 ###################################
 # Installing and settings Jenkins #
 ###################################
-
+ 
 # Install pre-requisites and updates
 echo "Install Jenkins"
 yum -y update 
@@ -48,30 +48,31 @@ systemctl restart jenkins.service
 sleep 120
 
 # Cloning github project
-mkdir /tmp/temp/
+mkdir ~/tmp/
 git clone https://github.com/corevaluecamp/the-app/ /tmp/temp/
 
 # Copying Jenkins settings
-cp /tmp/temp/the-app/jobs/files/config.xml /var/lib/jenkins/config.xml
-cp /tmp/temp/the-app/jobs/files/jenkins.mvn.GlobalMavenConfig.xml /var/lib/jenkins/jenkins.mvn.GlobalMavenConfig.xml
-cp /tmp/temp/the-app/jobs/files/hudson.tasks.Maven.xml /var/lib/jenkins/hudson.tasks.Maven.xml
-cp /tmp/temp/the-app/jobs/files/org.jenkinsci.plugins.xvfb.Xvfb.xml /var/lib/jenkins/org.jenkinsci.plugins.xvfb.Xvfb.xml
-cp /tmp/temp/the-app/jobs/files/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml /var/lib/jenkins/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml
+cp /tmp/temp/terraform/modules/jenkins/files/config.xml /var/lib/jenkins/config.xml
+cp /tmp/temp/terraform/modules/jenkins/files/jenkins.mvn.GlobalMavenConfig.xml /var/lib/jenkins/jenkins.mvn.GlobalMavenConfig.xml
+cp /tmp/temp/terraform/modules/jenkins/files/hudson.tasks.Maven.xml /var/lib/jenkins/hudson.tasks.Maven.xml
+cp /tmp/temp/terraform/modules/jenkins/files/org.jenkinsci.plugins.xvfb.Xvfb.xml /var/lib/jenkins/org.jenkinsci.plugins.xvfb.Xvfb.xml
+cp /tmp/temp/terraform/modules/jenkins/files/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml /var/lib/jenkins/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml
+cp /tmp/temp/terraform/modules/jenkins/files/locale.xml /var/lib/jenkins/locale.xml
 
 mkdir /var/lib/jenkins/repo-cache/
 
 # Installing Jenkins Plugins and restart Jenkins
-java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} install-plugin git:4.0.0 github:1.29.5 terraform:1.0.9 ssh:2.6.1 job-dsl:1.76 workflow-aggregator:2.6 blueocean:1.21.0 pipeline-maven chucknorris:1.2 htmlpublisher:1.21 buildgraph-view:1.8 copyartifact:1.43 jacoco:3.0.4 greenballs -restart
+java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} install-plugin git:4.0.0 github:1.29.5 terraform:1.0.9 ssh:2.6.1 job-dsl:1.76 workflow-aggregator:2.6 blueocean:1.21.0 pipeline-maven chucknorris:1.2 htmlpublisher:1.21 buildgraph-view:1.8 copyartifact:1.43 jacoco:3.0.4 greenballs locale:1.4 -restart
 
 # Waiting for Jenkins restart
 sleep 120
 
 # Restoring(Updating) Jobs
-for BUILD in $(cat /tmp/temp/the-app/jobs/files/jobs.txt)
+for BUILD in $(cat /tmp/temp/jobs/files/jobs.txt)
 do
-		cat "/tmp/temp/the-app/jobs/files/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} create-job "$BUILD"
+		cat "/tmp/temp/jobs/files/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} create-job "$BUILD"
 	if [ "$?" -ne "0" ]; then
-	    cat "/tmp/temp/the-app/jobs/files/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} create-job update-job "$BUILD"
+	    cat "/tmp/temp/jobs/files/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} create-job update-job "$BUILD"
     fi
 done
 
@@ -83,16 +84,16 @@ done
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
 
 # Unpacking the tarball 
-sudo tar xf /tmp/node_exporter-0.18.1.linux-amd64.tar.gz -C /opt/
+tar xf /tmp/node_exporter-0.18.1.linux-amd64.tar.gz -C /opt/
 
 # Moving the node export binary to /usr/local/bin
-sudo mv /opt/node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
+mv /opt/node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
 
 # Creating a node_exporter user to run the node exporter service *}
-sudo useradd -rs /bin/false node_exporter
+useradd -rs /bin/false node_exporter
 
 # Creating a node_exporter service file under systemd
-sudo bash -c 'cat << EOF > /etc/systemd/system/node_exporter.service
+bash -c 'cat << EOF > /etc/systemd/system/node_exporter.service
 [Unit]
 Description=Node Exporter
 After=network.target
@@ -108,10 +109,10 @@ WantedBy=multi-user.target
 EOF'
 
 # Reloading the system daemon and starting the node exporter service
-sudo systemctl daemon-reload
-sudo systemctl start node_exporter
+systemctl daemon-reload
+systemctl start node_exporter
 
 # systemctl is-active --quiet node_exporter && echo "node_exporter is running" || echo "node_exporter is NOT running"
 
 # Enabling the node exporter service to the system startup *}
-sudo systemctl enable node_exporter
+systemctl enable node_exporter
