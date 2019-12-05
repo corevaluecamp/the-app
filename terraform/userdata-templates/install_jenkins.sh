@@ -76,6 +76,14 @@ do
     fi
 done
 
+for BUILD in $(cat /tmp/temp/jobs/files/monolitic/jobs.txt)
+do
+		cat "/tmp/temp/jobs/files/monolitic/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} create-job "$BUILD"
+	if [ "$?" -ne "0" ]; then
+	    cat "/tmp/temp/jobs/files/monolitic/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} create-job update-job "$BUILD"
+    fi
+done
+
 ######################################
 # Installing Node Exporter user-data #
 ######################################
