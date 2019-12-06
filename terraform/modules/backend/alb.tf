@@ -1,8 +1,8 @@
 resource "aws_alb" "main" {
   name            = "app-load-balancer"
-  subnets         = ["${var.my_public_subnet}", "${var.my_private_subnet}"]
-  security_groups = ["${aws_security_group.my_sg.id}"]
-  # security_groups = ["${var.id-sg-backend}", "${var.id-sg-private}"]
+  subnets         = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}", "${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
+  security_groups =  ["${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
+
 }
 ##################################################################
 #*---------------------ALB target group ------------------------*#
@@ -184,20 +184,19 @@ resource "aws_alb_listener_rule" "app-product-backend_rule" {
   port             = 80
 }
  */
-resource "aws_alb_target_group_attachment" "app-cart-attachment" {
-  target_group_arn = "${aws_alb_target_group.app-cart.arn}"
-  target_id        = "${aws_instance.cart_service.id}"
-  port             = 18100
+
+
+resource "aws_autoscaling_attachment" "app-cart-attachment" {
+  alb_target_group_arn   = "${aws_alb_target_group.app-cart.arn}"
+  autoscaling_group_name = "${aws_autoscaling_group.cart-asg.id}"
 }
 
-resource "aws_alb_target_group_attachment" "app-navigation-attachment" {
-  target_group_arn = "${aws_alb_target_group.app-navigation.arn}"
-  target_id        = "${aws_instance.navigation_service.id}"
-  port             = 18090
+resource "aws_autoscaling_attachment" "app-navigation-attachment" {
+  alb_target_group_arn   = "${aws_alb_target_group.app-navigation.arn}"
+  autoscaling_group_name = "${aws_autoscaling_group.navigation-asg.id}"
 }
 
-resource "aws_alb_target_group_attachment" "app-product-attachment" {
-  target_group_arn = "${aws_alb_target_group.app-product.arn}"
-  target_id        = "${aws_instance.product_service.id}"
-  port             = 18080
+resource "aws_autoscaling_attachment" "app-autoscaling-attachment" {
+  alb_target_group_arn   = "${aws_alb_target_group.app-product.arn}"
+  autoscaling_group_name = "${aws_autoscaling_group.product-asg.id}"
 }

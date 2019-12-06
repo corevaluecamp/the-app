@@ -27,12 +27,7 @@ variable "my_vpc" {
   type    = string
   default = ""
 }
-variable "my_public_subnet" {
-  default = ""
-}
-variable "my_private_subnet" {
-  default = ""
-}
+
 /*  variable "my_sg" {
   default = ["${aws_security_group.my_sg.id}]"]
 }  */
@@ -46,7 +41,12 @@ variable "force_des" {
   default = ""
 }
 
+variable "id-sg-bastion" {}
 variable "id-sg-backend" {}
 variable "id-sg-private" {}
 variable "id-sg-mongodb" {}
 variable "id-sg-jenkins" {}
+variable "subnet-priv-a-id" {}
+variable "subnet-priv-b-id" {}
+variable "subnet-pub-a-id" {}
+variable "subnet-pub-b-id" {}

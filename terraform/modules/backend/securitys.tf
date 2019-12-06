@@ -1,4 +1,4 @@
-resource "aws_security_group" "my_sg" {
+/* resource "aws_security_group" "my_sg" {
   name        = "allow__inbound"
   description = "Allow inbound"
   vpc_id      = "${var.my_vpc}"
@@ -52,3 +52,4 @@ resource "aws_security_group" "my_sg" {
 
   }
 }
+ */
