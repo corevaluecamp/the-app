@@ -1,11 +1,11 @@
 variable "region" {
-  default = "us-west-2"
+  default = "us-west-3"
 }
 variable "instance_type" {
   default = "t2.micro"
 }
 variable "my_ami" {
-  default = "ami-04b762b4289fba92b"
+  default = "ami-0e9e6ba6d3d38faa8"
 }
 variable "key-name" {}
 variable "subnet_id" {}
