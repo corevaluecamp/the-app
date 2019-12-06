@@ -20,7 +20,7 @@ output "backend_s3_created_bucket_name" {
   description = "Name of s3 artifacts bucket"
   value       = "${var.s3_bucket_name}"
 }
-/* output "elasticsearch_ip" {
+output "elasticsearch_ip" {
   description = "Elasticsearch IP address"
   value = module.logging.elasticsearch_ip
 }
@@ -28,4 +28,3 @@ output "kibana_ip" {
   description = "Kibana IP address"
   value = module.logging.kibana_ip
 }
- */
