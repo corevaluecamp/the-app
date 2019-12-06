@@ -1,3 +1,4 @@
 cart-pipeline
 navigation-pipeline
 product-pipeline
+dump-restore
