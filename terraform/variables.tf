@@ -7,7 +7,7 @@ variable "aws-region" {
 variable "s3_bucket_name" {
   description = "Name for backend artifacts s3 bucket(must contain 'artifacts')"
   type    = string
-  default = "artifacts-s3-bucket-bicycle"
+  default = ""
 }
 
 variable "jenkins_user" {
