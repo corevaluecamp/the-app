@@ -3,6 +3,7 @@ data "template_file" "install-jenkins" {
   vars = {
     jenkins_user = "${var.jenkins_user}"
     jenkins_pass = "${var.jenkins_pass}"
+    elastic_ip = "127.0.0.1"
   }
 }
 
