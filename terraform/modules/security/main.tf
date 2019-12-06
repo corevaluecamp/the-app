@@ -129,27 +129,22 @@ resource "aws_security_group" "dos-metrics-connect" {
   name        = "dos-metrics-connect"
   description = "Allow Node Exporter metrics exchange"
   vpc_id      = "${var.vpc-id}"
+  ingress {
+    from_port         = 9100
+    to_port           = 9100
+    protocol          = "tcp"
+  # self              = true
+  }
+  egress {
+    type              = "egress"
+    from_port         = 9100
+    to_port           = 9100
+    protocol          = "tcp"
+  # self              = true
+  }
   tags = {
     Name = "${var.sg-name[7]}"
   }
-  
-resource "aws_security_group_rule" "dos-metrics-ingress" {
-  type              = "ingress"
-  from_port         = 9100
-  to_port           = 9100
-  protocol          = "tcp"
-  # self              = true
-  security_group_id = "${aws_security_group.dos-metrics-connect.id}"
-}
-resource "aws_security_group_rule" "dos-metrics-egress" {
-  type              = "egress"
-  from_port         = 9100
-  to_port           = 9100
-  protocol          = "tcp"
-  # self              = true
-  security_group_id = "${aws_security_group.dos-metrics-connect.id}"
-}
-
 }
 
 resource "aws_security_group" "dos-monitoring-access" {
