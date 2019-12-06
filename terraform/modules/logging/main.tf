@@ -3,6 +3,7 @@ resource "aws_instance" "ELSearch" {
   instance_type          = var.instance-type[0]
   vpc_security_group_ids = [aws_security_group.security_for_elasticsearch.id]
   key_name               = var.key-name
+  subnet_id              = var.subnet-priv-a-id
   tags = {
     Name = "ELSearch"
   }
@@ -13,6 +14,7 @@ resource "aws_instance" "Kibana" {
   instance_type          = var.instance-type[0]
   vpc_security_group_ids = [aws_security_group.security_for_kibana.id]
   key_name               = var.key-name
+  subnet_id              = var.subnet-priv-a-id
   tags = {
     Name = "Kibana"
   }
