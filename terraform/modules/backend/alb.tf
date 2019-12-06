@@ -35,11 +35,12 @@ resource "aws_alb_target_group" "app-cart" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "30"
+    interval            = "60"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
+    path = "/info"
   }
 }
 
@@ -52,11 +53,12 @@ resource "aws_alb_target_group" "app-navigation" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "30"
+    interval            = "60"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
+    path = "/info"
   }
 }
 
@@ -69,11 +71,12 @@ resource "aws_alb_target_group" "app-product" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "30"
+    interval            = "60"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
+    path = "/info"
   }
 }
 ##################################################################

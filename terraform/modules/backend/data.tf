@@ -4,7 +4,7 @@ data "template_file" "backend_cart_template" {
   vars = {
     s3_bucketname = "${var.s3_bucket_name}"
     elastic_ip = "${var.es_ip}"
-    mongo = "{var.mongo_ip}"
+    mongo = "${var.mongo_ip}"
   }
 }
 
@@ -14,7 +14,7 @@ data "template_file" "backend_product_template" {
   vars = {
     s3_bucketname = "${var.s3_bucket_name}"
     elastic_ip = "${var.es_ip}"
-    mongo = "{var.mongo_ip}"
+    mongo = "${var.mongo_ip}"
   }
 }
 
@@ -24,7 +24,7 @@ data "template_file" "backend_navigation_template" {
   vars = {
     s3_bucketname = "${var.s3_bucket_name}"
     elastic_ip = "${var.es_ip}"
-    mongo = "{var.mongo_ip}"
+    mongo = "${var.mongo_ip}"
   }
 }
 
