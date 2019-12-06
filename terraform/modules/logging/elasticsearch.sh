@@ -1,6 +1,6 @@
 #!/bin/bash
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
-cat > /etc/yum.repos.d/elasticsearch.repo <<- EOF
+cat > /etc/yum.repos.d/elasticsearch.repo <<-EOF
 [elasticsearch-7.x]
 name=Elasticsearch repository for 7.x packages
 baseurl=https://artifacts.elastic.co/packages/7.x/yum
@@ -10,14 +10,16 @@ enabled=1
 autorefresh=1
 type=rpm-md
 EOF
-yum install filebeat -y
-sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
-sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
-sed -i '29c\    - /var/log/mongodb/mongodb.log' /etc/filebeat/filebeat.yml
-sed -i '30c\    - /var/log/jenkins/jenkins.log' /etc/filebeat/filebeat.yml
-sed -i '31c\    - /home/ec2-user/logs/*.log' /etc/filebeat/filebeat.yml
-systemctl enable filebeat
-systemctl start filebeat
+yum install elasticsearch -y
+sed -i -e 's/-Xms1g/-Xms512m/g' /etc/elasticsearch/jvm.options
+sed -i -e 's/-Xmx1g/-Xmx512m/g' /etc/elasticsearch/jvm.options
+cat >> /etc/elasticsearch/elasticsearch.yml <<-EOF
+network.host: _site_
+discovery.type: single-node
+EOF
+/bin/systemctl daemon-reload
+/bin/systemctl enable elasticsearch.service
+systemctl start elasticsearch.service
 # Downloading the node exporter package
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
 
