@@ -29,6 +29,7 @@ data "template_file" "scriptkibana" {
 resource "aws_security_group" "security_for_kibana" {
   name        = "SecurityForKibana"
   description = "Security For Kibana"
+  vpc_id      = var.my_vpc
 
   ingress {
     from_port   = 80
@@ -64,6 +65,7 @@ resource "aws_security_group" "security_for_kibana" {
 resource "aws_security_group" "security_for_elasticsearch" {
   name        = "SecurityForElasticsearch"
   description = "Security For Elasticsearch"
+  vpc_id      = var.my_vpc
 
   ingress {
     from_port   = 80

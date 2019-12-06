@@ -82,4 +82,5 @@ module "logging" {
   subnet-pub-b-id   = module.network.subnet-pub-b-id
   subnet-priv-a-id  = module.network.subnet-priv-a-id
   subnet-priv-b-id  = module.network.subnet-priv-b-id
+  my_vpc = module.network.vpc-id
 }
