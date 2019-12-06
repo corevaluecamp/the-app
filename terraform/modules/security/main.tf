@@ -136,7 +136,6 @@ resource "aws_security_group" "dos-metrics-connect" {
   # self              = true
   }
   egress {
-    type              = "egress"
     from_port         = 9100
     to_port           = 9100
     protocol          = "tcp"
