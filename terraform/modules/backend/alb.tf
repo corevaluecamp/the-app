@@ -1,6 +1,7 @@
 resource "aws_alb" "main" {
   name            = "app-load-balancer"
-  subnets         = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}", "${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
+  # subnets need some fixes
+  subnets         = ["${var.subnet-pub-a-id}", "${var.subnet-priv-b-id}"] 
   security_groups =  ["${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
 
 }
