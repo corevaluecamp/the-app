@@ -59,3 +59,11 @@ module "monitoring" {
   id-sg-monitoring-access    = module.security.id-sg-monitoring-access
 }
 
+module "logging" {
+  source                     = "./modules/logging"
+  key-name          = module.security.key-name
+  subnet-pub-a-id   = module.network.subnet-pub-a-id
+  subnet-pub-b-id   = module.network.subnet-pub-b-id
+  subnet-priv-a-id  = module.network.subnet-priv-a-id
+  subnet-priv-b-id  = module.network.subnet-priv-b-id
+}
