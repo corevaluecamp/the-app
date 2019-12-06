@@ -25,7 +25,7 @@ sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
 sudo bash -c 'cat << EOF > /etc/prometheus/prometheus.yml
 global:
   scrape_interval: 10s
- 
+
 scrape_configs:
   - job_name: ec2
     scrape_interval: 5s
@@ -53,7 +53,7 @@ ExecStart=/usr/local/bin/prometheus \
 --storage.tsdb.path /var/lib/prometheus/ \
 --web.console.templates=/etc/prometheus/consoles \
 --web.console.libraries=/etc/prometheus/console_libraries
- 
+
 [Install]
 WantedBy=multi-user.target
 EOF'
@@ -154,9 +154,7 @@ autorefresh=1
 type=rpm-md
 EOF
 yum install filebeat -y
-sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
+sed -i -e 's/localhost:9200/127.0.0.1:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
 systemctl enable filebeat
 systemctl start filebeat
-
-

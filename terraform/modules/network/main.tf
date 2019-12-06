@@ -123,7 +123,12 @@ resource "aws_route" "dos-private-route" {
   destination_cidr_block = "${var.all-ip}"
   nat_gateway_id         = "${aws_nat_gateway.dos-nat.id}"
 }
-# associate route tables with subnets
+resource "aws_route" "dos-db-route" {
+  route_table_id         = "${aws_route_table.dos-routetb-db.id}"
+  destination_cidr_block = "${var.all-ip}"
+  nat_gateway_id         = "${aws_nat_gateway.dos-nat.id}"
+}
+# associate route tables with subnets in AZ-A
 resource "aws_route_table_association" "public-subnet-association" {
   subnet_id      = "${aws_subnet.dos-subnet-public-a.id}"
   route_table_id = "${aws_route_table.dos-routetb-public.id}"
@@ -134,6 +139,19 @@ resource "aws_route_table_association" "private-subnet-association" {
 }
 resource "aws_route_table_association" "db-subnet-association" {
   subnet_id      = "${aws_subnet.dos-subnet-db-a.id}"
+  route_table_id = "${aws_route_table.dos-routetb-db.id}"
+}
+# associate route tables with subnets in AZ-B
+resource "aws_route_table_association" "public-subnet-association-b" {
+  subnet_id      = "${aws_subnet.dos-subnet-public-b.id}"
+  route_table_id = "${aws_route_table.dos-routetb-public.id}"
+}
+resource "aws_route_table_association" "private-subnet-association-b" {
+  subnet_id      = "${aws_subnet.dos-subnet-private-b.id}"
+  route_table_id = "${aws_route_table.dos-routetb-private.id}"
+}
+resource "aws_route_table_association" "db-subnet-association-b" {
+  subnet_id      = "${aws_subnet.dos-subnet-db-b.id}"
   route_table_id = "${aws_route_table.dos-routetb-db.id}"
 }
 # VPC's main routing table fallback
