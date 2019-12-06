@@ -10,9 +10,6 @@ variable "sg-name" {
     "dos-private-access",
     "dos-mongodb-connect",
     "dos-redis-connect",
-    "dos-jenkins-connect",
-    "dos-jenkins-ssh",
-    "dos-backend-connect",
     "dos-metrics-connect",
     "dos-monitoring-access"
   ]
