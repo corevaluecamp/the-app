@@ -42,6 +42,7 @@ module "jenkins" {
   subnet-priv-b-id  = module.network.subnet-priv-b-id
   jenkins_user      = "${var.jenkins_user}"
   jenkins_pass      = "${var.jenkins_pass}"
+  iam_role          = module.backend.iam_s3
 }
 
 module "backend" {
