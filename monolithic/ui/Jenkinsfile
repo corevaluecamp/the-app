@@ -1,0 +1,32 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building...'
+        sh 'cd ../../'
+        sh './gradlew -p ./monolithic/ui/ build'
+      }
+    }
+    stage('Test') { 
+        steps {
+          echo 'Testing...'
+          sh './gradlew -p monolithic/ui jmeterRun'
+          }
+          }
+    stage('Deploy'){
+        steps{
+        echo 'Deploying...'
+        echo 'Uploading artifact to s3...'
+        sh 'python3 s3.py ./monolithic/ui/build/libs/monolithic-shop.war monolithic.war'
+        }
+    }
+    stage('Archive Artifacts') {
+      steps {
+        archiveArtifacts(fingerprint: true, artifacts: '**/*.war')
+      }
+    }
+
+  }
+}
+

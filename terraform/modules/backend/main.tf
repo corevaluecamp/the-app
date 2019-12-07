@@ -25,7 +25,7 @@ resource "aws_launch_template" "cart_lt" {
 
 resource "aws_autoscaling_group" "cart-asg" {
   desired_capacity    = 1
-  max_size            = 8
+  max_size            = 2
   min_size            = 1
   vpc_zone_identifier = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}", "${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
   launch_template {
@@ -107,7 +107,7 @@ resource "aws_launch_template" "navigation_lt" {
 
 resource "aws_autoscaling_group" "navigation-asg" {
   desired_capacity    = 1
-  max_size            = 8
+  max_size            = 2
   min_size            = 1
   vpc_zone_identifier = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}", "${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
   launch_template {
@@ -190,7 +190,7 @@ resource "aws_launch_template" "product_lt" {
 
 resource "aws_autoscaling_group" "product-asg" {
   desired_capacity    = 1
-  max_size            = 8
+  max_size            = 2
   min_size            = 1
   vpc_zone_identifier = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}", "${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
   launch_template {
