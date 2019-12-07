@@ -2,6 +2,10 @@ output "mongo-server-ip" {
   description = "MongoDB server IP address"
   value       = "${aws_instance.dos-mongodb[0].private_ip}"
 }
+output "redis-server-ip" {
+  description = "MongoDB server IP address"
+  value       = "${aws_instance.dos-redis[0].private_ip}"
+}
 # FOR eu-west-3 ONLY!
 # [0] - for Amazon Linux 2
 # [1] - for Ubuntu 18.04

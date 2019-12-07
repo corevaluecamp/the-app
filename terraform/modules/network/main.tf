@@ -170,11 +170,19 @@ resource "aws_route53_zone" "dos-private-hz" {
     Name = "${var.hz-name}"
   }
 }
-# create Route 53 records set
+# create mongodb records set
 resource "aws_route53_record" "dos-rec-set-mongo" {
   zone_id = "${aws_route53_zone.dos-private-hz.id}"
   name    = "${var.mongo-rec}"
   type    = "A"
   ttl     = "300"
   records = ["${var.mongo-server-ip}"]
+}
+# create redis records set
+resource "aws_route53_record" "dos-rec-set-redis" {
+  zone_id = "${aws_route53_zone.dos-private-hz.id}"
+  name    = "${var.redis-rec}"
+  type    = "A"
+  ttl     = "300"
+  records = ["${var.redis-server-ip}"]
 }

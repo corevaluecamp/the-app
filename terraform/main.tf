@@ -8,6 +8,7 @@ terraform {
 module "network" {
   source          = "./modules/network/"
   mongo-server-ip = module.instances.mongo-server-ip
+  redis-server-ip = module.instances.redis-server-ip
 }
 module "security" {
   source = "./modules/security/"
@@ -27,8 +28,10 @@ module "instances" {
   subnet-db-a-id        = module.network.subnet-db-a-id
   subnet-db-b-id        = module.network.subnet-db-b-id
   mongodb-server-domain = module.network.mongodb-server-domain
+  redis-server-domain   = module.network.redis-server-domain
   subnet-priv-a-id      = module.network.subnet-priv-a-id
   subnet-priv-b-id      = module.network.subnet-priv-b-id
+  id-sg-redis           = module.security.id-sg-redis
 }
 
 module "jenkins" {

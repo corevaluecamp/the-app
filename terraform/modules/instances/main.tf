@@ -3,24 +3,21 @@ data "template_file" "userdata-bastion" {
   vars     = {}
 }
 resource "aws_launch_template" "dos-bastion-launch-tmpl" {
-  name                    = "${var.bastion-name}"
+  name                    = "${var.name-tag[0]}"
   image_id                = "${var.instance-ami[0]}"
   instance_type           = "${var.instance-type[0]}"
   key_name                = "${var.key-name}"
   vpc_security_group_ids  = ["${var.id-sg-bastion}"]
   disable_api_termination = true
   user_data               = "${base64encode(data.template_file.userdata-bastion.rendered)}"
-  # user_data = templatefile("${var.userdata-path}/userdata-bastion.tpl", {
-  #   # dbhost = "${var.mongodb-server-domain}"
-  # })
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name = "${var.bastion-name}"
+      Name = "${var.name-tag[0]}"
     }
   }
   tags = {
-    Name = "${var.bastion-name}-launch-tmpl"
+    Name = "${var.name-tag[0]}-launch-tmpl"
   }
 }
 resource "aws_autoscaling_group" "dos-bastion-asg" {
@@ -49,6 +46,21 @@ resource "aws_instance" "dos-mongodb" {
     dbhost = "${var.mongodb-server-domain}"
   })
   tags = {
-    Name = "${var.mongodb-name}"
+    Name = "${var.name-tag[1]}"
+  }
+}
+resource "aws_instance" "dos-redis" {
+  count         = 1
+  ami           = "${var.instance-ami[1]}"
+  instance_type = "${var.instance-type[0]}"
+  key_name      = "${var.key-name}"
+  vpc_security_group_ids = [
+    "${var.id-sg-private}",
+    "${var.id-sg-redis}"
+  ]
+  subnet_id = "${var.subnet-db-a-id}"
+  user_data = templatefile("${var.userdata-path}/userdata-redis.tpl", {})
+  tags = {
+    Name = "${var.name-tag[2]}"
   }
 }

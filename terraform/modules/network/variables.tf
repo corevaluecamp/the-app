@@ -69,9 +69,15 @@ variable "hz-name" {
   type        = "string"
   default     = "dos-private-hz"
 }
+variable "mongo-server-ip" {}
 variable "mongo-rec" {
   description = "mongodb.dos.net"
   type        = "string"
   default     = "mongodb"
 }
-variable "mongo-server-ip" {}
+variable "redis-server-ip" {}
+variable "redis-rec" {
+  description = "redis.dos.net"
+  type        = "string"
+  default     = "redis"
+}

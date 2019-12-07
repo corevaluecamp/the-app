@@ -23,13 +23,13 @@ variable "instance-type" {
     "t2.xlarge"
   ]
 }
-variable "bastion-name" {
-  type    = "string"
-  default = "dos-bastion"
-}
-variable "mongodb-name" {
-  type    = "string"
-  default = "dos-mongodb"
+variable "name-tag" {
+  type = "list"
+  default = [
+    "dos-bastion",
+    "dos-mongodb",
+    "dos-redis"
+  ]
 }
 variable "name-prefix" {
   default = "launch-temlate"
@@ -39,12 +39,14 @@ variable "userdata-path" {
   default = "./userdata-templates/"
 }
 variable "mongodb-server-domain" {}
+variable "redis-server-domain" {}
 variable "key-name" {}
 variable "id-sg-bastion" {}
 variable "id-sg-private" {}
 variable "id-sg-mongodb" {}
 variable "id-sg-jenkins" {}
 variable "id-sg-jenkins-ssh" {}
+variable "id-sg-redis" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
 variable "subnet-priv-a-id" {}

@@ -40,6 +40,10 @@ output "mongodb-server-domain" {
   description = "MongoDB domain"
   value       = join(".", ["${var.mongo-rec}", "${var.hz-domain}"])
 }
+output "redis-server-domain" {
+  description = "Redis domain"
+  value       = join(".", ["${var.redis-rec}", "${var.hz-domain}"])
+}
 output "mongodb-server-ip" {
   description = "MongoDB IP address"
   value       = "${var.mongo-server-ip}"
