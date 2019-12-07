@@ -1,7 +1,7 @@
 #!/bin/bash
-sudo yum update
-sudo timedatectl set-timezone Europe/Kiev
-sudo cat <<EOF > /etc/yum.repos.d/mongodb.repo
+yum update -y > "/var/log/yum-update_$(date +%d-%m-%Y@%k:%M:%S).log"
+timedatectl set-timezone Europe/Kiev
+cat <<EOF > /etc/yum.repos.d/mongodb.repo
 [mongodb-org-4.2]
 name=MongoDB Repository
 baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/4.2/x86_64/
@@ -10,9 +10,9 @@ enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
 EOF
 
-sudo yum install -y mongodb-org > "/var/log/mongodb-install_$(date +%d-%m-%Y@%k:%M:%S).log"
-sudo service mongod stop
-sudo cat << EOF > /etc/mongod.conf
+yum install -y mongodb-org > "/var/log/mongodb-install_$(date +%d-%m-%Y@%k:%M:%S).log"
+service mongod stop
+cat <<EOF > /etc/mongod.conf
 # mongod.conf
 # for documentation of all options, see:
 #   http://docs.mongodb.org/manual/reference/configuration-options/
@@ -57,27 +57,20 @@ net:
 #snmp:
 EOF
 
-
 sudo chkconfig mongod on
-sudo service mongod start
+service mongod start
+service mongod status > "/var/log/mongod-status_$(date +%d-%m-%Y@%k:%M:%S).log"
+
 ######################################
 # Installing Node Exporter user-data #
 ######################################
-
-# Downloading the node exporter package
+dnf search wget > "/var/log/wget-search_$(date +%d-%m-%Y@%k:%M:%S).log"
+dnf install wget -y > "/var/log/wget-install-$(date +%d-%m-%Y@%k:%M:%S).log"
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
-
-# Unpacking the tarball
 tar xf /tmp/node_exporter-0.18.1.linux-amd64.tar.gz -C /opt/
-
-# Moving the node export binary to /usr/local/bin
 mv /opt/node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
-
-# Creating a node_exporter user to run the node exporter service *}
 useradd -rs /bin/false node_exporter
-
-# Creating a node_exporter service file under systemd
-bash -c 'cat << EOF > /etc/systemd/system/node_exporter.service
+cat <<EOF > /etc/systemd/system/node_exporter.service
 [Unit]
 Description=Node Exporter
 After=network.target
@@ -90,25 +83,17 @@ ExecStart=/usr/local/bin/node_exporter
 
 [Install]
 WantedBy=multi-user.target
-EOF'
+EOF
 
-# Reloading the system daemon and starting the node exporter service
+systemctl enable node_exporter
 systemctl daemon-reload
 systemctl start node_exporter
-
-# systemctl is-active --quiet node_exporter && echo "node_exporter is running" || echo "node_exporter is NOT running"
-
-# Enabling the node exporter service to the system startup *}
-systemctl enable node_exporter
 
 #################################
 # Installing Filebeat user-data #
 #################################
-
-#!/bin/bash
-
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
-cat > /etc/yum.repos.d/elasticsearch.repo <<- EOF
+cat <<EOF > /etc/yum.repos.d/elasticsearch.repo
 [elasticsearch-7.x]
 name=Elasticsearch repository for 7.x packages
 baseurl=https://artifacts.elastic.co/packages/7.x/yum
@@ -118,8 +103,8 @@ enabled=1
 autorefresh=1
 type=rpm-md
 EOF
-yum install filebeat -y
 
+yum install filebeat -y
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
 systemctl enable filebeat
 systemctl start filebeat
