@@ -31,7 +31,7 @@ variable "subnet-b-name" {
   ]
 }
 variable "nat-eip" {
-  description = "Elastic IP address"
+  description = "Elastic IP address for NAT gateway"
   type        = "string"
   default     = "dos-eip-nat"
 }

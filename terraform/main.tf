@@ -12,6 +12,7 @@ module "network" {
 module "security" {
   source = "./modules/security/"
   vpc-id = module.network.vpc-id
+  all-ip = module.network.all-ip
 }
 module "instances" {
   source                = "./modules/instances/"
@@ -24,9 +25,10 @@ module "instances" {
   subnet-pub-a-id       = module.network.subnet-pub-a-id
   subnet-pub-b-id       = module.network.subnet-pub-b-id
   subnet-db-a-id        = module.network.subnet-db-a-id
+  subnet-db-b-id        = module.network.subnet-db-b-id
   mongodb-server-domain = module.network.mongodb-server-domain
-  # subnet-priv-a-id      = module.network.subnet-priv-a-id
-  # subnet-priv-b-id      = module.network.subnet-priv-b-id
+  subnet-priv-a-id      = module.network.subnet-priv-a-id
+  subnet-priv-b-id      = module.network.subnet-priv-b-id
 }
 
 module "jenkins" {
@@ -45,20 +47,20 @@ module "jenkins" {
 }
 
 module "backend" {
-  source         = "./modules/backend"
-  key            = module.security.key-name
-  s3_bucket_name = "${var.s3_bucket_name}"
-  id-sg-bastion = module.security.id-sg-bastion
-  id-sg-backend = module.security.id-sg-backend
-  id-sg-private = module.security.id-sg-private
-  id-sg-mongodb = module.security.id-sg-mongodb
-  id-sg-jenkins = module.security.id-sg-jenkins
-  subnet-pub-a-id = module.network.subnet-pub-a-id
-  subnet-pub-b-id = module.network.subnet-pub-b-id
+  source           = "./modules/backend"
+  key              = module.security.key-name
+  s3_bucket_name   = "${var.s3_bucket_name}"
+  id-sg-bastion    = module.security.id-sg-bastion
+  id-sg-backend    = module.security.id-sg-backend
+  id-sg-private    = module.security.id-sg-private
+  id-sg-mongodb    = module.security.id-sg-mongodb
+  id-sg-jenkins    = module.security.id-sg-jenkins
+  subnet-pub-a-id  = module.network.subnet-pub-a-id
+  subnet-pub-b-id  = module.network.subnet-pub-b-id
   subnet-priv-a-id = module.network.subnet-priv-a-id
   subnet-priv-b-id = module.network.subnet-priv-b-id
-  my_vpc = module.network.vpc-id
-  mongo_ip = module.instances.mongo-server-ip
+  my_vpc           = module.network.vpc-id
+  mongo_ip         = module.instances.mongo-server-ip
   #es_ip = module.logging.elasticsearch_ip
   #force_des = true
   # my_sg  = module.security.id-sg-bastion
@@ -66,19 +68,26 @@ module "backend" {
 }
 
 module "monitoring" {
-  source                     = "./modules/monitoring"
-  key-name                   = module.security.key-name
-  subnet_id                  = module.network.subnet-pub-a-id
+  source    = "./modules/monitoring"
+  key-name  = module.security.key-name
+  subnet_id = module.network.subnet-pub-a-id
   # s3_bucket_name = "${var.s3_bucket_name}"
-  id-sg-metrics              = module.security.id-sg-metrics
-  id-sg-monitoring-access    = module.security.id-sg-monitoring-access
+  id-sg-metrics           = module.security.id-sg-metrics
+  id-sg-monitoring-access = module.security.id-sg-monitoring-access
 }
 
 module "logging" {
-  source                     = "./modules/logging"
-  key-name          = module.security.key-name
-  subnet-pub-a-id   = module.network.subnet-pub-a-id
-  subnet-pub-b-id   = module.network.subnet-pub-b-id
-  subnet-priv-a-id  = module.network.subnet-priv-a-id
-  subnet-priv-b-id  = module.network.subnet-priv-b-id
+  source           = "./modules/logging"
+  key-name         = module.security.key-name
+  subnet-pub-a-id  = module.network.subnet-pub-a-id
+  subnet-pub-b-id  = module.network.subnet-pub-b-id
+  subnet-priv-a-id = module.network.subnet-priv-a-id
+  subnet-priv-b-id = module.network.subnet-priv-b-id
+  id-sg-es         = module.security.id-sg-es
+  id-sg-kibana     = module.security.id-sg-kibana
+  id-sg-private    = module.security.id-sg-es
+  id-sg-jenkins    = module.security.id-sg-jenkins
+  id-sg-bastion    = module.security.id-sg-bastion
+  instance-ami     = module.instances.instance-ami
+  instance-type    = module.instances.instance-type
 }

@@ -11,6 +11,10 @@ variable "instance-ami" {
   ]
   description = "List of AMIs"
 }
+# for eu-west-3
+# [0] - t.micro
+# [1] - t.medium
+# [2] - t.xlarge
 variable "instance-type" {
   type = "list"
   default = [
@@ -43,4 +47,7 @@ variable "id-sg-jenkins" {}
 variable "id-sg-jenkins-ssh" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
+variable "subnet-priv-a-id" {}
+variable "subnet-priv-b-id" {}
 variable "subnet-db-a-id" {}
+variable "subnet-db-b-id" {}

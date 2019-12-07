@@ -28,6 +28,10 @@ output "subnet-db-a-id" {
   description = "The ID of public subnet in AZ-A"
   value       = "${aws_subnet.dos-subnet-db-a.id}"
 }
+output "subnet-db-b-id" {
+  description = "The ID of public subnet in AZ-A"
+  value       = "${aws_subnet.dos-subnet-db-b.id}"
+}
 output "hosted-zone-domain" {
   description = "Domain provided by Route 53"
   value       = "${var.hz-domain}"
@@ -39,4 +43,8 @@ output "mongodb-server-domain" {
 output "mongodb-server-ip" {
   description = "MongoDB IP address"
   value       = "${var.mongo-server-ip}"
+}
+output "all-ip" {
+  description = "CIDR block 0.0.0.0/0"
+  value       = "${var.all-ip}"
 }
