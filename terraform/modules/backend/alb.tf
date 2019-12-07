@@ -40,7 +40,7 @@ resource "aws_alb_target_group" "app-cart" {
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
-    path = "/info"
+    path = "/api/cart/info"
   }
 }
 
@@ -58,7 +58,7 @@ resource "aws_alb_target_group" "app-navigation" {
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
-    path = "/info"
+    path = "/api/navigation/info"
   }
 }
 
@@ -76,7 +76,7 @@ resource "aws_alb_target_group" "app-product" {
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
-    path = "/info"
+    path = "/api/product/info"
   }
 }
 ##################################################################
