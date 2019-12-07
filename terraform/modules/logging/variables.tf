@@ -13,6 +13,7 @@ variable "instance-type" {
   description = "List of instance types"
 }
 variable "key-name" {}
+# variable "my_vpc" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
 variable "subnet-priv-a-id" {}

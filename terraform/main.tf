@@ -78,7 +78,6 @@ module "monitoring" {
 }
 
 module "logging" {
-<<<<<<< HEAD
   source           = "./modules/logging"
   key-name         = module.security.key-name
   subnet-pub-a-id  = module.network.subnet-pub-a-id
@@ -92,13 +91,5 @@ module "logging" {
   id-sg-bastion    = module.security.id-sg-bastion
   instance-ami     = module.instances.instance-ami
   instance-type    = module.instances.instance-type
-=======
-  source                     = "./modules/logging"
-  key-name          = module.security.key-name
-  subnet-pub-a-id   = module.network.subnet-pub-a-id
-  subnet-pub-b-id   = module.network.subnet-pub-b-id
-  subnet-priv-a-id  = module.network.subnet-priv-a-id
-  subnet-priv-b-id  = module.network.subnet-priv-b-id
-  my_vpc = module.network.vpc-id
->>>>>>> 108998286f1535e625df6ead995660ce8e8b1a32
+  # my_vpc           = module.network.vpc-id
 }
