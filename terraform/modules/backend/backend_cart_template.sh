@@ -27,7 +27,6 @@ chmod +x /home/ec2-user/s3d.py
 
 mkdir /home/ec2-user/logs
 mkdir /home/ec2-user/jar
-mkdir /home/ec2-user/cronjobs
 touch /home/ec2-user/logs/app-cart.log
 
 systemctl start crond

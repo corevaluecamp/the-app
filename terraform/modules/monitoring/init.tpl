@@ -30,10 +30,10 @@ scrape_configs:
   - job_name: ec2
     scrape_interval: 5s
     ec2_sd_configs:
-      - region: us-west-2
+      - region: eu-west-3
         port: 9100
-        access_key: AKIAQQQMCWMDCLUQ4I77
-        secret_key: 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
+#       access_key: 
+#       secret_key: 
 EOF'
 
 sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml

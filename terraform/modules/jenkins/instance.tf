@@ -16,6 +16,11 @@ resource "aws_launch_template" "jenkins-launch-tmpl" {
   #  vpc_security_group_ids = ["${var.id-sg-bastion}"]
   vpc_security_group_ids  = ["${var.id-sg-jenkins}", "${var.id-sg-jenkins-ssh}", "${var.id-sg-private}"]
   disable_api_termination = true
+  
+  iam_instance_profile {
+    name = "${var.iam_role}"
+  }
+
   tag_specifications {
     resource_type = "instance"
     tags = {
