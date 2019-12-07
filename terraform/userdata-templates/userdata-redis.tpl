@@ -1,8 +1,9 @@
 #!/bin/bash
-apt update -y > "/var/log/apt-update_$(date +%d-%m-%Y@%k:%M:%S).log"
+apt update -y
 timedatectl set-timezone Europe/Kiev
-apt install redis-server -y > "/var/log/install-redis-$(date +%d-%m-%Y@%k:%M:%S).log"
+apt install redis-server -y
 cat <<EOF > /etc/redis/redis.conf
+bind redis.dos.net
 protected-mode no
 port 6379
 tcp-backlog 511
@@ -65,3 +66,41 @@ chmod 755 /var/lib/redis
 chmod 644 /var/lib/redis/dump.rdb
 systemctl start redis-server
 systemctl enable redis-server
+
+######################################
+# Installing Node Exporter user-data #
+######################################
+useradd -rs /bin/false node_exporter
+wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
+tar xvfz /tmp/node_exporter-0.18.1.linux-amd64.tar.gz -C /opt/
+mv /opt/node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
+cat <<EOF > /etc/systemd/system/node_exporter.service
+[Unit]
+Description=Node Exporter
+After=network.target
+
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl enable node_exporter
+systemctl daemon-reload
+systemctl start node_exporter
+
+#################################
+# Installing Filebeat user-data #
+#################################
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+apt-get install apt-transport-https
+apt update
+apt install filebeat -y
+sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+systemctl enable filebeat
+systemctl start filebeat

@@ -1,5 +1,5 @@
 #!/bin/bash
-yum update -y > "/var/log/yum-update_$(date +%d-%m-%Y@%k:%M:%S).log"
+yum update -y
 timedatectl set-timezone Europe/Kiev
 cat <<EOF > /etc/yum.repos.d/mongodb.repo
 [mongodb-org-4.2]
@@ -10,23 +10,17 @@ enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
 EOF
 
-yum install -y mongodb-org > "/var/log/mongodb-install_$(date +%d-%m-%Y@%k:%M:%S).log"
+yum install -y mongodb-org
 service mongod stop
 cat <<EOF > /etc/mongod.conf
-# mongod.conf
-# for documentation of all options, see:
-#   http://docs.mongodb.org/manual/reference/configuration-options/
-# where to write logging data.
 systemLog:
   destination: file
   logAppend: true
   path: /var/log/mongodb/mongod.log
-# how the process runs
 processManagement:
   fork: true  # fork and run in background
   pidFilePath: /var/run/mongodb/mongod.pid  # location of pidfile
   timeZoneInfo: /usr/share/zoneinfo
-# Where and how to store data.
 storage:
   dbPath: /var/lib/mongo
   journal:
@@ -35,37 +29,20 @@ storage:
   wiredTiger:
     collectionConfig:
       blockCompressor: none
-# network interfaces
 net:
   port: 27017
-  bindIp: ${dbhost}  # Enter 0.0.0.0,:: to bind to all IPv4 and IPv6 addresses or, alternatively, use the net.bindIpAll setting.
-#  ssl:
-#    mode: requireSSL
-#    PEMKeyFile: /etc/ssl/mongo_ssl/mongodb.pem
-#    CAFile: /etc/ssl/mongo_ssl/CA.pem
-#    allowInvalidCertificates: true
-#    allowInvalidHostnames: true
-#security:
-#  authorization: enabled
-#  keyFile: /var/lib/mongo/rsetkey
-#operationProfiling:
-#replication:
-#  replSetName: TestRS-0
-#sharding:
-## Enterprise-Only Options
-#auditLog:
-#snmp:
+  bindIp: ${dbhost}
 EOF
 
 sudo chkconfig mongod on
 service mongod start
-service mongod status > "/var/log/mongod-status_$(date +%d-%m-%Y@%k:%M:%S).log"
+service mongod status
 
 ######################################
 # Installing Node Exporter user-data #
 ######################################
-dnf search wget > "/var/log/wget-search_$(date +%d-%m-%Y@%k:%M:%S).log"
-dnf install wget -y > "/var/log/wget-install-$(date +%d-%m-%Y@%k:%M:%S).log"
+dnf search wget
+dnf install wget
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
 tar xf /tmp/node_exporter-0.18.1.linux-amd64.tar.gz -C /opt/
 mv /opt/node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
