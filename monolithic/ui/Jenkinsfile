@@ -5,13 +5,13 @@ pipeline {
       steps {
         echo 'Building...'
         sh 'cd ../../'
-        sh './gradlew -p ./monolithic/ui/ build'
+        sh './gradlew -p ./monolithic/ui/ war'
       }
     }
     stage('Test') { 
         steps {
           echo 'Testing...'
-          sh './gradlew -p monolithic/ui jmeterRun'
+         // sh './gradlew -p monolithic/ui jmeterRun'
           }
           }
     stage('Deploy'){
