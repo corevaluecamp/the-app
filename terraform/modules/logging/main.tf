@@ -3,12 +3,10 @@ resource "aws_instance" "ELSearch" {
   instance_type          = var.instance-type[0]
   vpc_security_group_ids = [var.id-sg-es, var.id-sg-kibana, var.id-sg-private, var.id-sg-jenkins]
   key_name               = var.key-name
-<<<<<<< HEAD
   user_data              = file("${path.module}/elasticsearch.sh")
   subnet_id              = "${var.subnet-priv-a-id}"
 =======
   subnet_id              = var.subnet-priv-a-id
->>>>>>> 108998286f1535e625df6ead995660ce8e8b1a32
   tags = {
     Name = "ELSearch"
   }
