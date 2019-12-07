@@ -11,9 +11,8 @@ resource "aws_instance" "Monitoring" {
   user_data = "${data.template_file.init.rendered}"
   vpc_security_group_ids = [
     "${var.id-sg-metrics}", "${var.id-sg-monitoring-access}"]
-  iam_instance_profile {
-    name = "${aws_iam_instance_profile.monitoring-profile.name}"
-  }
+  iam_instance_profile = "${aws_iam_instance_profile.monitoring-profile.name}"
+  
   tags = {
 	Name = "Monitoring"
   }

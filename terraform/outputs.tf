@@ -18,7 +18,7 @@ output "mongodb-server-ip" {
 }
 output "backend_s3_created_bucket_name" {
   description = "Name of s3 artifacts bucket"
-  value       = "${var.s3_bucket_name}"
+  value       = "${var.s3_bucket_name}${module.backend.random}"
 }
  output "elasticsearch_ip" {
   description = "Elasticsearch IP address"
@@ -28,4 +28,3 @@ output "kibana_ip" {
   description = "Kibana IP address"
   value = module.logging.kibana_ip
 }
- 
