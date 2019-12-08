@@ -125,6 +125,24 @@ resource "aws_security_group" "dos-jenkins" {
     Name = "${var.sg-name[4]}"
   }
 }
+resource "aws_security_group_rule" "dos-jenkins-ingress" {
+  type        = "ingress"
+  from_port   = 8080
+  to_port     = 8080
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  #  self              = true
+  security_group_id = "${aws_security_group.dos-jenkins.id}"
+}
+resource "aws_security_group_rule" "dos-jenkins-egress" {
+  type        = "egress"
+  from_port   = 8080
+  to_port     = 8080
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  #  self              = true
+  security_group_id = "${aws_security_group.dos-jenkins.id}"
+}
 resource "aws_security_group" "dos-metrics-connect" {
   name        = "dos-metrics-connect"
   description = "Allow Node Exporter metrics exchange"
@@ -182,24 +200,6 @@ resource "aws_security_group" "dos-jenkins-ssh" {
   tags = {
     Name = "${var.sg-name[5]}"
   }
-}
-resource "aws_security_group_rule" "dos-jenkins-ingress" {
-  type        = "ingress"
-  from_port   = 8080
-  to_port     = 8080
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  #  self              = true
-  security_group_id = "${aws_security_group.dos-jenkins.id}"
-}
-resource "aws_security_group_rule" "dos-jenkins-egress" {
-  type        = "egress"
-  from_port   = 8080
-  to_port     = 8080
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  #  self              = true
-  security_group_id = "${aws_security_group.dos-jenkins.id}"
 }
 resource "aws_security_group_rule" "dos-jenkins-ingress-ssh" {
   type              = "ingress"

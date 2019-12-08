@@ -59,7 +59,9 @@ resource "aws_instance" "dos-redis" {
     "${var.id-sg-redis}"
   ]
   subnet_id = "${var.subnet-db-a-id}"
-  user_data = templatefile("${var.userdata-path}/userdata-redis.tpl", {})
+  user_data = templatefile("${var.userdata-path}/userdata-redis.tpl", {
+    rdbhost = "${var.redis-server-domain}"
+  })
   tags = {
     Name = "${var.name-tag[2]}"
   }

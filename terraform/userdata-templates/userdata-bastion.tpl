@@ -1,4 +1,5 @@
 #!/bin/bash
+timedatectl set-timezone Europe/Kiev
 ######################################
 # Installing Node Exporter user-data #
 ######################################
