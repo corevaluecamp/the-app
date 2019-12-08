@@ -1,6 +1,6 @@
 output "backend_s3_created_bucket_name" {
   description = ""
-  value       = "${var.s3_bucket_name}"
+  value       = "${aws_s3_bucket.artifacts_bucket.bucket}"
 }
 output "backend_region" {
   description = ""

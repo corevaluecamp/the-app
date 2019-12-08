@@ -1,8 +1,8 @@
 resource "aws_alb" "main" {
-  name = "app-load-balancer"
+  name = "devops-school"
   # subnets need some fixes
-  subnets         = ["${var.subnet-pub-a-id}", "${var.subnet-priv-b-id}"]
-  security_groups = ["${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}", "${var.id-sg-redis}"]
+  subnets         = ["${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
+  security_groups = ["${var.id-sg-backend}", "${var.id-sg-jenkins}", "${var.id-sg-monitoring-access}", "${var.id-sg-kibana}"]
 
 }
 ##################################################################
@@ -133,6 +133,24 @@ resource "aws_alb_target_group" "jenkins" {
     path                = "/login"
   }
 }
+
+resource "aws_alb_target_group" "tomcat" {
+  name     = "tomcat-target-group"
+  port     = 8880
+  protocol = "HTTP"
+  vpc_id   = "${var.my_vpc}"
+
+
+  health_check {
+    healthy_threshold   = "3"
+    interval            = "60"
+    protocol            = "HTTP"
+    matcher             = "200"
+    timeout             = "3"
+    unhealthy_threshold = "2"
+    path                = "/shop/version"
+  }
+}
 ##################################################################
 #*--------------------- ALB listener ---------------------------*#
 ##################################################################
@@ -244,7 +262,7 @@ resource "aws_alb_listener" "grafana_listener" {
   }
 }
 
-resource "aws_alb_listener_rule" "grafana_rule" {
+/* resource "aws_alb_listener_rule" "grafana_rule" {
   listener_arn = "${aws_alb_listener.grafana_listener.arn}"
   action {
     type             = "forward"
@@ -256,7 +274,7 @@ resource "aws_alb_listener_rule" "grafana_rule" {
     values = ["/grafana"]
   }
 }
-
+ */
 
 resource "aws_alb_listener" "kibana_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
@@ -268,7 +286,7 @@ resource "aws_alb_listener" "kibana_listener" {
   }
 }
 
-resource "aws_alb_listener_rule" "kibana_rule" {
+/* resource "aws_alb_listener_rule" "kibana_rule" {
   listener_arn = "${aws_alb_listener.kibana_listener.arn}"
   action {
     type             = "forward"
@@ -279,7 +297,7 @@ resource "aws_alb_listener_rule" "kibana_rule" {
     field  = "path-pattern"
     values = ["/kibana"]
   }
-}
+} */
 
 resource "aws_alb_listener" "jenkins_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
@@ -291,7 +309,7 @@ resource "aws_alb_listener" "jenkins_listener" {
   }
 }
 
-resource "aws_alb_listener_rule" "jenkins_rule" {
+/* resource "aws_alb_listener_rule" "jenkins_rule" {
   listener_arn = "${aws_alb_listener.jenkins_listener.arn}"
   action {
     type             = "forward"
@@ -302,8 +320,30 @@ resource "aws_alb_listener_rule" "jenkins_rule" {
     field  = "path-pattern"
     values = ["/jenkins"]
   }
+} */
+
+resource "aws_alb_listener" "tomcat_listener" {
+  load_balancer_arn = "${aws_alb.main.id}"
+  port              = 8880
+  protocol          = "HTTP"
+  default_action {
+    target_group_arn = "${aws_alb_target_group.jenkins.id}"
+    type             = "forward"
+  }
 }
 
+resource "aws_alb_listener_rule" "tomcat_rule" {
+  listener_arn = "${aws_alb_listener.tomcat_listener.arn}"
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_alb_target_group.tomcat.id}"
+
+  }
+  condition {
+    field  = "path-pattern"
+    values = ["/shop/*"]
+  }
+}
 
 
 ##################################################################
@@ -337,6 +377,10 @@ resource "aws_autoscaling_attachment" "jenkins-attachment" {
   autoscaling_group_name = "${var.jenkins_asg_id}"
 }
 
+resource "aws_autoscaling_attachment" "tomcat-attachment" {
+  alb_target_group_arn   = "${aws_alb_target_group.tomcat.arn}"
+  autoscaling_group_name = "${aws_autoscaling_group.tomcat-asg.id}"
+}
 #Instance Attachment
 resource "aws_alb_target_group_attachment" "grafana_attachment" {
   target_group_arn = "${aws_alb_target_group.grafana.arn}"

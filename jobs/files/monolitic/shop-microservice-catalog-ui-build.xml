@@ -40,6 +40,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>rm -rf /var/lib/jenkins/.npm/5fd4d489-ins-npm-lodash-2-4-1-package-tgz.lock
+ npm install grunt-cli
 ./gradlew -p microservice/frontend/catalog bower grunt_build --stacktrace
 ./gradlew -p microservice/frontend/catalog prepareDeb buildDeb --stacktrace</command>
     </hudson.tasks.Shell>
@@ -57,6 +58,16 @@
     </hudson.tasks.ArtifactArchiver>
   </publishers>
   <buildWrappers>
+<EnvInjectBuildWrapper plugin="envinject@2.3.0">
+<info>
+  <propertiesContent>PATH=/usr/local/bin/:$PATH</propertiesContent>
+    <secureGroovyScript plugin="script-security@1.68">
+ <script></script>
+ <sandbox>false</sandbox>
+    </secureGroovyScript>
+<loadFilesFromMaster>false</loadFilesFromMaster>
+    </info>
+  </EnvInjectBuildWrapper>   
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
       <patterns>
         <hudson.plugins.ws__cleanup.Pattern>

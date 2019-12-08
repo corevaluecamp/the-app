@@ -14,7 +14,7 @@
                     <prop key="generator.drop.collections">0</prop>
                     <prop key="generator.generationJob.rate">0</prop>
                     <prop key="mongo.db">shop</prop>
-                    <prop key="mongo.host">localhost</prop>
+                    <prop key="mongo.host">mongodb.dos.net</prop>
                     <prop key="mongo.port">27017</prop>
                     <prop key="redis.cart.microservice.url">http://shop.microservice.io/api/cart</prop>
                     <prop key="mix.panel.token">92fd25e4ab5d1371f36d650e67be9f84</prop>
@@ -40,7 +40,7 @@
                     <prop key="generator.drop.collections">0</prop>
                     <prop key="generator.generationJob.rate">0</prop>
                     <prop key="mongo.db">shop</prop>
-                    <prop key="mongo.host">mongodb-node</prop>
+                    <prop key="mongo.host">mongodb.dos.net</prop>
                     <prop key="mongo.port">27017</prop>
                     <prop key="redis.cart.microservice.url">http://shop.microservice.io/api/cart</prop>
                     <prop key="mix.panel.token">92fd25e4ab5d1371f36d650e67be9f84</prop>

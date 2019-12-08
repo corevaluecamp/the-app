@@ -18,6 +18,9 @@ EOF
 /bin/systemctl daemon-reload
 /bin/systemctl enable kibana.service
 systemctl start kibana.service
+sleep 150
+IP=`curl -k -s http://ifconfig.co`
+curl -X POST "http://$IP:5601/api/kibana/settings" --header "Content-type: application/json" -H 'kbn-xsrf: true' -d '{"changes":{"theme:darkMode":true}}'
 # Downloading the node exporter package
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
 

@@ -10,7 +10,8 @@ yum -y update
 rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
 curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
-yum -y install java-1.8.0-openjdk-devel jenkins git golang python-pip docker gcc-c++ make nodejs 
+yum -y install java-1.8.0-openjdk-devel jenkins git golang python-pip python3 docker gcc-c++ make nodejs 
+pip3 install boto3
 amazon-linux-extras install ruby2.6
 yum install -y ruby-devel
 gem install compass --no-user-install
@@ -74,7 +75,7 @@ git clone https://github.com/corevaluecamp/the-app/ /var/lib/jenkins/appstash
 //git clone https://github.com/corevaluecamp/the-app/ /home/ec2-user/corevalue/
 
 # Installing Jenkins Plugins and restart Jenkins
-java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} install-plugin git:4.0.0 github:1.29.5 terraform:1.0.9 ssh:2.6.1 job-dsl:1.76 workflow-aggregator:2.6 blueocean:1.21.0 pipeline-maven chucknorris:1.2 htmlpublisher:1.21 buildgraph-view:1.8 copyartifact:1.43 jacoco:3.0.4 greenballs locale:1.4 -restart
+java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} install-plugin git:4.0.0 github:1.29.5 terraform:1.0.9 ssh:2.6.1 job-dsl:1.76 workflow-aggregator:2.6 blueocean:1.21.0 pipeline-maven chucknorris:1.2 htmlpublisher:1.21 buildgraph-view:1.8 copyartifact:1.43 jacoco:3.0.4 greenballs locale:1.4 envinject:2.3.0 -restart
 
 # Waiting for Jenkins restart
 sleep 60

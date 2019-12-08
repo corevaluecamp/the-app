@@ -3,7 +3,7 @@ resource "aws_launch_template" "cart_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
-  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}"]
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -27,7 +27,7 @@ resource "aws_autoscaling_group" "cart-asg" {
   desired_capacity    = 1
   max_size            = 2
   min_size            = 1
-  vpc_zone_identifier = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}", "${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
+  vpc_zone_identifier = ["${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
   launch_template {
     id      = "${aws_launch_template.cart_lt.id}"
     version = "$Latest"
@@ -85,7 +85,7 @@ resource "aws_launch_template" "navigation_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
-  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}"]
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -109,7 +109,7 @@ resource "aws_autoscaling_group" "navigation-asg" {
   desired_capacity    = 1
   max_size            = 2
   min_size            = 1
-  vpc_zone_identifier = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}", "${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
+  vpc_zone_identifier = ["${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
   launch_template {
     id      = "${aws_launch_template.navigation_lt.id}"
     version = "$Latest"
@@ -168,7 +168,7 @@ resource "aws_launch_template" "product_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
-  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}"]
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -192,7 +192,7 @@ resource "aws_autoscaling_group" "product-asg" {
   desired_capacity    = 1
   max_size            = 2
   min_size            = 1
-  vpc_zone_identifier = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}", "${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
+  vpc_zone_identifier = ["${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
   launch_template {
     id      = "${aws_launch_template.product_lt.id}"
     version = "$Latest"
@@ -242,3 +242,42 @@ resource "aws_cloudwatch_metric_alarm" "product-asg-alarm-min" {
   alarm_description = "This metric monitors ec2 cpu utilization"
   alarm_actions     = ["${aws_autoscaling_policy.product-asg-policy.arn}"]
 }
+
+######################################################################################################
+
+resource "aws_launch_template" "tomcat_lt" {
+  name                   = "tomcat_service_lt"
+  image_id               = "${var.image_id}"
+  instance_type          = "${var.instance_type}"
+  key_name               = "${var.key}"
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}"]
+
+  iam_instance_profile {
+    name = "${aws_iam_instance_profile.s3_profile.name}"
+  }
+  user_data = "${base64encode(data.template_file.backend_tomcat_template.rendered)}"
+
+  disable_api_termination = true
+
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "Tomcat monolithic"
+    }
+  }
+  tags = {
+    Name = "Tomcat lt"
+  }
+}
+
+resource "aws_autoscaling_group" "tomcat-asg" {
+  desired_capacity    = 1
+  max_size            = 1
+  min_size            = 1
+  vpc_zone_identifier = ["${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
+  launch_template {
+    id      = "${aws_launch_template.tomcat_lt.id}"
+    version = "$Latest"
+  }
+}
+
