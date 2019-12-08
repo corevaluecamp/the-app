@@ -19,7 +19,7 @@ output "iam_s3" {
   value       = "${aws_iam_instance_profile.s3_profile.name}"
 }
 
-output "random"{
+output "random" {
   description = ""
-  value = "${random_string.random.result}"
+  value       = "${random_string.random.result}"
 }

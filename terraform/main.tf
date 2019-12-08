@@ -71,7 +71,7 @@ module "backend" {
   grafana_id       = module.monitoring.grafana_id
   jenkins_asg_id   = module.jenkins.jenkins_asg_id
   es_ip            = module.logging.elasticsearch_ip
-  s3force          = "true"
+  s3force          = true
   #my_sg  = module.security.id-sg-bastion
 
 }

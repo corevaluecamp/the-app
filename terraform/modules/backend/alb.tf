@@ -1,8 +1,8 @@
 resource "aws_alb" "main" {
-  name            = "app-load-balancer"
+  name = "app-load-balancer"
   # subnets need some fixes
-  subnets         = ["${var.subnet-pub-a-id}", "${var.subnet-priv-b-id}"] 
-  security_groups =  ["${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}", "${var.id-sg-redis}"]
+  subnets         = ["${var.subnet-pub-a-id}", "${var.subnet-priv-b-id}"]
+  security_groups = ["${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}", "${var.id-sg-redis}"]
 
 }
 ##################################################################
@@ -40,7 +40,7 @@ resource "aws_alb_target_group" "app-cart" {
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
-    path = "/api/cart/info"
+    path                = "/api/cart/info"
   }
 }
 
@@ -58,7 +58,7 @@ resource "aws_alb_target_group" "app-navigation" {
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
-    path = "/api/navigation/info"
+    path                = "/api/navigation/info"
   }
 }
 
@@ -76,7 +76,7 @@ resource "aws_alb_target_group" "app-product" {
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
-    path = "/api/product/info"
+    path                = "/api/product/info"
   }
 }
 
@@ -94,7 +94,7 @@ resource "aws_alb_target_group" "grafana" {
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
-    path = "/api/health"
+    path                = "/api/health"
   }
 }
 
@@ -112,7 +112,7 @@ resource "aws_alb_target_group" "kibana" {
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
-    path = "/status"
+    path                = "/status"
   }
 }
 
@@ -130,7 +130,7 @@ resource "aws_alb_target_group" "jenkins" {
     matcher             = "200"
     timeout             = "3"
     unhealthy_threshold = "2"
-    path = "/login"
+    path                = "/login"
   }
 }
 ##################################################################
@@ -340,12 +340,12 @@ resource "aws_autoscaling_attachment" "jenkins-attachment" {
 #Instance Attachment
 resource "aws_alb_target_group_attachment" "grafana_attachment" {
   target_group_arn = "${aws_alb_target_group.grafana.arn}"
-  target_id        = "${var.grafana_id}"  
+  target_id        = "${var.grafana_id}"
   port             = 3000
 }
 
 resource "aws_alb_target_group_attachment" "kibana_attachment" {
   target_group_arn = "${aws_alb_target_group.kibana.arn}"
-  target_id        = "${var.kibana_id}"  
+  target_id        = "${var.kibana_id}"
   port             = 5601
 }

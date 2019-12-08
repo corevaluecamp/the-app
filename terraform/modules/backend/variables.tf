@@ -48,6 +48,6 @@ variable "subnet-priv-b-id" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
 
-variable "kibana_id"{}
-variable "grafana_id"{}
-variable "jenkins_asg_id"{}
+variable "kibana_id" {}
+variable "grafana_id" {}
+variable "jenkins_asg_id" {}

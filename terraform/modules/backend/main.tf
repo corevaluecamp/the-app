@@ -85,7 +85,7 @@ resource "aws_launch_template" "navigation_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
-  vpc_security_group_ids =  ["${var.id-sg-redis}", "${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -168,7 +168,7 @@ resource "aws_launch_template" "product_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
-  vpc_security_group_ids =  ["${var.id-sg-redis}", "${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
