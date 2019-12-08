@@ -2,7 +2,7 @@ resource "aws_alb" "main" {
   name            = "app-load-balancer"
   # subnets need some fixes
   subnets         = ["${var.subnet-pub-a-id}", "${var.subnet-priv-b-id}"] 
-  security_groups =  ["${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}"]
+  security_groups =  ["${var.id-sg-bastion}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-jenkins}", "${var.id-sg-redis}"]
 
 }
 ##################################################################
@@ -79,6 +79,60 @@ resource "aws_alb_target_group" "app-product" {
     path = "/api/product/info"
   }
 }
+
+resource "aws_alb_target_group" "grafana" {
+  name     = "grafana-target-group"
+  port     = 3000
+  protocol = "HTTP"
+  vpc_id   = "${var.my_vpc}"
+
+
+  health_check {
+    healthy_threshold   = "3"
+    interval            = "60"
+    protocol            = "HTTP"
+    matcher             = "200"
+    timeout             = "3"
+    unhealthy_threshold = "2"
+    path = "/api/health"
+  }
+}
+
+resource "aws_alb_target_group" "kibana" {
+  name     = "kibana-target-group"
+  port     = 5601
+  protocol = "HTTP"
+  vpc_id   = "${var.my_vpc}"
+
+
+  health_check {
+    healthy_threshold   = "3"
+    interval            = "60"
+    protocol            = "HTTP"
+    matcher             = "200"
+    timeout             = "3"
+    unhealthy_threshold = "2"
+    path = "/status"
+  }
+}
+
+resource "aws_alb_target_group" "jenkins" {
+  name     = "jenkins-target-group"
+  port     = 8080
+  protocol = "HTTP"
+  vpc_id   = "${var.my_vpc}"
+
+
+  health_check {
+    healthy_threshold   = "3"
+    interval            = "60"
+    protocol            = "HTTP"
+    matcher             = "200"
+    timeout             = "3"
+    unhealthy_threshold = "2"
+    path = "/login"
+  }
+}
 ##################################################################
 #*--------------------- ALB listener ---------------------------*#
 ##################################################################
@@ -132,7 +186,6 @@ resource "aws_alb_listener_rule" "app-cart-backend_rule" {
   }
 }
 
-
 resource "aws_alb_listener" "app-navigation-backend" {
   load_balancer_arn = "${aws_alb.main.id}"
   port              = 18090
@@ -179,6 +232,80 @@ resource "aws_alb_listener_rule" "app-product-backend_rule" {
     values = ["/api/product/*"]
   }
 }
+
+
+resource "aws_alb_listener" "grafana_listener" {
+  load_balancer_arn = "${aws_alb.main.id}"
+  port              = 3000
+  protocol          = "HTTP"
+  default_action {
+    target_group_arn = "${aws_alb_target_group.grafana.id}"
+    type             = "forward"
+  }
+}
+
+resource "aws_alb_listener_rule" "grafana_rule" {
+  listener_arn = "${aws_alb_listener.grafana_listener.arn}"
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_alb_target_group.grafana.id}"
+
+  }
+  condition {
+    field  = "path-pattern"
+    values = ["/grafana"]
+  }
+}
+
+
+resource "aws_alb_listener" "kibana_listener" {
+  load_balancer_arn = "${aws_alb.main.id}"
+  port              = 5601
+  protocol          = "HTTP"
+  default_action {
+    target_group_arn = "${aws_alb_target_group.kibana.id}"
+    type             = "forward"
+  }
+}
+
+resource "aws_alb_listener_rule" "kibana_rule" {
+  listener_arn = "${aws_alb_listener.kibana_listener.arn}"
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_alb_target_group.kibana.id}"
+
+  }
+  condition {
+    field  = "path-pattern"
+    values = ["/kibana"]
+  }
+}
+
+resource "aws_alb_listener" "jenkins_listener" {
+  load_balancer_arn = "${aws_alb.main.id}"
+  port              = 8080
+  protocol          = "HTTP"
+  default_action {
+    target_group_arn = "${aws_alb_target_group.jenkins.id}"
+    type             = "forward"
+  }
+}
+
+resource "aws_alb_listener_rule" "jenkins_rule" {
+  listener_arn = "${aws_alb_listener.jenkins_listener.arn}"
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_alb_target_group.jenkins.id}"
+
+  }
+  condition {
+    field  = "path-pattern"
+    values = ["/jenkins"]
+  }
+}
+
+
+
 ##################################################################
 #*---------------------ALB attachment---------------------------*#
 ##################################################################
@@ -200,7 +327,25 @@ resource "aws_autoscaling_attachment" "app-navigation-attachment" {
   autoscaling_group_name = "${aws_autoscaling_group.navigation-asg.id}"
 }
 
-resource "aws_autoscaling_attachment" "app-autoscaling-attachment" {
+resource "aws_autoscaling_attachment" "app-product-attachment" {
   alb_target_group_arn   = "${aws_alb_target_group.app-product.arn}"
   autoscaling_group_name = "${aws_autoscaling_group.product-asg.id}"
+}
+
+resource "aws_autoscaling_attachment" "jenkins-attachment" {
+  alb_target_group_arn   = "${aws_alb_target_group.jenkins.arn}"
+  autoscaling_group_name = "${var.jenkins_asg_id}"
+}
+
+#Instance Attachment
+resource "aws_alb_target_group_attachment" "grafana_attachment" {
+  target_group_arn = "${aws_alb_target_group.grafana.arn}"
+  target_id        = "${var.grafana_id}"  
+  port             = 3000
+}
+
+resource "aws_alb_target_group_attachment" "kibana_attachment" {
+  target_group_arn = "${aws_alb_target_group.kibana.arn}"
+  target_id        = "${var.kibana_id}"  
+  port             = 5601
 }

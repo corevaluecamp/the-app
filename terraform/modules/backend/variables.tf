@@ -31,22 +31,23 @@ variable "my_vpc" {
 /*  variable "my_sg" {
   default = ["${aws_security_group.my_sg.id}]"]
 }  */
-variable "mongo_ip" {
-  default = ""
-}
-variable "es_ip" {
-  default = "127.0.0.1"
-}
-variable "force_des" {
-  default = ""
-}
+variable "mongo_ip" {}
+variable "es_ip" {}
+variable "redis_ip" {}
+
+variable "s3force" {}
 
 variable "id-sg-bastion" {}
 variable "id-sg-backend" {}
 variable "id-sg-private" {}
 variable "id-sg-mongodb" {}
 variable "id-sg-jenkins" {}
+variable "id-sg-redis" {}
 variable "subnet-priv-a-id" {}
 variable "subnet-priv-b-id" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
+
+variable "kibana_id"{}
+variable "grafana_id"{}
+variable "jenkins_asg_id"{}

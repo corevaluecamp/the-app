@@ -5,7 +5,7 @@ yum install java-1.8.0-openjdk-devel -y
 yum install python3 -y
 pip3 install boto3 
 
-#echo "ip redis-node" >> /etc/hosts
+echo "${redis} redis-node" >> /etc/hosts
 echo "${mongo} mongodb-node" >> /etc/hosts
 echo "export BUCKET_NAME=${s3_bucketname}" >>  /home/ec2-user/.bashrc
 echo "export NOW=$(date +'%b-%d-%H-%M-%S')" >>  /home/ec2-user/.bashrc
