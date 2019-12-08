@@ -9,9 +9,15 @@ echo "Install Jenkins"
 yum -y update 
 rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
-curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
-yum -y install java-1.8.0-openjdk-devel jenkins git maven golang python-pip python3 ruby docker gcc-c++ make nodejs npm 
-pip3 install boto3
+curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
+yum -y install java-1.8.0-openjdk-devel jenkins git golang python-pip docker gcc-c++ make nodejs 
+amazon-linux-extras install ruby2.6
+yum install -y ruby-devel
+gem install compass --no-user-install
+npm install -g grunt-cli
+npm install -g bower
+npm install typescript
+npm install typings
 
 # Enabling Jenkins service
 systemctl enable jenkins.service
@@ -38,14 +44,14 @@ instance.save()
 EOF
 
 # Waiting for Jenkins start
-sleep 120
+sleep 40
 
 # Downloading Jenkins CLI
 cp /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar /tmp/jenkins-cli.jar
 
 # Waiting for Jenkins restart
 systemctl restart jenkins.service
-sleep 120
+sleep 40
 
 # Cloning github project
 mkdir /tmp/temp
@@ -59,13 +65,19 @@ cp /tmp/temp/terraform/modules/jenkins/files/org.jenkinsci.plugins.xvfb.Xvfb.xml
 cp /tmp/temp/terraform/modules/jenkins/files/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml /var/lib/jenkins/org.jenkins.ci.plugins.xframe_filter.XFrameFilterPageDecorator.xml
 cp /tmp/temp/terraform/modules/jenkins/files/locale.xml /var/lib/jenkins/locale.xml
 
-mkdir /var/lib/jenkins/repo-cache/
+mkdir /var/lib/jenkins/appstash
+chmod 777 /var/lib/jenkins/appstash
+chown jenkins:jenkins /var/lib/jenkins/appstash
+git clone https://github.com/corevaluecamp/the-app/ /var/lib/jenkins/appstash
+
+//mkdir /home/ec2-user/corevalue/
+//git clone https://github.com/corevaluecamp/the-app/ /home/ec2-user/corevalue/
 
 # Installing Jenkins Plugins and restart Jenkins
 java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} install-plugin git:4.0.0 github:1.29.5 terraform:1.0.9 ssh:2.6.1 job-dsl:1.76 workflow-aggregator:2.6 blueocean:1.21.0 pipeline-maven chucknorris:1.2 htmlpublisher:1.21 buildgraph-view:1.8 copyartifact:1.43 jacoco:3.0.4 greenballs locale:1.4 -restart
 
 # Waiting for Jenkins restart
-sleep 120
+sleep 60
 
 # Restoring(Updating) Jobs
 for BUILD in $(cat /tmp/temp/jobs/files/jobs.txt)
@@ -83,6 +95,7 @@ do
 	    cat "/tmp/temp/jobs/files/monolitic/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} create-job update-job "$BUILD"
     fi
 done
+
 
 ######################################
 # Installing Node Exporter user-data #
