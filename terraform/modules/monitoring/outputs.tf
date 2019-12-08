@@ -1,3 +1,3 @@
-output "Monitoring_id" {
+output "grafana_id" {
   value = aws_instance.Monitoring.id
 }
