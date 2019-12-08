@@ -10,7 +10,8 @@ yum -y update
 rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
 curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
-yum -y install java-1.8.0-openjdk-devel jenkins git golang python-pip docker gcc-c++ make nodejs 
+yum -y install java-1.8.0-openjdk-devel jenkins git golang python-pip python3 docker gcc-c++ make nodejs 
+pip3 install boto3
 amazon-linux-extras install ruby2.6
 yum install -y ruby-devel
 gem install compass --no-user-install
