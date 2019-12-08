@@ -57,6 +57,16 @@
     </hudson.tasks.ArtifactArchiver>
   </publishers>
   <buildWrappers>
+<EnvInjectBuildWrapper plugin="envinject@2.3.0">
+<info>
+  <propertiesContent>PATH=/usr/local/bin/:$PATH</propertiesContent>
+    <secureGroovyScript plugin="script-security@1.68">
+ <script></script>
+ <sandbox>false</sandbox>
+    </secureGroovyScript>
+<loadFilesFromMaster>false</loadFilesFromMaster>
+    </info>
+  </EnvInjectBuildWrapper>   
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
       <patterns>
         <hudson.plugins.ws__cleanup.Pattern>
