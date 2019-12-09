@@ -254,7 +254,7 @@ resource "aws_alb_listener_rule" "app-product-backend_rule" {
 
 resource "aws_alb_listener" "grafana_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
-  port              = 80
+  port              = 3000
   protocol          = "HTTP"
   default_action {
     target_group_arn = "${aws_alb_target_group.grafana.id}"
@@ -262,7 +262,7 @@ resource "aws_alb_listener" "grafana_listener" {
   }
 }
 
-resource "aws_alb_listener_rule" "grafana_rule" {
+/* resource "aws_alb_listener_rule" "grafana_rule" {
   listener_arn = "${aws_alb_listener.grafana_listener.arn}"
   action {
     type             = "forward"
@@ -271,21 +271,21 @@ resource "aws_alb_listener_rule" "grafana_rule" {
   }
   condition {
     field  = "path-pattern"
-    values = ["/grafana"]
+    values = ["/grafana/*"]
   }
-}
+} */
 
 
 resource "aws_alb_listener" "kibana_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
-  port              = 80
+  port              = 5601
   protocol          = "HTTP"
   default_action {
     target_group_arn = "${aws_alb_target_group.kibana.id}"
     type             = "forward"
   }
 }
- resource "aws_alb_listener_rule" "kibana_rule" {
+/*  resource "aws_alb_listener_rule" "kibana_rule" {
   listener_arn = "${aws_alb_listener.kibana_listener.arn}"
   action {
     type             = "forward"
@@ -294,13 +294,13 @@ resource "aws_alb_listener" "kibana_listener" {
   }
   condition {
     field  = "path-pattern"
-    values = ["/kibana"]
+    values = ["/kibana/*"]
   }
 } 
-
+ */
 resource "aws_alb_listener" "jenkins_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
-  port              = 80
+  port              = 8080
   protocol          = "HTTP"
   default_action {
     target_group_arn = "${aws_alb_target_group.jenkins.id}"
@@ -317,7 +317,7 @@ resource "aws_alb_listener" "jenkins_listener" {
   }
   condition {
     field  = "path-pattern"
-    values = ["/jenkins"]
+    values = ["/jenkins/*"]
   }
 } 
 
@@ -326,7 +326,7 @@ resource "aws_alb_listener" "tomcat_listener" {
   port              = 80
   protocol          = "HTTP"
   default_action {
-    target_group_arn = "${aws_alb_target_group.jenkins.id}"
+    target_group_arn = "${aws_alb_target_group.tomcat.id}"
     type             = "forward"
   }
 }
