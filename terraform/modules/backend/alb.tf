@@ -1,7 +1,7 @@
 resource "aws_alb" "main" {
   name = "devops-school"
   # subnets need some fixes
-  subnets         = ["${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
+  subnets         = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}"]
   security_groups = ["${var.id-sg-backend}", "${var.id-sg-jenkins}", "${var.id-sg-monitoring-access}", "${var.id-sg-kibana}"]
 
 }
@@ -254,7 +254,7 @@ resource "aws_alb_listener_rule" "app-product-backend_rule" {
 
 resource "aws_alb_listener" "grafana_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
-  port              = 3000
+  port              = 80
   protocol          = "HTTP"
   default_action {
     target_group_arn = "${aws_alb_target_group.grafana.id}"
@@ -262,7 +262,7 @@ resource "aws_alb_listener" "grafana_listener" {
   }
 }
 
-/* resource "aws_alb_listener_rule" "grafana_rule" {
+resource "aws_alb_listener_rule" "grafana_rule" {
   listener_arn = "${aws_alb_listener.grafana_listener.arn}"
   action {
     type             = "forward"
@@ -274,19 +274,18 @@ resource "aws_alb_listener" "grafana_listener" {
     values = ["/grafana"]
   }
 }
- */
+
 
 resource "aws_alb_listener" "kibana_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
-  port              = 5601
+  port              = 80
   protocol          = "HTTP"
   default_action {
     target_group_arn = "${aws_alb_target_group.kibana.id}"
     type             = "forward"
   }
 }
-
-/* resource "aws_alb_listener_rule" "kibana_rule" {
+ resource "aws_alb_listener_rule" "kibana_rule" {
   listener_arn = "${aws_alb_listener.kibana_listener.arn}"
   action {
     type             = "forward"
@@ -297,11 +296,11 @@ resource "aws_alb_listener" "kibana_listener" {
     field  = "path-pattern"
     values = ["/kibana"]
   }
-} */
+} 
 
 resource "aws_alb_listener" "jenkins_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
-  port              = 8080
+  port              = 80
   protocol          = "HTTP"
   default_action {
     target_group_arn = "${aws_alb_target_group.jenkins.id}"
@@ -309,7 +308,7 @@ resource "aws_alb_listener" "jenkins_listener" {
   }
 }
 
-/* resource "aws_alb_listener_rule" "jenkins_rule" {
+ resource "aws_alb_listener_rule" "jenkins_rule" {
   listener_arn = "${aws_alb_listener.jenkins_listener.arn}"
   action {
     type             = "forward"
@@ -320,11 +319,11 @@ resource "aws_alb_listener" "jenkins_listener" {
     field  = "path-pattern"
     values = ["/jenkins"]
   }
-} */
+} 
 
 resource "aws_alb_listener" "tomcat_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
-  port              = 8880
+  port              = 80
   protocol          = "HTTP"
   default_action {
     target_group_arn = "${aws_alb_target_group.jenkins.id}"

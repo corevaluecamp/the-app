@@ -17,7 +17,7 @@ pipeline {
         steps{
         echo 'Deploying...'
         echo 'Uploading artifact to s3...'
-        sh 'python3 s3.py microservice/service/product/build/distributions/product-0.6.tar product.tar'
+        sh 'python3 s3.py microservice/service/product/build/distributions/product-0.6.lastest.tar product.tar'
         }
     }
 

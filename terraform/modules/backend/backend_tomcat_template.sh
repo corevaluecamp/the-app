@@ -42,7 +42,7 @@ mkdir /home/ec2-user/war
 chmod +rw /home/ec2-user/war
 
 systemctl start tomcat
-sed -i 's/port="8080"/port="8880"/' /etc/tomcat/server.xml 
+sed -i 's/port="8080"/port="8880"/g' /etc/tomcat/server.xml 
 systemctl restart tomcat
 systemctl start crond
 

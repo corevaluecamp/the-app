@@ -19,7 +19,7 @@ output "iam_s3" {
   value       = "${aws_iam_instance_profile.s3_profile.name}"
 }
 
-output "random" {
+output "application_load_balancer_dns" {
   description = ""
-  value       = "${random_string.random.result}"
+  value       = "${aws_alb.main.dns_name}"
 }

@@ -24,6 +24,10 @@ output "backend_s3_created_bucket_name" {
   description = "Name of s3 artifacts bucket"
   value       = module.backend.backend_s3_created_bucket_name
 }
+output "application_load_balancer_dns" {
+  description = "DNS name of application load balancer"
+  value       = module.backend.application_load_balancer_dns
+}
 output "elasticsearch_ip" {
   description = "Elasticsearch IP address"
   value       = module.logging.elasticsearch_ip

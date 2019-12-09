@@ -18,6 +18,7 @@ pipeline {
          echo 'Deploying...'
          echo 'Uploading artifact to s3...'
          sh 'python3 s3.py microservice/service/cart/build/libs/cart-microservice-0.6.$BUILD_NUMBER.jar cart.jar'
+         sh 'python3 s3.py Node_Exporter_Prometheus-1575384595496.json node_exp_prom.json'
         }
     }
 //need to fix build num

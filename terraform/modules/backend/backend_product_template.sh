@@ -32,8 +32,8 @@ touch /home/ec2-user/logs/app-product.log
 cat <<EOF > /home/ec2-user/run.sh
 #!/bin/bash
 tar -xvf /home/ec2-user/tar/product.tar
-chmod +x /home/ec2-user/product-0.6.4/bin/product
-/home/ec2-user/product-0.6.4/bin/product >> /home/ec2-user/logs/app-product.log
+chmod +x /home/ec2-user/product-0.6/bin/product
+/home/ec2-user/product-0.6/bin/product >> /home/ec2-user/logs/app-product.log
 EOF
 
 chmod +x /home/ec2-user/run.sh

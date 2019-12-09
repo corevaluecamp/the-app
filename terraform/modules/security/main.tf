@@ -243,6 +243,14 @@ resource "aws_security_group_rule" "dos-backend-ingress-18100" {
   self              = true
   security_group_id = "${aws_security_group.dos-backend.id}"
 }
+resource "aws_security_group_rule" "dos-backend-ingress-8880" {
+  type              = "ingress"
+  from_port         = 8880
+  to_port           = 8880
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-backend.id}"
+}
 resource "aws_security_group_rule" "dos-backend-egress-18080" {
   type              = "egress"
   from_port         = 18080
@@ -263,6 +271,14 @@ resource "aws_security_group_rule" "dos-backend-egress-18100" {
   type              = "egress"
   from_port         = 18100
   to_port           = 18100
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-backend.id}"
+}
+resource "aws_security_group_rule" "dos-backend-egress-8880" {
+  type              = "egress"
+  from_port         = 8880
+  to_port           = 8880
   protocol          = "tcp"
   self              = true
   security_group_id = "${aws_security_group.dos-backend.id}"
