@@ -11,3 +11,6 @@ variable "key-name" {}
 variable "subnet_id" {}
 variable "id-sg-metrics" {}
 variable "id-sg-monitoring-access" {}
+variable "id-sg-private" {}
+variable "subnet-priv-a-id" {}
+variable "subnet-priv-b-id" {}
