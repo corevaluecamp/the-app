@@ -37,5 +37,6 @@ variable "jenkins_user" {
 variable "jenkins_pass" {
   description = "Password for Jenkins login"
 }
+variable "elsip" {}
 
 variable "iam_role" {}
