@@ -96,7 +96,7 @@ jar {
                 "Implementation-Vendor"  : vendor,
                 "Git-Revision"           : proc.text.trim(),
                 "Build"                  : "${System.getenv("JOB_NAME")}",
-                "Build-Number"           : "${System.getenv("BUILD_NUMBER"",
+                "Build-Number"           : "${System.getenv("BUILD_NUMBER")}",
                 "Class-Path"             : manifestClasspath)
     }
 }
