@@ -22,7 +22,6 @@ module "instances" {
   id-sg-private         = module.security.id-sg-private
   id-sg-mongodb         = module.security.id-sg-mongodb
   id-sg-jenkins         = module.security.id-sg-jenkins
-  id-sg-jenkins-ssh     = module.security.id-sg-jenkins-ssh
   subnet-pub-a-id       = module.network.subnet-pub-a-id
   subnet-pub-b-id       = module.network.subnet-pub-b-id
   subnet-db-a-id        = module.network.subnet-db-a-id
@@ -35,6 +34,7 @@ module "instances" {
 }
 
 module "jenkins" {
+<<<<<<< HEAD
   source            = "./modules/jenkins/"
   id-sg-bastion     = module.security.id-sg-bastion
   id-sg-jenkins     = module.security.id-sg-jenkins
@@ -48,6 +48,20 @@ module "jenkins" {
   jenkins_user      = "${var.jenkins_user}"
   jenkins_pass      = "${var.jenkins_pass}"
   iam_role          = module.backend.iam_s3
+=======
+  source           = "./modules/jenkins/"
+  id-sg-bastion    = module.security.id-sg-bastion
+  id-sg-jenkins    = module.security.id-sg-jenkins
+  id-sg-private    = module.security.id-sg-private
+  key-name         = module.security.key-name
+  subnet-pub-a-id  = module.network.subnet-pub-a-id
+  subnet-pub-b-id  = module.network.subnet-pub-b-id
+  subnet-priv-a-id = module.network.subnet-priv-a-id
+  subnet-priv-b-id = module.network.subnet-priv-b-id
+  jenkins_user     = "${var.jenkins_user}"
+  jenkins_pass     = "${var.jenkins_pass}"
+  iam_role         = module.backend.iam_s3
+>>>>>>> 747e158ee0818777d17cda15b63fc88a86966cf3
 }
 
 module "backend" {
@@ -85,6 +99,9 @@ module "monitoring" {
   # s3_bucket_name = "${var.s3_bucket_name}"
   id-sg-metrics           = module.security.id-sg-metrics
   id-sg-monitoring-access = module.security.id-sg-monitoring-access
+  id-sg-private           = module.security.id-sg-es
+  subnet-priv-a-id        = module.network.subnet-priv-a-id
+  subnet-priv-b-id        = module.network.subnet-priv-b-id
 }
 
 module "logging" {

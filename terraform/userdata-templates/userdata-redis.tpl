@@ -3,7 +3,7 @@ apt update -y
 timedatectl set-timezone Europe/Kiev
 apt install redis-server -y
 cat <<EOF > /etc/redis/redis.conf
-bind redis.dos.net
+bind ${rdbhost}
 protected-mode no
 port 6379
 tcp-backlog 511
