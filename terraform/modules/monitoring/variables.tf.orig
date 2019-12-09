@@ -11,7 +11,10 @@ variable "key-name" {}
 variable "subnet_id" {}
 variable "id-sg-metrics" {}
 variable "id-sg-monitoring-access" {}
+<<<<<<< HEAD
 variable "id-sg-private" {}
-variable "backend_s3_created_bucket_name" {}
 variable "subnet-priv-a-id" {}
 variable "subnet-priv-b-id" {}
+=======
+variable "backend_s3_created_bucket_name" {}
+>>>>>>> c9555539dd29cbf2d4af1a060cbf73cacdd57080

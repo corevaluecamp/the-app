@@ -158,3 +158,31 @@ sed -i -e 's/localhost:9200/127.0.0.1:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
 systemctl enable filebeat
 systemctl start filebeat
+
+# APPENDIX Grafana dashboard import
+yum install python3 -y
+pip3 install boto3
+
+echo "export BUCKET_NAME=${backend_s3_created_bucket_name}" >>  /home/ec2-user/.bashrc
+
+cat <<EOF > /home/ec2-user/s3d.py
+#!/bin/python3
+import boto3
+from sys import argv
+
+bucket_name = argv[1]
+name_in_bucket = argv[2]
+name = argv[3]
+
+s3 = boto3.client('s3')
+s3.download_file(bucket_name, name_in_bucket, name)
+EOF
+
+chmod +x /home/ec2-user/s3d.py
+systemctl start crond
+
+cat <<EOF >> /etc/crontab
+*/5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Exporter_Prometheus-1575384595496.json /var/lib/grafana/dashboards/Node_Exporter_Prometheus-1575384595496.json
+EOF
+
+systemctl restart crond
