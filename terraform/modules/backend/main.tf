@@ -272,7 +272,7 @@ resource "aws_launch_template" "tomcat_lt" {
 
 resource "aws_autoscaling_group" "tomcat-asg" {
   desired_capacity    = 1
-  max_size            = 1
+  max_size            = 2
   min_size            = 1
   vpc_zone_identifier = ["${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
   launch_template {
