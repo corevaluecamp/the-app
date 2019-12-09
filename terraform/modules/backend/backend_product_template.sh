@@ -27,11 +27,12 @@ chmod +x /home/ec2-user/s3d.py
 
 mkdir /home/ec2-user/logs
 mkdir /home/ec2-user/tar
+mkdir /home/ec2-user/product-0.6/
 touch /home/ec2-user/logs/app-product.log
 
 cat <<EOF > /home/ec2-user/run.sh
 #!/bin/bash
-tar -xvf /home/ec2-user/tar/product.tar
+tar -xvf /home/ec2-user/tar/product.tar --strip 1 -C /home/ec2-user/product-0.6/
 chmod +x /home/ec2-user/product-0.6/bin/product
 /home/ec2-user/product-0.6/bin/product >> /home/ec2-user/logs/app-product.log
 EOF
