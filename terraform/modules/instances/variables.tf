@@ -52,3 +52,4 @@ variable "subnet-priv-a-id" {}
 variable "subnet-priv-b-id" {}
 variable "subnet-db-a-id" {}
 variable "subnet-db-b-id" {}
+variable "filebeat-es-ip" {}
