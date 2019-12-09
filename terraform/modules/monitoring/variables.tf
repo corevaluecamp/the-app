@@ -11,3 +11,4 @@ variable "key-name" {}
 variable "subnet_id" {}
 variable "id-sg-metrics" {}
 variable "id-sg-monitoring-access" {}
+variable "backend_s3_created_bucket_name" {}
