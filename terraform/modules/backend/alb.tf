@@ -308,7 +308,7 @@ resource "aws_alb_listener" "jenkins_listener" {
   }
 }
 
- resource "aws_alb_listener_rule" "jenkins_rule" {
+/*  resource "aws_alb_listener_rule" "jenkins_rule" {
   listener_arn = "${aws_alb_listener.jenkins_listener.arn}"
   action {
     type             = "forward"
@@ -320,7 +320,7 @@ resource "aws_alb_listener" "jenkins_listener" {
     values = ["/jenkins/*"]
   }
 } 
-
+ */
 resource "aws_alb_listener" "tomcat_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
   port              = 80
