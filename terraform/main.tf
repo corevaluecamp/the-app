@@ -48,6 +48,7 @@ module "jenkins" {
   jenkins_user     = "${var.jenkins_user}"
   jenkins_pass     = "${var.jenkins_pass}"
   iam_role         = module.backend.iam_s3
+  elsip            = module.logging.elasticsearch_ip
 }
 
 module "backend" {
