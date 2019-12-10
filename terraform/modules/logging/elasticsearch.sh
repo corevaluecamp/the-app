@@ -10,6 +10,7 @@ enabled=1
 autorefresh=1
 type=rpm-md
 EOF
+yum update -y
 yum install elasticsearch -y
 sed -i -e 's/-Xms1g/-Xms512m/g' /etc/elasticsearch/jvm.options
 sed -i -e 's/-Xmx1g/-Xmx512m/g' /etc/elasticsearch/jvm.options

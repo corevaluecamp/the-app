@@ -3,7 +3,7 @@ resource "aws_launch_template" "cart_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
-  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}"]
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-metrics}"]
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -85,7 +85,7 @@ resource "aws_launch_template" "navigation_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
-  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}"]
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-metrics}"]
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -168,7 +168,7 @@ resource "aws_launch_template" "product_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
-  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}"]
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-metrics}"]
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -250,7 +250,7 @@ resource "aws_launch_template" "tomcat_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
-  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}"]
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.id-sg-metrics}"]
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -281,3 +281,46 @@ resource "aws_autoscaling_group" "tomcat-asg" {
   }
 }
 
+resource "aws_autoscaling_policy" "tomcat-asg-policy" {
+  name                   = "tomcat-asg-policy"
+  scaling_adjustment     = 1
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 300
+  autoscaling_group_name = "${aws_autoscaling_group.tomcat-asg.name}"
+}
+
+resource "aws_cloudwatch_metric_alarm" "tomcat-asg-alarm" {
+  alarm_name          = "tomcat-asg-cw-alarm"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "2"
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = "120"
+  statistic           = "Average"
+  threshold           = "80"
+
+  dimensions = {
+    AutoScalingGroupName = "${aws_autoscaling_group.tomcat-asg.name}"
+  }
+
+  alarm_description = "This metric monitors ec2 cpu utilization"
+  alarm_actions     = ["${aws_autoscaling_policy.tomcat-asg-policy.arn}"]
+}
+
+resource "aws_cloudwatch_metric_alarm" "tomcat-asg-alarm-min" {
+  alarm_name          = "tomcat-asg-cw-alarm-min"
+  comparison_operator = "LessThanThreshold"
+  evaluation_periods  = "2"
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = "120"
+  statistic           = "Average"
+  threshold           = "80"
+
+  dimensions = {
+    AutoScalingGroupName = "${aws_autoscaling_group.tomcat-asg.name}"
+  }
+
+  alarm_description = "This metric monitors ec2 cpu utilization"
+  alarm_actions     = ["${aws_autoscaling_policy.tomcat-asg-policy.arn}"]
+}
