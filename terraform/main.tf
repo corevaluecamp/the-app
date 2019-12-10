@@ -81,13 +81,13 @@ module "backend" {
 module "monitoring" {
   source   = "./modules/monitoring"
   key-name = module.security.key-name
-  # subnet_id = module.network.subnet-pub-a-id
   backend_s3_created_bucket_name = module.backend.backend_s3_created_bucket_name
   id-sg-metrics                  = module.security.id-sg-metrics
   id-sg-monitoring-access        = module.security.id-sg-monitoring-access
   id-sg-private                  = module.security.id-sg-es
   subnet-priv-a-id               = module.network.subnet-priv-a-id
   subnet-priv-b-id               = module.network.subnet-priv-b-id
+  elasticip                     = module.logging.elasticsearch_ip
   # NEED S3 ROLE 
 }
 
