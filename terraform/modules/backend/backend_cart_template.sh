@@ -32,7 +32,7 @@ touch /home/ec2-user/logs/app-cart.log
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/14 * * * * root kill java
+*/14 * * * * root kill $(ps aux | grep java | grep -v 'grep' | awk '{print $2}')
 */15 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} cart.jar /home/ec2-user/jar/cart.jar
 */16 * * * * root java -jar /home/ec2-user/jar/cart.jar >> /home/ec2-user/logs/app-cart.log
 EOF

@@ -42,6 +42,7 @@ chmod +x /home/ec2-user/run.sh
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
+*/14 * * * * root kill $(ps aux | grep product | grep -v 'grep' | awk '{print $2}')
 */15 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} product.tar /home/ec2-user/tar/product.tar
 */16 * * * * root /home/ec2-user/run.sh 
 EOF
