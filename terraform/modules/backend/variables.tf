@@ -45,8 +45,8 @@ variable "id-sg-jenkins" {}
 variable "id-sg-redis" {}
 variable "id-sg-kibana" {}
 variable "id-sg-monitoring-access" {}
+variable "id-sg-metrics" {}
 variable "id-sg-load" {}
-
 variable "subnet-priv-a-id" {}
 variable "subnet-priv-b-id" {}
 variable "subnet-pub-a-id" {}

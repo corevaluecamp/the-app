@@ -10,6 +10,7 @@ enabled=1
 autorefresh=1
 type=rpm-md
 EOF
+yum update -y
 yum install kibana -y
 sed -i -e 's/#server.host: "localhost"/server.host: "0.0.0.0"/g' /etc/kibana/kibana.yml
 cat >> /etc/kibana/kibana.yml <<-EOF
