@@ -87,8 +87,7 @@ module "monitoring" {
   id-sg-private                  = module.security.id-sg-es
   subnet-priv-a-id               = module.network.subnet-priv-a-id
   subnet-priv-b-id               = module.network.subnet-priv-b-id
-  elasticip                     = module.logging.elasticsearch_ip
-  # NEED S3 ROLE 
+  elasticip                      = module.logging.elasticsearch_ip
 }
 
 module "logging" {

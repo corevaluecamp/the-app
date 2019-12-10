@@ -36,7 +36,8 @@ resource "aws_iam_role_policy" "discovery_policy" {
   "Statement": [
     {
       "Action": [
-        "ec2:DescribeInstances"
+        "ec2:DescribeInstances",
+        "s3:*"
       ],
       "Effect": "Allow",
       "Resource": "*"
