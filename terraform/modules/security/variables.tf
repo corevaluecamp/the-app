@@ -16,7 +16,8 @@ variable "sg-name" {
     "dos-metrics-connect",
     "dos-monitoring-access",
     "dos-kibana-connect",
-    "dos-logging-connect"
+    "dos-logging-connect",
+    "dos-load-bal"
   ]
   description = "List of security group's names"
 }

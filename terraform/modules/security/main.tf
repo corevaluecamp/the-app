@@ -326,6 +326,79 @@ resource "aws_security_group" "dos-es-connect" {
     Name = "${var.sg-name[10]}"
   }
 }
+# Load Balancer security group
+resource "aws_security_group" "dos-load-bal" {
+  name        = "dos-load-bal"
+  description = "For load balancer"
+  vpc_id      = "${var.vpc-id}"
+  tags = {
+    Name = "${var.sg-name[11]}"
+  }
+}
+resource "aws_security_group_rule" "dos-load-ingress-3000" {
+  type              = "ingress"
+  from_port         = 3000
+  to_port           = 3000
+  protocol          = "tcp"
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
+  security_group_id = "${aws_security_group.dos-load-bal.id}"
+}
+resource "aws_security_group_rule" "dos-load-ingress-8080" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
+  security_group_id = "${aws_security_group.dos-load-bal.id}"
+}
+resource "aws_security_group_rule" "dos-load-ingress-5601" {
+  type              = "ingress"
+  from_port         = 5601
+  to_port           = 5601
+  protocol          = "tcp"
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
+  security_group_id = "${aws_security_group.dos-load-bal.id}"
+}
+resource "aws_security_group_rule" "dos-load-ingress-18080" {
+  type              = "ingress"
+  from_port         = 18080
+  to_port           = 18080
+  protocol          = "tcp"
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
+  security_group_id = "${aws_security_group.dos-load-bal.id}"
+}
+resource "aws_security_group_rule" "dos-load-ingress-18090" {
+  type              = "ingress"
+  from_port         = 18090
+  to_port           = 18090
+  protocol          = "tcp"
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
+  security_group_id = "${aws_security_group.dos-load-bal.id}"
+}
+resource "aws_security_group_rule" "dos-load-ingress-18100" {
+  type              = "ingress"
+  from_port         = 18100
+  to_port           = 18100
+  protocol          = "tcp"
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
+  security_group_id = "${aws_security_group.dos-load-bal.id}"
+}
+resource "aws_security_group_rule" "dos-load-ingress-8880" {
+  type              = "ingress"
+  from_port         = 8880
+  to_port           = 8880
+  protocol          = "tcp"
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
+  security_group_id = "${aws_security_group.dos-load-bal.id}"
+}
+resource "aws_security_group_rule" "dos-load-egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 65500
+  protocol          = "tcp"
+  cidr_blocks       = ["${var.all-ip}"]
+  security_group_id = "${aws_security_group.dos-load-bal.id}"
+}
 # CREATE KEY PAIR
 resource "aws_key_pair" "dos-key" {
   key_name   = "${var.key-name}"

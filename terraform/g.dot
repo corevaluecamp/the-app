@@ -1,0 +1,869 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] module.backend.aws_alb.main" [label = "module.backend.aws_alb.main", shape = "box"]
+		"[root] module.backend.aws_alb_listener.app-cart-backend" [label = "module.backend.aws_alb_listener.app-cart-backend", shape = "box"]
+		"[root] module.backend.aws_alb_listener.app-navigation-backend" [label = "module.backend.aws_alb_listener.app-navigation-backend", shape = "box"]
+		"[root] module.backend.aws_alb_listener.app-product-backend" [label = "module.backend.aws_alb_listener.app-product-backend", shape = "box"]
+		"[root] module.backend.aws_alb_listener.grafana_listener" [label = "module.backend.aws_alb_listener.grafana_listener", shape = "box"]
+		"[root] module.backend.aws_alb_listener.jenkins_listener" [label = "module.backend.aws_alb_listener.jenkins_listener", shape = "box"]
+		"[root] module.backend.aws_alb_listener.kibana_listener" [label = "module.backend.aws_alb_listener.kibana_listener", shape = "box"]
+		"[root] module.backend.aws_alb_listener.tomcat_listener" [label = "module.backend.aws_alb_listener.tomcat_listener", shape = "box"]
+		"[root] module.backend.aws_alb_listener_rule.app-cart-backend_rule" [label = "module.backend.aws_alb_listener_rule.app-cart-backend_rule", shape = "box"]
+		"[root] module.backend.aws_alb_listener_rule.app-navigation-backend_rule" [label = "module.backend.aws_alb_listener_rule.app-navigation-backend_rule", shape = "box"]
+		"[root] module.backend.aws_alb_listener_rule.app-product-backend_rule" [label = "module.backend.aws_alb_listener_rule.app-product-backend_rule", shape = "box"]
+		"[root] module.backend.aws_alb_listener_rule.tomcat_rule" [label = "module.backend.aws_alb_listener_rule.tomcat_rule", shape = "box"]
+		"[root] module.backend.aws_alb_target_group.app-cart" [label = "module.backend.aws_alb_target_group.app-cart", shape = "box"]
+		"[root] module.backend.aws_alb_target_group.app-navigation" [label = "module.backend.aws_alb_target_group.app-navigation", shape = "box"]
+		"[root] module.backend.aws_alb_target_group.app-product" [label = "module.backend.aws_alb_target_group.app-product", shape = "box"]
+		"[root] module.backend.aws_alb_target_group.grafana" [label = "module.backend.aws_alb_target_group.grafana", shape = "box"]
+		"[root] module.backend.aws_alb_target_group.jenkins" [label = "module.backend.aws_alb_target_group.jenkins", shape = "box"]
+		"[root] module.backend.aws_alb_target_group.kibana" [label = "module.backend.aws_alb_target_group.kibana", shape = "box"]
+		"[root] module.backend.aws_alb_target_group.tomcat" [label = "module.backend.aws_alb_target_group.tomcat", shape = "box"]
+		"[root] module.backend.aws_alb_target_group_attachment.grafana_attachment" [label = "module.backend.aws_alb_target_group_attachment.grafana_attachment", shape = "box"]
+		"[root] module.backend.aws_alb_target_group_attachment.kibana_attachment" [label = "module.backend.aws_alb_target_group_attachment.kibana_attachment", shape = "box"]
+		"[root] module.backend.aws_autoscaling_attachment.app-cart-attachment" [label = "module.backend.aws_autoscaling_attachment.app-cart-attachment", shape = "box"]
+		"[root] module.backend.aws_autoscaling_attachment.app-navigation-attachment" [label = "module.backend.aws_autoscaling_attachment.app-navigation-attachment", shape = "box"]
+		"[root] module.backend.aws_autoscaling_attachment.app-product-attachment" [label = "module.backend.aws_autoscaling_attachment.app-product-attachment", shape = "box"]
+		"[root] module.backend.aws_autoscaling_attachment.jenkins-attachment" [label = "module.backend.aws_autoscaling_attachment.jenkins-attachment", shape = "box"]
+		"[root] module.backend.aws_autoscaling_attachment.tomcat-attachment" [label = "module.backend.aws_autoscaling_attachment.tomcat-attachment", shape = "box"]
+		"[root] module.backend.aws_autoscaling_group.cart-asg" [label = "module.backend.aws_autoscaling_group.cart-asg", shape = "box"]
+		"[root] module.backend.aws_autoscaling_group.navigation-asg" [label = "module.backend.aws_autoscaling_group.navigation-asg", shape = "box"]
+		"[root] module.backend.aws_autoscaling_group.product-asg" [label = "module.backend.aws_autoscaling_group.product-asg", shape = "box"]
+		"[root] module.backend.aws_autoscaling_group.tomcat-asg" [label = "module.backend.aws_autoscaling_group.tomcat-asg", shape = "box"]
+		"[root] module.backend.aws_autoscaling_policy.cart-asg-policy" [label = "module.backend.aws_autoscaling_policy.cart-asg-policy", shape = "box"]
+		"[root] module.backend.aws_autoscaling_policy.navigation-asg-policy" [label = "module.backend.aws_autoscaling_policy.navigation-asg-policy", shape = "box"]
+		"[root] module.backend.aws_autoscaling_policy.product-asg-policy" [label = "module.backend.aws_autoscaling_policy.product-asg-policy", shape = "box"]
+		"[root] module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm" [label = "module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm", shape = "box"]
+		"[root] module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm-min" [label = "module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm-min", shape = "box"]
+		"[root] module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm" [label = "module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm", shape = "box"]
+		"[root] module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm-min" [label = "module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm-min", shape = "box"]
+		"[root] module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm" [label = "module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm", shape = "box"]
+		"[root] module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm-min" [label = "module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm-min", shape = "box"]
+		"[root] module.backend.aws_iam_instance_profile.s3_profile" [label = "module.backend.aws_iam_instance_profile.s3_profile", shape = "box"]
+		"[root] module.backend.aws_iam_role.s3_deploy" [label = "module.backend.aws_iam_role.s3_deploy", shape = "box"]
+		"[root] module.backend.aws_iam_role_policy.s3_policy" [label = "module.backend.aws_iam_role_policy.s3_policy", shape = "box"]
+		"[root] module.backend.aws_launch_template.cart_lt" [label = "module.backend.aws_launch_template.cart_lt", shape = "box"]
+		"[root] module.backend.aws_launch_template.navigation_lt" [label = "module.backend.aws_launch_template.navigation_lt", shape = "box"]
+		"[root] module.backend.aws_launch_template.product_lt" [label = "module.backend.aws_launch_template.product_lt", shape = "box"]
+		"[root] module.backend.aws_launch_template.tomcat_lt" [label = "module.backend.aws_launch_template.tomcat_lt", shape = "box"]
+		"[root] module.backend.aws_s3_bucket.artifacts_bucket" [label = "module.backend.aws_s3_bucket.artifacts_bucket", shape = "box"]
+		"[root] module.backend.data.template_file.backend_cart_template" [label = "module.backend.data.template_file.backend_cart_template", shape = "box"]
+		"[root] module.backend.data.template_file.backend_navigation_template" [label = "module.backend.data.template_file.backend_navigation_template", shape = "box"]
+		"[root] module.backend.data.template_file.backend_product_template" [label = "module.backend.data.template_file.backend_product_template", shape = "box"]
+		"[root] module.backend.data.template_file.backend_tomcat_template" [label = "module.backend.data.template_file.backend_tomcat_template", shape = "box"]
+		"[root] module.backend.output.backend_image_id" [label = "module.backend.output.backend_image_id", shape = "note"]
+		"[root] module.backend.output.backend_instance_type" [label = "module.backend.output.backend_instance_type", shape = "note"]
+		"[root] module.backend.output.backend_region" [label = "module.backend.output.backend_region", shape = "note"]
+		"[root] module.backend.output.backend_s3_created_bucket_name" [label = "module.backend.output.backend_s3_created_bucket_name", shape = "note"]
+		"[root] module.backend.output.iam_s3" [label = "module.backend.output.iam_s3", shape = "note"]
+		"[root] module.backend.output.random" [label = "module.backend.output.random", shape = "note"]
+		"[root] module.backend.random_string.random" [label = "module.backend.random_string.random", shape = "box"]
+		"[root] module.backend.var.es_ip" [label = "module.backend.var.es_ip", shape = "note"]
+		"[root] module.backend.var.grafana_id" [label = "module.backend.var.grafana_id", shape = "note"]
+		"[root] module.backend.var.id-sg-backend" [label = "module.backend.var.id-sg-backend", shape = "note"]
+		"[root] module.backend.var.id-sg-bastion" [label = "module.backend.var.id-sg-bastion", shape = "note"]
+		"[root] module.backend.var.id-sg-jenkins" [label = "module.backend.var.id-sg-jenkins", shape = "note"]
+		"[root] module.backend.var.id-sg-kibana" [label = "module.backend.var.id-sg-kibana", shape = "note"]
+		"[root] module.backend.var.id-sg-mongodb" [label = "module.backend.var.id-sg-mongodb", shape = "note"]
+		"[root] module.backend.var.id-sg-monitoring-access" [label = "module.backend.var.id-sg-monitoring-access", shape = "note"]
+		"[root] module.backend.var.id-sg-private" [label = "module.backend.var.id-sg-private", shape = "note"]
+		"[root] module.backend.var.id-sg-redis" [label = "module.backend.var.id-sg-redis", shape = "note"]
+		"[root] module.backend.var.image_id" [label = "module.backend.var.image_id", shape = "note"]
+		"[root] module.backend.var.instance_type" [label = "module.backend.var.instance_type", shape = "note"]
+		"[root] module.backend.var.jenkins_asg_id" [label = "module.backend.var.jenkins_asg_id", shape = "note"]
+		"[root] module.backend.var.key" [label = "module.backend.var.key", shape = "note"]
+		"[root] module.backend.var.kibana_id" [label = "module.backend.var.kibana_id", shape = "note"]
+		"[root] module.backend.var.mongo_ip" [label = "module.backend.var.mongo_ip", shape = "note"]
+		"[root] module.backend.var.my_vpc" [label = "module.backend.var.my_vpc", shape = "note"]
+		"[root] module.backend.var.redis_ip" [label = "module.backend.var.redis_ip", shape = "note"]
+		"[root] module.backend.var.region" [label = "module.backend.var.region", shape = "note"]
+		"[root] module.backend.var.s3_bucket_name" [label = "module.backend.var.s3_bucket_name", shape = "note"]
+		"[root] module.backend.var.s3force" [label = "module.backend.var.s3force", shape = "note"]
+		"[root] module.backend.var.subnet-priv-a-id" [label = "module.backend.var.subnet-priv-a-id", shape = "note"]
+		"[root] module.backend.var.subnet-priv-b-id" [label = "module.backend.var.subnet-priv-b-id", shape = "note"]
+		"[root] module.backend.var.subnet-pub-a-id" [label = "module.backend.var.subnet-pub-a-id", shape = "note"]
+		"[root] module.backend.var.subnet-pub-b-id" [label = "module.backend.var.subnet-pub-b-id", shape = "note"]
+		"[root] module.instances.aws_autoscaling_group.dos-bastion-asg" [label = "module.instances.aws_autoscaling_group.dos-bastion-asg", shape = "box"]
+		"[root] module.instances.aws_instance.dos-mongodb" [label = "module.instances.aws_instance.dos-mongodb", shape = "box"]
+		"[root] module.instances.aws_instance.dos-redis" [label = "module.instances.aws_instance.dos-redis", shape = "box"]
+		"[root] module.instances.aws_launch_template.dos-bastion-launch-tmpl" [label = "module.instances.aws_launch_template.dos-bastion-launch-tmpl", shape = "box"]
+		"[root] module.instances.data.template_file.userdata-bastion" [label = "module.instances.data.template_file.userdata-bastion", shape = "box"]
+		"[root] module.instances.output.instance-ami" [label = "module.instances.output.instance-ami", shape = "note"]
+		"[root] module.instances.output.instance-type" [label = "module.instances.output.instance-type", shape = "note"]
+		"[root] module.instances.output.mongo-server-ip" [label = "module.instances.output.mongo-server-ip", shape = "note"]
+		"[root] module.instances.output.redis-server-ip" [label = "module.instances.output.redis-server-ip", shape = "note"]
+		"[root] module.instances.var.filebeat-es-ip" [label = "module.instances.var.filebeat-es-ip", shape = "note"]
+		"[root] module.instances.var.id-sg-bastion" [label = "module.instances.var.id-sg-bastion", shape = "note"]
+		"[root] module.instances.var.id-sg-jenkins" [label = "module.instances.var.id-sg-jenkins", shape = "note"]
+		"[root] module.instances.var.id-sg-mongodb" [label = "module.instances.var.id-sg-mongodb", shape = "note"]
+		"[root] module.instances.var.id-sg-private" [label = "module.instances.var.id-sg-private", shape = "note"]
+		"[root] module.instances.var.id-sg-redis" [label = "module.instances.var.id-sg-redis", shape = "note"]
+		"[root] module.instances.var.instance-ami" [label = "module.instances.var.instance-ami", shape = "note"]
+		"[root] module.instances.var.instance-type" [label = "module.instances.var.instance-type", shape = "note"]
+		"[root] module.instances.var.key-name" [label = "module.instances.var.key-name", shape = "note"]
+		"[root] module.instances.var.mongodb-server-domain" [label = "module.instances.var.mongodb-server-domain", shape = "note"]
+		"[root] module.instances.var.name-prefix" [label = "module.instances.var.name-prefix", shape = "note"]
+		"[root] module.instances.var.name-tag" [label = "module.instances.var.name-tag", shape = "note"]
+		"[root] module.instances.var.redis-server-domain" [label = "module.instances.var.redis-server-domain", shape = "note"]
+		"[root] module.instances.var.subnet-db-a-id" [label = "module.instances.var.subnet-db-a-id", shape = "note"]
+		"[root] module.instances.var.subnet-db-b-id" [label = "module.instances.var.subnet-db-b-id", shape = "note"]
+		"[root] module.instances.var.subnet-priv-a-id" [label = "module.instances.var.subnet-priv-a-id", shape = "note"]
+		"[root] module.instances.var.subnet-priv-b-id" [label = "module.instances.var.subnet-priv-b-id", shape = "note"]
+		"[root] module.instances.var.subnet-pub-a-id" [label = "module.instances.var.subnet-pub-a-id", shape = "note"]
+		"[root] module.instances.var.subnet-pub-b-id" [label = "module.instances.var.subnet-pub-b-id", shape = "note"]
+		"[root] module.instances.var.userdata-path" [label = "module.instances.var.userdata-path", shape = "note"]
+		"[root] module.jenkins.aws_autoscaling_group.jenkins" [label = "module.jenkins.aws_autoscaling_group.jenkins", shape = "box"]
+		"[root] module.jenkins.aws_launch_template.jenkins-launch-tmpl" [label = "module.jenkins.aws_launch_template.jenkins-launch-tmpl", shape = "box"]
+		"[root] module.jenkins.data.template_file.install-jenkins" [label = "module.jenkins.data.template_file.install-jenkins", shape = "box"]
+		"[root] module.jenkins.output.jenkins_asg_id" [label = "module.jenkins.output.jenkins_asg_id", shape = "note"]
+		"[root] module.jenkins.var.iam_role" [label = "module.jenkins.var.iam_role", shape = "note"]
+		"[root] module.jenkins.var.id-sg-bastion" [label = "module.jenkins.var.id-sg-bastion", shape = "note"]
+		"[root] module.jenkins.var.id-sg-jenkins" [label = "module.jenkins.var.id-sg-jenkins", shape = "note"]
+		"[root] module.jenkins.var.id-sg-private" [label = "module.jenkins.var.id-sg-private", shape = "note"]
+		"[root] module.jenkins.var.instance-ami" [label = "module.jenkins.var.instance-ami", shape = "note"]
+		"[root] module.jenkins.var.instance-type" [label = "module.jenkins.var.instance-type", shape = "note"]
+		"[root] module.jenkins.var.jenkins_pass" [label = "module.jenkins.var.jenkins_pass", shape = "note"]
+		"[root] module.jenkins.var.jenkins_user" [label = "module.jenkins.var.jenkins_user", shape = "note"]
+		"[root] module.jenkins.var.key-name" [label = "module.jenkins.var.key-name", shape = "note"]
+		"[root] module.jenkins.var.subnet-priv-a-id" [label = "module.jenkins.var.subnet-priv-a-id", shape = "note"]
+		"[root] module.jenkins.var.subnet-priv-b-id" [label = "module.jenkins.var.subnet-priv-b-id", shape = "note"]
+		"[root] module.jenkins.var.subnet-pub-a-id" [label = "module.jenkins.var.subnet-pub-a-id", shape = "note"]
+		"[root] module.jenkins.var.subnet-pub-b-id" [label = "module.jenkins.var.subnet-pub-b-id", shape = "note"]
+		"[root] module.jenkins.var.userdata-path" [label = "module.jenkins.var.userdata-path", shape = "note"]
+		"[root] module.logging.aws_instance.ELSearch" [label = "module.logging.aws_instance.ELSearch", shape = "box"]
+		"[root] module.logging.aws_instance.Kibana" [label = "module.logging.aws_instance.Kibana", shape = "box"]
+		"[root] module.logging.data.template_file.scriptkibana" [label = "module.logging.data.template_file.scriptkibana", shape = "box"]
+		"[root] module.logging.output.elasticsearch_ip" [label = "module.logging.output.elasticsearch_ip", shape = "note"]
+		"[root] module.logging.output.kibana_id" [label = "module.logging.output.kibana_id", shape = "note"]
+		"[root] module.logging.output.kibana_ip" [label = "module.logging.output.kibana_ip", shape = "note"]
+		"[root] module.logging.var.id-sg-bastion" [label = "module.logging.var.id-sg-bastion", shape = "note"]
+		"[root] module.logging.var.id-sg-es" [label = "module.logging.var.id-sg-es", shape = "note"]
+		"[root] module.logging.var.id-sg-jenkins" [label = "module.logging.var.id-sg-jenkins", shape = "note"]
+		"[root] module.logging.var.id-sg-kibana" [label = "module.logging.var.id-sg-kibana", shape = "note"]
+		"[root] module.logging.var.id-sg-private" [label = "module.logging.var.id-sg-private", shape = "note"]
+		"[root] module.logging.var.instance-ami" [label = "module.logging.var.instance-ami", shape = "note"]
+		"[root] module.logging.var.instance-type" [label = "module.logging.var.instance-type", shape = "note"]
+		"[root] module.logging.var.key-name" [label = "module.logging.var.key-name", shape = "note"]
+		"[root] module.logging.var.subnet-priv-a-id" [label = "module.logging.var.subnet-priv-a-id", shape = "note"]
+		"[root] module.logging.var.subnet-priv-b-id" [label = "module.logging.var.subnet-priv-b-id", shape = "note"]
+		"[root] module.logging.var.subnet-pub-a-id" [label = "module.logging.var.subnet-pub-a-id", shape = "note"]
+		"[root] module.logging.var.subnet-pub-b-id" [label = "module.logging.var.subnet-pub-b-id", shape = "note"]
+		"[root] module.monitoring.aws_iam_instance_profile.monitoring-profile" [label = "module.monitoring.aws_iam_instance_profile.monitoring-profile", shape = "box"]
+		"[root] module.monitoring.aws_iam_role.monitoring-role" [label = "module.monitoring.aws_iam_role.monitoring-role", shape = "box"]
+		"[root] module.monitoring.aws_iam_role_policy.discovery_policy" [label = "module.monitoring.aws_iam_role_policy.discovery_policy", shape = "box"]
+		"[root] module.monitoring.aws_instance.Monitoring" [label = "module.monitoring.aws_instance.Monitoring", shape = "box"]
+		"[root] module.monitoring.data.template_file.init" [label = "module.monitoring.data.template_file.init", shape = "box"]
+		"[root] module.monitoring.output.grafana_id" [label = "module.monitoring.output.grafana_id", shape = "note"]
+		"[root] module.monitoring.var.backend_s3_created_bucket_name" [label = "module.monitoring.var.backend_s3_created_bucket_name", shape = "note"]
+		"[root] module.monitoring.var.id-sg-metrics" [label = "module.monitoring.var.id-sg-metrics", shape = "note"]
+		"[root] module.monitoring.var.id-sg-monitoring-access" [label = "module.monitoring.var.id-sg-monitoring-access", shape = "note"]
+		"[root] module.monitoring.var.id-sg-private" [label = "module.monitoring.var.id-sg-private", shape = "note"]
+		"[root] module.monitoring.var.instance_type" [label = "module.monitoring.var.instance_type", shape = "note"]
+		"[root] module.monitoring.var.key-name" [label = "module.monitoring.var.key-name", shape = "note"]
+		"[root] module.monitoring.var.my_ami" [label = "module.monitoring.var.my_ami", shape = "note"]
+		"[root] module.monitoring.var.region" [label = "module.monitoring.var.region", shape = "note"]
+		"[root] module.monitoring.var.subnet-priv-a-id" [label = "module.monitoring.var.subnet-priv-a-id", shape = "note"]
+		"[root] module.monitoring.var.subnet-priv-b-id" [label = "module.monitoring.var.subnet-priv-b-id", shape = "note"]
+		"[root] module.network.aws_eip.dos-eip-nat" [label = "module.network.aws_eip.dos-eip-nat", shape = "box"]
+		"[root] module.network.aws_internet_gateway.dos-igw" [label = "module.network.aws_internet_gateway.dos-igw", shape = "box"]
+		"[root] module.network.aws_main_route_table_association.set-main-routetb" [label = "module.network.aws_main_route_table_association.set-main-routetb", shape = "box"]
+		"[root] module.network.aws_nat_gateway.dos-nat" [label = "module.network.aws_nat_gateway.dos-nat", shape = "box"]
+		"[root] module.network.aws_route.dos-db-route" [label = "module.network.aws_route.dos-db-route", shape = "box"]
+		"[root] module.network.aws_route.dos-private-route" [label = "module.network.aws_route.dos-private-route", shape = "box"]
+		"[root] module.network.aws_route.dos-public-route" [label = "module.network.aws_route.dos-public-route", shape = "box"]
+		"[root] module.network.aws_route53_record.dos-rec-set-mongo" [label = "module.network.aws_route53_record.dos-rec-set-mongo", shape = "box"]
+		"[root] module.network.aws_route53_record.dos-rec-set-redis" [label = "module.network.aws_route53_record.dos-rec-set-redis", shape = "box"]
+		"[root] module.network.aws_route53_zone.dos-private-hz" [label = "module.network.aws_route53_zone.dos-private-hz", shape = "box"]
+		"[root] module.network.aws_route_table.dos-routetb-db" [label = "module.network.aws_route_table.dos-routetb-db", shape = "box"]
+		"[root] module.network.aws_route_table.dos-routetb-private" [label = "module.network.aws_route_table.dos-routetb-private", shape = "box"]
+		"[root] module.network.aws_route_table.dos-routetb-public" [label = "module.network.aws_route_table.dos-routetb-public", shape = "box"]
+		"[root] module.network.aws_route_table_association.db-subnet-association" [label = "module.network.aws_route_table_association.db-subnet-association", shape = "box"]
+		"[root] module.network.aws_route_table_association.db-subnet-association-b" [label = "module.network.aws_route_table_association.db-subnet-association-b", shape = "box"]
+		"[root] module.network.aws_route_table_association.private-subnet-association" [label = "module.network.aws_route_table_association.private-subnet-association", shape = "box"]
+		"[root] module.network.aws_route_table_association.private-subnet-association-b" [label = "module.network.aws_route_table_association.private-subnet-association-b", shape = "box"]
+		"[root] module.network.aws_route_table_association.public-subnet-association" [label = "module.network.aws_route_table_association.public-subnet-association", shape = "box"]
+		"[root] module.network.aws_route_table_association.public-subnet-association-b" [label = "module.network.aws_route_table_association.public-subnet-association-b", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-db-a" [label = "module.network.aws_subnet.dos-subnet-db-a", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-db-b" [label = "module.network.aws_subnet.dos-subnet-db-b", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-private-a" [label = "module.network.aws_subnet.dos-subnet-private-a", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-private-b" [label = "module.network.aws_subnet.dos-subnet-private-b", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-public-a" [label = "module.network.aws_subnet.dos-subnet-public-a", shape = "box"]
+		"[root] module.network.aws_subnet.dos-subnet-public-b" [label = "module.network.aws_subnet.dos-subnet-public-b", shape = "box"]
+		"[root] module.network.aws_vpc.dos-vpc" [label = "module.network.aws_vpc.dos-vpc", shape = "box"]
+		"[root] module.network.data.aws_availability_zones.available" [label = "module.network.data.aws_availability_zones.available", shape = "box"]
+		"[root] module.network.output.all-ip" [label = "module.network.output.all-ip", shape = "note"]
+		"[root] module.network.output.availability-zone-a" [label = "module.network.output.availability-zone-a", shape = "note"]
+		"[root] module.network.output.availability-zone-b" [label = "module.network.output.availability-zone-b", shape = "note"]
+		"[root] module.network.output.hosted-zone-domain" [label = "module.network.output.hosted-zone-domain", shape = "note"]
+		"[root] module.network.output.mongodb-server-domain" [label = "module.network.output.mongodb-server-domain", shape = "note"]
+		"[root] module.network.output.mongodb-server-ip" [label = "module.network.output.mongodb-server-ip", shape = "note"]
+		"[root] module.network.output.redis-server-domain" [label = "module.network.output.redis-server-domain", shape = "note"]
+		"[root] module.network.output.subnet-db-a-id" [label = "module.network.output.subnet-db-a-id", shape = "note"]
+		"[root] module.network.output.subnet-db-b-id" [label = "module.network.output.subnet-db-b-id", shape = "note"]
+		"[root] module.network.output.subnet-priv-a-id" [label = "module.network.output.subnet-priv-a-id", shape = "note"]
+		"[root] module.network.output.subnet-priv-b-id" [label = "module.network.output.subnet-priv-b-id", shape = "note"]
+		"[root] module.network.output.subnet-pub-a-id" [label = "module.network.output.subnet-pub-a-id", shape = "note"]
+		"[root] module.network.output.subnet-pub-b-id" [label = "module.network.output.subnet-pub-b-id", shape = "note"]
+		"[root] module.network.output.vpc-id" [label = "module.network.output.vpc-id", shape = "note"]
+		"[root] module.network.var.all-ip" [label = "module.network.var.all-ip", shape = "note"]
+		"[root] module.network.var.hz-domain" [label = "module.network.var.hz-domain", shape = "note"]
+		"[root] module.network.var.hz-name" [label = "module.network.var.hz-name", shape = "note"]
+		"[root] module.network.var.igw-name" [label = "module.network.var.igw-name", shape = "note"]
+		"[root] module.network.var.mongo-rec" [label = "module.network.var.mongo-rec", shape = "note"]
+		"[root] module.network.var.mongo-server-ip" [label = "module.network.var.mongo-server-ip", shape = "note"]
+		"[root] module.network.var.nat-eip" [label = "module.network.var.nat-eip", shape = "note"]
+		"[root] module.network.var.nat-name" [label = "module.network.var.nat-name", shape = "note"]
+		"[root] module.network.var.redis-rec" [label = "module.network.var.redis-rec", shape = "note"]
+		"[root] module.network.var.redis-server-ip" [label = "module.network.var.redis-server-ip", shape = "note"]
+		"[root] module.network.var.routetb-name" [label = "module.network.var.routetb-name", shape = "note"]
+		"[root] module.network.var.subnet-a-name" [label = "module.network.var.subnet-a-name", shape = "note"]
+		"[root] module.network.var.subnet-b-name" [label = "module.network.var.subnet-b-name", shape = "note"]
+		"[root] module.network.var.vpc-cidr" [label = "module.network.var.vpc-cidr", shape = "note"]
+		"[root] module.network.var.vpc-name" [label = "module.network.var.vpc-name", shape = "note"]
+		"[root] module.security.aws_key_pair.dos-key" [label = "module.security.aws_key_pair.dos-key", shape = "box"]
+		"[root] module.security.aws_security_group.dos-backend" [label = "module.security.aws_security_group.dos-backend", shape = "box"]
+		"[root] module.security.aws_security_group.dos-bastion-access" [label = "module.security.aws_security_group.dos-bastion-access", shape = "box"]
+		"[root] module.security.aws_security_group.dos-es-connect" [label = "module.security.aws_security_group.dos-es-connect", shape = "box"]
+		"[root] module.security.aws_security_group.dos-jenkins" [label = "module.security.aws_security_group.dos-jenkins", shape = "box"]
+		"[root] module.security.aws_security_group.dos-kibana-connect" [label = "module.security.aws_security_group.dos-kibana-connect", shape = "box"]
+		"[root] module.security.aws_security_group.dos-metrics-connect" [label = "module.security.aws_security_group.dos-metrics-connect", shape = "box"]
+		"[root] module.security.aws_security_group.dos-mongodb-connect" [label = "module.security.aws_security_group.dos-mongodb-connect", shape = "box"]
+		"[root] module.security.aws_security_group.dos-monitoring-access" [label = "module.security.aws_security_group.dos-monitoring-access", shape = "box"]
+		"[root] module.security.aws_security_group.dos-private-access" [label = "module.security.aws_security_group.dos-private-access", shape = "box"]
+		"[root] module.security.aws_security_group.dos-redis" [label = "module.security.aws_security_group.dos-redis", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-backend-egress-18080" [label = "module.security.aws_security_group_rule.dos-backend-egress-18080", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-backend-egress-18090" [label = "module.security.aws_security_group_rule.dos-backend-egress-18090", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-backend-egress-18100" [label = "module.security.aws_security_group_rule.dos-backend-egress-18100", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-backend-ingress-18080" [label = "module.security.aws_security_group_rule.dos-backend-ingress-18080", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-backend-ingress-18090" [label = "module.security.aws_security_group_rule.dos-backend-ingress-18090", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-backend-ingress-18100" [label = "module.security.aws_security_group_rule.dos-backend-ingress-18100", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-jenkins-egress" [label = "module.security.aws_security_group_rule.dos-jenkins-egress", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-jenkins-ingress" [label = "module.security.aws_security_group_rule.dos-jenkins-ingress", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-jenkins-ingress-ssh" [label = "module.security.aws_security_group_rule.dos-jenkins-ingress-ssh", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-mongodb-egress" [label = "module.security.aws_security_group_rule.dos-mongodb-egress", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-mongodb-ingress" [label = "module.security.aws_security_group_rule.dos-mongodb-ingress", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-private-access-ssh" [label = "module.security.aws_security_group_rule.dos-private-access-ssh", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-redis-egress" [label = "module.security.aws_security_group_rule.dos-redis-egress", shape = "box"]
+		"[root] module.security.aws_security_group_rule.dos-redis-ingress" [label = "module.security.aws_security_group_rule.dos-redis-ingress", shape = "box"]
+		"[root] module.security.aws_security_group_rule.jenkins-egress-ssh" [label = "module.security.aws_security_group_rule.jenkins-egress-ssh", shape = "box"]
+		"[root] module.security.data.http.my-ipaddress" [label = "module.security.data.http.my-ipaddress", shape = "box"]
+		"[root] module.security.output.id-sg-backend" [label = "module.security.output.id-sg-backend", shape = "note"]
+		"[root] module.security.output.id-sg-bastion" [label = "module.security.output.id-sg-bastion", shape = "note"]
+		"[root] module.security.output.id-sg-es" [label = "module.security.output.id-sg-es", shape = "note"]
+		"[root] module.security.output.id-sg-jenkins" [label = "module.security.output.id-sg-jenkins", shape = "note"]
+		"[root] module.security.output.id-sg-kibana" [label = "module.security.output.id-sg-kibana", shape = "note"]
+		"[root] module.security.output.id-sg-metrics" [label = "module.security.output.id-sg-metrics", shape = "note"]
+		"[root] module.security.output.id-sg-mongodb" [label = "module.security.output.id-sg-mongodb", shape = "note"]
+		"[root] module.security.output.id-sg-monitoring-access" [label = "module.security.output.id-sg-monitoring-access", shape = "note"]
+		"[root] module.security.output.id-sg-private" [label = "module.security.output.id-sg-private", shape = "note"]
+		"[root] module.security.output.id-sg-redis" [label = "module.security.output.id-sg-redis", shape = "note"]
+		"[root] module.security.output.key-name" [label = "module.security.output.key-name", shape = "note"]
+		"[root] module.security.var.all-ip" [label = "module.security.var.all-ip", shape = "note"]
+		"[root] module.security.var.key-name" [label = "module.security.var.key-name", shape = "note"]
+		"[root] module.security.var.my-ip" [label = "module.security.var.my-ip", shape = "note"]
+		"[root] module.security.var.pub-key" [label = "module.security.var.pub-key", shape = "note"]
+		"[root] module.security.var.sg-name" [label = "module.security.var.sg-name", shape = "note"]
+		"[root] module.security.var.vpc-id" [label = "module.security.var.vpc-id", shape = "note"]
+		"[root] output.availability-zone-a" [label = "output.availability-zone-a", shape = "note"]
+		"[root] output.availability-zone-b" [label = "output.availability-zone-b", shape = "note"]
+		"[root] output.backend_s3_created_bucket_name" [label = "output.backend_s3_created_bucket_name", shape = "note"]
+		"[root] output.elasticsearch_ip" [label = "output.elasticsearch_ip", shape = "note"]
+		"[root] output.kibana_ip" [label = "output.kibana_ip", shape = "note"]
+		"[root] output.mongodb-server-domain" [label = "output.mongodb-server-domain", shape = "note"]
+		"[root] output.mongodb-server-ip" [label = "output.mongodb-server-ip", shape = "note"]
+		"[root] output.redis-server-domain" [label = "output.redis-server-domain", shape = "note"]
+		"[root] output.redis-server-ip" [label = "output.redis-server-ip", shape = "note"]
+		"[root] provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] provider.http" [label = "provider.http", shape = "diamond"]
+		"[root] provider.random" [label = "provider.random", shape = "diamond"]
+		"[root] provider.template" [label = "provider.template", shape = "diamond"]
+		"[root] var.aws-region" [label = "var.aws-region", shape = "note"]
+		"[root] var.jenkins_pass" [label = "var.jenkins_pass", shape = "note"]
+		"[root] var.jenkins_user" [label = "var.jenkins_user", shape = "note"]
+		"[root] var.s3_bucket_name" [label = "var.s3_bucket_name", shape = "note"]
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_alb_listener.grafana_listener"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_alb_listener.jenkins_listener"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_alb_listener.kibana_listener"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_alb_listener_rule.app-cart-backend_rule"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_alb_listener_rule.app-navigation-backend_rule"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_alb_listener_rule.app-product-backend_rule"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_alb_listener_rule.tomcat_rule"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_alb_target_group_attachment.grafana_attachment"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_alb_target_group_attachment.kibana_attachment"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_autoscaling_attachment.app-cart-attachment"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_autoscaling_attachment.app-navigation-attachment"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_autoscaling_attachment.app-product-attachment"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_autoscaling_attachment.jenkins-attachment"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_autoscaling_attachment.tomcat-attachment"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm-min"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm-min"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm-min"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.aws_iam_role_policy.s3_policy"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.output.backend_image_id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.output.backend_instance_type"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.output.backend_region"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.output.random"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.var.id-sg-bastion"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.var.subnet-pub-a-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.backend.var.subnet-pub-b-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.instances.aws_autoscaling_group.dos-bastion-asg"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.instances.var.filebeat-es-ip"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.instances.var.name-prefix"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.instances.var.subnet-db-b-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.instances.var.subnet-priv-a-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.instances.var.subnet-priv-b-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.jenkins.var.id-sg-bastion"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.jenkins.var.subnet-pub-a-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.jenkins.var.subnet-pub-b-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.logging.var.id-sg-bastion"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.logging.var.subnet-priv-b-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.logging.var.subnet-pub-a-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.logging.var.subnet-pub-b-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.monitoring.aws_iam_role_policy.discovery_policy"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.monitoring.var.backend_s3_created_bucket_name"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.monitoring.var.region"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.monitoring.var.subnet-priv-b-id"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_main_route_table_association.set-main-routetb"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route.dos-db-route"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route.dos-private-route"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route.dos-public-route"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route53_record.dos-rec-set-mongo"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route53_record.dos-rec-set-redis"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route_table_association.db-subnet-association"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route_table_association.db-subnet-association-b"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route_table_association.private-subnet-association"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route_table_association.private-subnet-association-b"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route_table_association.public-subnet-association"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.aws_route_table_association.public-subnet-association-b"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.network.output.hosted-zone-domain"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_key_pair.dos-key"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group.dos-metrics-connect"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-backend-egress-18080"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-backend-egress-18090"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-backend-egress-18100"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-backend-ingress-18080"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-backend-ingress-18090"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-backend-ingress-18100"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-jenkins-egress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-jenkins-ingress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-jenkins-ingress-ssh"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-mongodb-egress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-mongodb-ingress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-private-access-ssh"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-redis-egress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.dos-redis-ingress"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.aws_security_group_rule.jenkins-egress-ssh"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] module.security.var.all-ip"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.availability-zone-a"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.availability-zone-b"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.backend_s3_created_bucket_name"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.elasticsearch_ip"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.kibana_ip"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.mongodb-server-domain"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.mongodb-server-ip"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.redis-server-domain"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.redis-server-ip"
+		"[root] module.backend.aws_alb.main" -> "[root] module.backend.var.id-sg-backend"
+		"[root] module.backend.aws_alb.main" -> "[root] module.backend.var.id-sg-jenkins"
+		"[root] module.backend.aws_alb.main" -> "[root] module.backend.var.id-sg-kibana"
+		"[root] module.backend.aws_alb.main" -> "[root] module.backend.var.id-sg-monitoring-access"
+		"[root] module.backend.aws_alb.main" -> "[root] module.backend.var.subnet-priv-a-id"
+		"[root] module.backend.aws_alb.main" -> "[root] module.backend.var.subnet-priv-b-id"
+		"[root] module.backend.aws_alb_listener.app-cart-backend" -> "[root] module.backend.aws_alb.main"
+		"[root] module.backend.aws_alb_listener.app-cart-backend" -> "[root] module.backend.aws_alb_target_group.app-cart"
+		"[root] module.backend.aws_alb_listener.app-navigation-backend" -> "[root] module.backend.aws_alb.main"
+		"[root] module.backend.aws_alb_listener.app-navigation-backend" -> "[root] module.backend.aws_alb_target_group.app-navigation"
+		"[root] module.backend.aws_alb_listener.app-product-backend" -> "[root] module.backend.aws_alb.main"
+		"[root] module.backend.aws_alb_listener.app-product-backend" -> "[root] module.backend.aws_alb_target_group.app-product"
+		"[root] module.backend.aws_alb_listener.grafana_listener" -> "[root] module.backend.aws_alb.main"
+		"[root] module.backend.aws_alb_listener.grafana_listener" -> "[root] module.backend.aws_alb_target_group.grafana"
+		"[root] module.backend.aws_alb_listener.jenkins_listener" -> "[root] module.backend.aws_alb.main"
+		"[root] module.backend.aws_alb_listener.jenkins_listener" -> "[root] module.backend.aws_alb_target_group.jenkins"
+		"[root] module.backend.aws_alb_listener.kibana_listener" -> "[root] module.backend.aws_alb.main"
+		"[root] module.backend.aws_alb_listener.kibana_listener" -> "[root] module.backend.aws_alb_target_group.kibana"
+		"[root] module.backend.aws_alb_listener.tomcat_listener" -> "[root] module.backend.aws_alb.main"
+		"[root] module.backend.aws_alb_listener.tomcat_listener" -> "[root] module.backend.aws_alb_target_group.jenkins"
+		"[root] module.backend.aws_alb_listener_rule.app-cart-backend_rule" -> "[root] module.backend.aws_alb_listener.app-cart-backend"
+		"[root] module.backend.aws_alb_listener_rule.app-navigation-backend_rule" -> "[root] module.backend.aws_alb_listener.app-navigation-backend"
+		"[root] module.backend.aws_alb_listener_rule.app-product-backend_rule" -> "[root] module.backend.aws_alb_listener.app-product-backend"
+		"[root] module.backend.aws_alb_listener_rule.tomcat_rule" -> "[root] module.backend.aws_alb_listener.tomcat_listener"
+		"[root] module.backend.aws_alb_listener_rule.tomcat_rule" -> "[root] module.backend.aws_alb_target_group.tomcat"
+		"[root] module.backend.aws_alb_target_group.app-cart" -> "[root] module.backend.var.my_vpc"
+		"[root] module.backend.aws_alb_target_group.app-navigation" -> "[root] module.backend.var.my_vpc"
+		"[root] module.backend.aws_alb_target_group.app-product" -> "[root] module.backend.var.my_vpc"
+		"[root] module.backend.aws_alb_target_group.grafana" -> "[root] module.backend.var.my_vpc"
+		"[root] module.backend.aws_alb_target_group.jenkins" -> "[root] module.backend.var.my_vpc"
+		"[root] module.backend.aws_alb_target_group.kibana" -> "[root] module.backend.var.my_vpc"
+		"[root] module.backend.aws_alb_target_group.tomcat" -> "[root] module.backend.var.my_vpc"
+		"[root] module.backend.aws_alb_target_group_attachment.grafana_attachment" -> "[root] module.backend.aws_alb_target_group.grafana"
+		"[root] module.backend.aws_alb_target_group_attachment.grafana_attachment" -> "[root] module.backend.var.grafana_id"
+		"[root] module.backend.aws_alb_target_group_attachment.kibana_attachment" -> "[root] module.backend.aws_alb_target_group.kibana"
+		"[root] module.backend.aws_alb_target_group_attachment.kibana_attachment" -> "[root] module.backend.var.kibana_id"
+		"[root] module.backend.aws_autoscaling_attachment.app-cart-attachment" -> "[root] module.backend.aws_alb_target_group.app-cart"
+		"[root] module.backend.aws_autoscaling_attachment.app-cart-attachment" -> "[root] module.backend.aws_autoscaling_group.cart-asg"
+		"[root] module.backend.aws_autoscaling_attachment.app-navigation-attachment" -> "[root] module.backend.aws_alb_target_group.app-navigation"
+		"[root] module.backend.aws_autoscaling_attachment.app-navigation-attachment" -> "[root] module.backend.aws_autoscaling_group.navigation-asg"
+		"[root] module.backend.aws_autoscaling_attachment.app-product-attachment" -> "[root] module.backend.aws_alb_target_group.app-product"
+		"[root] module.backend.aws_autoscaling_attachment.app-product-attachment" -> "[root] module.backend.aws_autoscaling_group.product-asg"
+		"[root] module.backend.aws_autoscaling_attachment.jenkins-attachment" -> "[root] module.backend.aws_alb_target_group.jenkins"
+		"[root] module.backend.aws_autoscaling_attachment.jenkins-attachment" -> "[root] module.backend.var.jenkins_asg_id"
+		"[root] module.backend.aws_autoscaling_attachment.tomcat-attachment" -> "[root] module.backend.aws_alb_target_group.tomcat"
+		"[root] module.backend.aws_autoscaling_attachment.tomcat-attachment" -> "[root] module.backend.aws_autoscaling_group.tomcat-asg"
+		"[root] module.backend.aws_autoscaling_group.cart-asg" -> "[root] module.backend.aws_launch_template.cart_lt"
+		"[root] module.backend.aws_autoscaling_group.cart-asg" -> "[root] module.backend.var.subnet-priv-a-id"
+		"[root] module.backend.aws_autoscaling_group.cart-asg" -> "[root] module.backend.var.subnet-priv-b-id"
+		"[root] module.backend.aws_autoscaling_group.navigation-asg" -> "[root] module.backend.aws_launch_template.navigation_lt"
+		"[root] module.backend.aws_autoscaling_group.navigation-asg" -> "[root] module.backend.var.subnet-priv-a-id"
+		"[root] module.backend.aws_autoscaling_group.navigation-asg" -> "[root] module.backend.var.subnet-priv-b-id"
+		"[root] module.backend.aws_autoscaling_group.product-asg" -> "[root] module.backend.aws_launch_template.product_lt"
+		"[root] module.backend.aws_autoscaling_group.product-asg" -> "[root] module.backend.var.subnet-priv-a-id"
+		"[root] module.backend.aws_autoscaling_group.product-asg" -> "[root] module.backend.var.subnet-priv-b-id"
+		"[root] module.backend.aws_autoscaling_group.tomcat-asg" -> "[root] module.backend.aws_launch_template.tomcat_lt"
+		"[root] module.backend.aws_autoscaling_group.tomcat-asg" -> "[root] module.backend.var.subnet-priv-a-id"
+		"[root] module.backend.aws_autoscaling_group.tomcat-asg" -> "[root] module.backend.var.subnet-priv-b-id"
+		"[root] module.backend.aws_autoscaling_policy.cart-asg-policy" -> "[root] module.backend.aws_autoscaling_group.cart-asg"
+		"[root] module.backend.aws_autoscaling_policy.navigation-asg-policy" -> "[root] module.backend.aws_autoscaling_group.navigation-asg"
+		"[root] module.backend.aws_autoscaling_policy.product-asg-policy" -> "[root] module.backend.aws_autoscaling_group.product-asg"
+		"[root] module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm" -> "[root] module.backend.aws_autoscaling_policy.cart-asg-policy"
+		"[root] module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm-min" -> "[root] module.backend.aws_autoscaling_policy.cart-asg-policy"
+		"[root] module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm" -> "[root] module.backend.aws_autoscaling_policy.navigation-asg-policy"
+		"[root] module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm-min" -> "[root] module.backend.aws_autoscaling_policy.navigation-asg-policy"
+		"[root] module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm" -> "[root] module.backend.aws_autoscaling_policy.product-asg-policy"
+		"[root] module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm-min" -> "[root] module.backend.aws_autoscaling_policy.product-asg-policy"
+		"[root] module.backend.aws_iam_instance_profile.s3_profile" -> "[root] module.backend.aws_iam_role.s3_deploy"
+		"[root] module.backend.aws_iam_role.s3_deploy" -> "[root] provider.aws"
+		"[root] module.backend.aws_iam_role_policy.s3_policy" -> "[root] module.backend.aws_iam_role.s3_deploy"
+		"[root] module.backend.aws_launch_template.cart_lt" -> "[root] module.backend.aws_iam_instance_profile.s3_profile"
+		"[root] module.backend.aws_launch_template.cart_lt" -> "[root] module.backend.data.template_file.backend_cart_template"
+		"[root] module.backend.aws_launch_template.cart_lt" -> "[root] module.backend.var.id-sg-backend"
+		"[root] module.backend.aws_launch_template.cart_lt" -> "[root] module.backend.var.id-sg-mongodb"
+		"[root] module.backend.aws_launch_template.cart_lt" -> "[root] module.backend.var.id-sg-private"
+		"[root] module.backend.aws_launch_template.cart_lt" -> "[root] module.backend.var.id-sg-redis"
+		"[root] module.backend.aws_launch_template.cart_lt" -> "[root] module.backend.var.image_id"
+		"[root] module.backend.aws_launch_template.cart_lt" -> "[root] module.backend.var.instance_type"
+		"[root] module.backend.aws_launch_template.cart_lt" -> "[root] module.backend.var.key"
+		"[root] module.backend.aws_launch_template.navigation_lt" -> "[root] module.backend.aws_iam_instance_profile.s3_profile"
+		"[root] module.backend.aws_launch_template.navigation_lt" -> "[root] module.backend.data.template_file.backend_navigation_template"
+		"[root] module.backend.aws_launch_template.navigation_lt" -> "[root] module.backend.var.id-sg-backend"
+		"[root] module.backend.aws_launch_template.navigation_lt" -> "[root] module.backend.var.id-sg-mongodb"
+		"[root] module.backend.aws_launch_template.navigation_lt" -> "[root] module.backend.var.id-sg-private"
+		"[root] module.backend.aws_launch_template.navigation_lt" -> "[root] module.backend.var.id-sg-redis"
+		"[root] module.backend.aws_launch_template.navigation_lt" -> "[root] module.backend.var.image_id"
+		"[root] module.backend.aws_launch_template.navigation_lt" -> "[root] module.backend.var.instance_type"
+		"[root] module.backend.aws_launch_template.navigation_lt" -> "[root] module.backend.var.key"
+		"[root] module.backend.aws_launch_template.product_lt" -> "[root] module.backend.aws_iam_instance_profile.s3_profile"
+		"[root] module.backend.aws_launch_template.product_lt" -> "[root] module.backend.data.template_file.backend_product_template"
+		"[root] module.backend.aws_launch_template.product_lt" -> "[root] module.backend.var.id-sg-backend"
+		"[root] module.backend.aws_launch_template.product_lt" -> "[root] module.backend.var.id-sg-mongodb"
+		"[root] module.backend.aws_launch_template.product_lt" -> "[root] module.backend.var.id-sg-private"
+		"[root] module.backend.aws_launch_template.product_lt" -> "[root] module.backend.var.id-sg-redis"
+		"[root] module.backend.aws_launch_template.product_lt" -> "[root] module.backend.var.image_id"
+		"[root] module.backend.aws_launch_template.product_lt" -> "[root] module.backend.var.instance_type"
+		"[root] module.backend.aws_launch_template.product_lt" -> "[root] module.backend.var.key"
+		"[root] module.backend.aws_launch_template.tomcat_lt" -> "[root] module.backend.aws_iam_instance_profile.s3_profile"
+		"[root] module.backend.aws_launch_template.tomcat_lt" -> "[root] module.backend.data.template_file.backend_tomcat_template"
+		"[root] module.backend.aws_launch_template.tomcat_lt" -> "[root] module.backend.var.id-sg-backend"
+		"[root] module.backend.aws_launch_template.tomcat_lt" -> "[root] module.backend.var.id-sg-mongodb"
+		"[root] module.backend.aws_launch_template.tomcat_lt" -> "[root] module.backend.var.id-sg-private"
+		"[root] module.backend.aws_launch_template.tomcat_lt" -> "[root] module.backend.var.id-sg-redis"
+		"[root] module.backend.aws_launch_template.tomcat_lt" -> "[root] module.backend.var.image_id"
+		"[root] module.backend.aws_launch_template.tomcat_lt" -> "[root] module.backend.var.instance_type"
+		"[root] module.backend.aws_launch_template.tomcat_lt" -> "[root] module.backend.var.key"
+		"[root] module.backend.aws_s3_bucket.artifacts_bucket" -> "[root] module.backend.random_string.random"
+		"[root] module.backend.aws_s3_bucket.artifacts_bucket" -> "[root] module.backend.var.s3_bucket_name"
+		"[root] module.backend.aws_s3_bucket.artifacts_bucket" -> "[root] module.backend.var.s3force"
+		"[root] module.backend.aws_s3_bucket.artifacts_bucket" -> "[root] provider.aws"
+		"[root] module.backend.data.template_file.backend_cart_template" -> "[root] module.backend.aws_s3_bucket.artifacts_bucket"
+		"[root] module.backend.data.template_file.backend_cart_template" -> "[root] module.backend.var.es_ip"
+		"[root] module.backend.data.template_file.backend_cart_template" -> "[root] module.backend.var.mongo_ip"
+		"[root] module.backend.data.template_file.backend_cart_template" -> "[root] module.backend.var.redis_ip"
+		"[root] module.backend.data.template_file.backend_cart_template" -> "[root] provider.template"
+		"[root] module.backend.data.template_file.backend_navigation_template" -> "[root] module.backend.aws_s3_bucket.artifacts_bucket"
+		"[root] module.backend.data.template_file.backend_navigation_template" -> "[root] module.backend.var.es_ip"
+		"[root] module.backend.data.template_file.backend_navigation_template" -> "[root] module.backend.var.mongo_ip"
+		"[root] module.backend.data.template_file.backend_navigation_template" -> "[root] module.backend.var.redis_ip"
+		"[root] module.backend.data.template_file.backend_navigation_template" -> "[root] provider.template"
+		"[root] module.backend.data.template_file.backend_product_template" -> "[root] module.backend.aws_s3_bucket.artifacts_bucket"
+		"[root] module.backend.data.template_file.backend_product_template" -> "[root] module.backend.var.es_ip"
+		"[root] module.backend.data.template_file.backend_product_template" -> "[root] module.backend.var.mongo_ip"
+		"[root] module.backend.data.template_file.backend_product_template" -> "[root] module.backend.var.redis_ip"
+		"[root] module.backend.data.template_file.backend_product_template" -> "[root] provider.template"
+		"[root] module.backend.data.template_file.backend_tomcat_template" -> "[root] module.backend.aws_s3_bucket.artifacts_bucket"
+		"[root] module.backend.data.template_file.backend_tomcat_template" -> "[root] module.backend.var.es_ip"
+		"[root] module.backend.data.template_file.backend_tomcat_template" -> "[root] module.backend.var.mongo_ip"
+		"[root] module.backend.data.template_file.backend_tomcat_template" -> "[root] module.backend.var.redis_ip"
+		"[root] module.backend.data.template_file.backend_tomcat_template" -> "[root] provider.template"
+		"[root] module.backend.output.backend_image_id" -> "[root] module.backend.var.instance_type"
+		"[root] module.backend.output.backend_instance_type" -> "[root] module.backend.var.instance_type"
+		"[root] module.backend.output.backend_region" -> "[root] module.backend.var.region"
+		"[root] module.backend.output.backend_s3_created_bucket_name" -> "[root] module.backend.aws_s3_bucket.artifacts_bucket"
+		"[root] module.backend.output.iam_s3" -> "[root] module.backend.aws_iam_instance_profile.s3_profile"
+		"[root] module.backend.output.random" -> "[root] module.backend.random_string.random"
+		"[root] module.backend.random_string.random" -> "[root] provider.random"
+		"[root] module.backend.var.es_ip" -> "[root] module.logging.output.elasticsearch_ip"
+		"[root] module.backend.var.grafana_id" -> "[root] module.monitoring.output.grafana_id"
+		"[root] module.backend.var.id-sg-backend" -> "[root] module.security.output.id-sg-backend"
+		"[root] module.backend.var.id-sg-bastion" -> "[root] module.security.output.id-sg-bastion"
+		"[root] module.backend.var.id-sg-jenkins" -> "[root] module.security.output.id-sg-jenkins"
+		"[root] module.backend.var.id-sg-kibana" -> "[root] module.security.output.id-sg-kibana"
+		"[root] module.backend.var.id-sg-mongodb" -> "[root] module.security.output.id-sg-mongodb"
+		"[root] module.backend.var.id-sg-monitoring-access" -> "[root] module.security.output.id-sg-monitoring-access"
+		"[root] module.backend.var.id-sg-private" -> "[root] module.security.output.id-sg-private"
+		"[root] module.backend.var.id-sg-redis" -> "[root] module.security.output.id-sg-redis"
+		"[root] module.backend.var.jenkins_asg_id" -> "[root] module.jenkins.output.jenkins_asg_id"
+		"[root] module.backend.var.key" -> "[root] module.security.output.key-name"
+		"[root] module.backend.var.kibana_id" -> "[root] module.logging.output.kibana_id"
+		"[root] module.backend.var.mongo_ip" -> "[root] module.instances.output.mongo-server-ip"
+		"[root] module.backend.var.my_vpc" -> "[root] module.network.output.vpc-id"
+		"[root] module.backend.var.redis_ip" -> "[root] module.instances.output.redis-server-ip"
+		"[root] module.backend.var.s3_bucket_name" -> "[root] var.s3_bucket_name"
+		"[root] module.backend.var.subnet-priv-a-id" -> "[root] module.network.output.subnet-priv-a-id"
+		"[root] module.backend.var.subnet-priv-b-id" -> "[root] module.network.output.subnet-priv-b-id"
+		"[root] module.backend.var.subnet-pub-a-id" -> "[root] module.network.output.subnet-pub-a-id"
+		"[root] module.backend.var.subnet-pub-b-id" -> "[root] module.network.output.subnet-pub-b-id"
+		"[root] module.instances.aws_autoscaling_group.dos-bastion-asg" -> "[root] module.instances.aws_launch_template.dos-bastion-launch-tmpl"
+		"[root] module.instances.aws_autoscaling_group.dos-bastion-asg" -> "[root] module.instances.var.subnet-pub-a-id"
+		"[root] module.instances.aws_autoscaling_group.dos-bastion-asg" -> "[root] module.instances.var.subnet-pub-b-id"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.id-sg-jenkins"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.id-sg-mongodb"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.id-sg-private"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.instance-ami"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.instance-type"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.key-name"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.mongodb-server-domain"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.name-tag"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.subnet-db-a-id"
+		"[root] module.instances.aws_instance.dos-mongodb" -> "[root] module.instances.var.userdata-path"
+		"[root] module.instances.aws_instance.dos-redis" -> "[root] module.instances.var.id-sg-private"
+		"[root] module.instances.aws_instance.dos-redis" -> "[root] module.instances.var.id-sg-redis"
+		"[root] module.instances.aws_instance.dos-redis" -> "[root] module.instances.var.instance-ami"
+		"[root] module.instances.aws_instance.dos-redis" -> "[root] module.instances.var.instance-type"
+		"[root] module.instances.aws_instance.dos-redis" -> "[root] module.instances.var.key-name"
+		"[root] module.instances.aws_instance.dos-redis" -> "[root] module.instances.var.name-tag"
+		"[root] module.instances.aws_instance.dos-redis" -> "[root] module.instances.var.redis-server-domain"
+		"[root] module.instances.aws_instance.dos-redis" -> "[root] module.instances.var.subnet-db-a-id"
+		"[root] module.instances.aws_instance.dos-redis" -> "[root] module.instances.var.userdata-path"
+		"[root] module.instances.aws_launch_template.dos-bastion-launch-tmpl" -> "[root] module.instances.data.template_file.userdata-bastion"
+		"[root] module.instances.aws_launch_template.dos-bastion-launch-tmpl" -> "[root] module.instances.var.id-sg-bastion"
+		"[root] module.instances.aws_launch_template.dos-bastion-launch-tmpl" -> "[root] module.instances.var.instance-ami"
+		"[root] module.instances.aws_launch_template.dos-bastion-launch-tmpl" -> "[root] module.instances.var.instance-type"
+		"[root] module.instances.aws_launch_template.dos-bastion-launch-tmpl" -> "[root] module.instances.var.key-name"
+		"[root] module.instances.aws_launch_template.dos-bastion-launch-tmpl" -> "[root] module.instances.var.name-tag"
+		"[root] module.instances.data.template_file.userdata-bastion" -> "[root] module.instances.var.userdata-path"
+		"[root] module.instances.data.template_file.userdata-bastion" -> "[root] provider.template"
+		"[root] module.instances.output.instance-ami" -> "[root] module.instances.var.instance-ami"
+		"[root] module.instances.output.instance-type" -> "[root] module.instances.var.instance-type"
+		"[root] module.instances.output.mongo-server-ip" -> "[root] module.instances.aws_instance.dos-mongodb"
+		"[root] module.instances.output.redis-server-ip" -> "[root] module.instances.aws_instance.dos-redis"
+		"[root] module.instances.var.filebeat-es-ip" -> "[root] module.logging.output.elasticsearch_ip"
+		"[root] module.instances.var.id-sg-bastion" -> "[root] module.security.output.id-sg-bastion"
+		"[root] module.instances.var.id-sg-jenkins" -> "[root] module.security.output.id-sg-jenkins"
+		"[root] module.instances.var.id-sg-mongodb" -> "[root] module.security.output.id-sg-mongodb"
+		"[root] module.instances.var.id-sg-private" -> "[root] module.security.output.id-sg-private"
+		"[root] module.instances.var.id-sg-redis" -> "[root] module.security.output.id-sg-redis"
+		"[root] module.instances.var.key-name" -> "[root] module.security.output.key-name"
+		"[root] module.instances.var.mongodb-server-domain" -> "[root] module.network.output.mongodb-server-domain"
+		"[root] module.instances.var.redis-server-domain" -> "[root] module.network.output.redis-server-domain"
+		"[root] module.instances.var.subnet-db-a-id" -> "[root] module.network.output.subnet-db-a-id"
+		"[root] module.instances.var.subnet-db-b-id" -> "[root] module.network.output.subnet-db-b-id"
+		"[root] module.instances.var.subnet-priv-a-id" -> "[root] module.network.output.subnet-priv-a-id"
+		"[root] module.instances.var.subnet-priv-b-id" -> "[root] module.network.output.subnet-priv-b-id"
+		"[root] module.instances.var.subnet-pub-a-id" -> "[root] module.network.output.subnet-pub-a-id"
+		"[root] module.instances.var.subnet-pub-b-id" -> "[root] module.network.output.subnet-pub-b-id"
+		"[root] module.jenkins.aws_autoscaling_group.jenkins" -> "[root] module.jenkins.aws_launch_template.jenkins-launch-tmpl"
+		"[root] module.jenkins.aws_autoscaling_group.jenkins" -> "[root] module.jenkins.var.subnet-priv-a-id"
+		"[root] module.jenkins.aws_autoscaling_group.jenkins" -> "[root] module.jenkins.var.subnet-priv-b-id"
+		"[root] module.jenkins.aws_launch_template.jenkins-launch-tmpl" -> "[root] module.jenkins.data.template_file.install-jenkins"
+		"[root] module.jenkins.aws_launch_template.jenkins-launch-tmpl" -> "[root] module.jenkins.var.iam_role"
+		"[root] module.jenkins.aws_launch_template.jenkins-launch-tmpl" -> "[root] module.jenkins.var.id-sg-jenkins"
+		"[root] module.jenkins.aws_launch_template.jenkins-launch-tmpl" -> "[root] module.jenkins.var.id-sg-private"
+		"[root] module.jenkins.aws_launch_template.jenkins-launch-tmpl" -> "[root] module.jenkins.var.instance-ami"
+		"[root] module.jenkins.aws_launch_template.jenkins-launch-tmpl" -> "[root] module.jenkins.var.instance-type"
+		"[root] module.jenkins.aws_launch_template.jenkins-launch-tmpl" -> "[root] module.jenkins.var.key-name"
+		"[root] module.jenkins.data.template_file.install-jenkins" -> "[root] module.jenkins.var.jenkins_pass"
+		"[root] module.jenkins.data.template_file.install-jenkins" -> "[root] module.jenkins.var.jenkins_user"
+		"[root] module.jenkins.data.template_file.install-jenkins" -> "[root] module.jenkins.var.userdata-path"
+		"[root] module.jenkins.data.template_file.install-jenkins" -> "[root] provider.template"
+		"[root] module.jenkins.output.jenkins_asg_id" -> "[root] module.jenkins.aws_autoscaling_group.jenkins"
+		"[root] module.jenkins.var.iam_role" -> "[root] module.backend.output.iam_s3"
+		"[root] module.jenkins.var.id-sg-bastion" -> "[root] module.security.output.id-sg-bastion"
+		"[root] module.jenkins.var.id-sg-jenkins" -> "[root] module.security.output.id-sg-jenkins"
+		"[root] module.jenkins.var.id-sg-private" -> "[root] module.security.output.id-sg-private"
+		"[root] module.jenkins.var.jenkins_pass" -> "[root] var.jenkins_pass"
+		"[root] module.jenkins.var.jenkins_user" -> "[root] var.jenkins_user"
+		"[root] module.jenkins.var.key-name" -> "[root] module.security.output.key-name"
+		"[root] module.jenkins.var.subnet-priv-a-id" -> "[root] module.network.output.subnet-priv-a-id"
+		"[root] module.jenkins.var.subnet-priv-b-id" -> "[root] module.network.output.subnet-priv-b-id"
+		"[root] module.jenkins.var.subnet-pub-a-id" -> "[root] module.network.output.subnet-pub-a-id"
+		"[root] module.jenkins.var.subnet-pub-b-id" -> "[root] module.network.output.subnet-pub-b-id"
+		"[root] module.logging.aws_instance.ELSearch" -> "[root] module.logging.var.id-sg-es"
+		"[root] module.logging.aws_instance.ELSearch" -> "[root] module.logging.var.id-sg-jenkins"
+		"[root] module.logging.aws_instance.ELSearch" -> "[root] module.logging.var.id-sg-kibana"
+		"[root] module.logging.aws_instance.ELSearch" -> "[root] module.logging.var.id-sg-private"
+		"[root] module.logging.aws_instance.ELSearch" -> "[root] module.logging.var.instance-ami"
+		"[root] module.logging.aws_instance.ELSearch" -> "[root] module.logging.var.instance-type"
+		"[root] module.logging.aws_instance.ELSearch" -> "[root] module.logging.var.key-name"
+		"[root] module.logging.aws_instance.ELSearch" -> "[root] module.logging.var.subnet-priv-a-id"
+		"[root] module.logging.aws_instance.Kibana" -> "[root] module.logging.data.template_file.scriptkibana"
+		"[root] module.logging.data.template_file.scriptkibana" -> "[root] module.logging.aws_instance.ELSearch"
+		"[root] module.logging.data.template_file.scriptkibana" -> "[root] provider.template"
+		"[root] module.logging.output.elasticsearch_ip" -> "[root] module.logging.aws_instance.ELSearch"
+		"[root] module.logging.output.kibana_id" -> "[root] module.logging.aws_instance.Kibana"
+		"[root] module.logging.output.kibana_ip" -> "[root] module.logging.aws_instance.Kibana"
+		"[root] module.logging.var.id-sg-bastion" -> "[root] module.security.output.id-sg-bastion"
+		"[root] module.logging.var.id-sg-es" -> "[root] module.security.output.id-sg-es"
+		"[root] module.logging.var.id-sg-jenkins" -> "[root] module.security.output.id-sg-jenkins"
+		"[root] module.logging.var.id-sg-kibana" -> "[root] module.security.output.id-sg-kibana"
+		"[root] module.logging.var.id-sg-private" -> "[root] module.security.output.id-sg-es"
+		"[root] module.logging.var.instance-ami" -> "[root] module.instances.output.instance-ami"
+		"[root] module.logging.var.instance-type" -> "[root] module.instances.output.instance-type"
+		"[root] module.logging.var.key-name" -> "[root] module.security.output.key-name"
+		"[root] module.logging.var.subnet-priv-a-id" -> "[root] module.network.output.subnet-priv-a-id"
+		"[root] module.logging.var.subnet-priv-b-id" -> "[root] module.network.output.subnet-priv-b-id"
+		"[root] module.logging.var.subnet-pub-a-id" -> "[root] module.network.output.subnet-pub-a-id"
+		"[root] module.logging.var.subnet-pub-b-id" -> "[root] module.network.output.subnet-pub-b-id"
+		"[root] module.monitoring.aws_iam_instance_profile.monitoring-profile" -> "[root] module.monitoring.aws_iam_role.monitoring-role"
+		"[root] module.monitoring.aws_iam_role.monitoring-role" -> "[root] provider.aws"
+		"[root] module.monitoring.aws_iam_role_policy.discovery_policy" -> "[root] module.monitoring.aws_iam_role.monitoring-role"
+		"[root] module.monitoring.aws_instance.Monitoring" -> "[root] module.monitoring.aws_iam_instance_profile.monitoring-profile"
+		"[root] module.monitoring.aws_instance.Monitoring" -> "[root] module.monitoring.data.template_file.init"
+		"[root] module.monitoring.aws_instance.Monitoring" -> "[root] module.monitoring.var.id-sg-metrics"
+		"[root] module.monitoring.aws_instance.Monitoring" -> "[root] module.monitoring.var.id-sg-monitoring-access"
+		"[root] module.monitoring.aws_instance.Monitoring" -> "[root] module.monitoring.var.id-sg-private"
+		"[root] module.monitoring.aws_instance.Monitoring" -> "[root] module.monitoring.var.instance_type"
+		"[root] module.monitoring.aws_instance.Monitoring" -> "[root] module.monitoring.var.key-name"
+		"[root] module.monitoring.aws_instance.Monitoring" -> "[root] module.monitoring.var.my_ami"
+		"[root] module.monitoring.aws_instance.Monitoring" -> "[root] module.monitoring.var.subnet-priv-a-id"
+		"[root] module.monitoring.data.template_file.init" -> "[root] provider.template"
+		"[root] module.monitoring.output.grafana_id" -> "[root] module.monitoring.aws_instance.Monitoring"
+		"[root] module.monitoring.var.backend_s3_created_bucket_name" -> "[root] var.s3_bucket_name"
+		"[root] module.monitoring.var.id-sg-metrics" -> "[root] module.security.output.id-sg-metrics"
+		"[root] module.monitoring.var.id-sg-monitoring-access" -> "[root] module.security.output.id-sg-monitoring-access"
+		"[root] module.monitoring.var.id-sg-private" -> "[root] module.security.output.id-sg-es"
+		"[root] module.monitoring.var.key-name" -> "[root] module.security.output.key-name"
+		"[root] module.monitoring.var.subnet-priv-a-id" -> "[root] module.network.output.subnet-priv-a-id"
+		"[root] module.monitoring.var.subnet-priv-b-id" -> "[root] module.network.output.subnet-priv-b-id"
+		"[root] module.network.aws_eip.dos-eip-nat" -> "[root] module.network.var.nat-eip"
+		"[root] module.network.aws_eip.dos-eip-nat" -> "[root] provider.aws"
+		"[root] module.network.aws_internet_gateway.dos-igw" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_internet_gateway.dos-igw" -> "[root] module.network.var.igw-name"
+		"[root] module.network.aws_main_route_table_association.set-main-routetb" -> "[root] module.network.aws_route_table.dos-routetb-public"
+		"[root] module.network.aws_nat_gateway.dos-nat" -> "[root] module.network.aws_eip.dos-eip-nat"
+		"[root] module.network.aws_nat_gateway.dos-nat" -> "[root] module.network.aws_internet_gateway.dos-igw"
+		"[root] module.network.aws_nat_gateway.dos-nat" -> "[root] module.network.aws_subnet.dos-subnet-public-a"
+		"[root] module.network.aws_nat_gateway.dos-nat" -> "[root] module.network.var.nat-name"
+		"[root] module.network.aws_route.dos-db-route" -> "[root] module.network.aws_nat_gateway.dos-nat"
+		"[root] module.network.aws_route.dos-db-route" -> "[root] module.network.aws_route_table.dos-routetb-db"
+		"[root] module.network.aws_route.dos-db-route" -> "[root] module.network.var.all-ip"
+		"[root] module.network.aws_route.dos-private-route" -> "[root] module.network.aws_nat_gateway.dos-nat"
+		"[root] module.network.aws_route.dos-private-route" -> "[root] module.network.aws_route_table.dos-routetb-private"
+		"[root] module.network.aws_route.dos-private-route" -> "[root] module.network.var.all-ip"
+		"[root] module.network.aws_route.dos-public-route" -> "[root] module.network.aws_internet_gateway.dos-igw"
+		"[root] module.network.aws_route.dos-public-route" -> "[root] module.network.aws_route_table.dos-routetb-public"
+		"[root] module.network.aws_route.dos-public-route" -> "[root] module.network.var.all-ip"
+		"[root] module.network.aws_route53_record.dos-rec-set-mongo" -> "[root] module.network.aws_route53_zone.dos-private-hz"
+		"[root] module.network.aws_route53_record.dos-rec-set-mongo" -> "[root] module.network.var.mongo-server-ip"
+		"[root] module.network.aws_route53_record.dos-rec-set-redis" -> "[root] module.network.aws_route53_zone.dos-private-hz"
+		"[root] module.network.aws_route53_record.dos-rec-set-redis" -> "[root] module.network.var.redis-server-ip"
+		"[root] module.network.aws_route53_zone.dos-private-hz" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_route53_zone.dos-private-hz" -> "[root] module.network.var.hz-domain"
+		"[root] module.network.aws_route53_zone.dos-private-hz" -> "[root] module.network.var.hz-name"
+		"[root] module.network.aws_route_table.dos-routetb-db" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_route_table.dos-routetb-db" -> "[root] module.network.var.routetb-name"
+		"[root] module.network.aws_route_table.dos-routetb-private" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_route_table.dos-routetb-private" -> "[root] module.network.var.routetb-name"
+		"[root] module.network.aws_route_table.dos-routetb-public" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_route_table.dos-routetb-public" -> "[root] module.network.var.routetb-name"
+		"[root] module.network.aws_route_table_association.db-subnet-association" -> "[root] module.network.aws_route_table.dos-routetb-db"
+		"[root] module.network.aws_route_table_association.db-subnet-association" -> "[root] module.network.aws_subnet.dos-subnet-db-a"
+		"[root] module.network.aws_route_table_association.db-subnet-association-b" -> "[root] module.network.aws_route_table.dos-routetb-db"
+		"[root] module.network.aws_route_table_association.db-subnet-association-b" -> "[root] module.network.aws_subnet.dos-subnet-db-b"
+		"[root] module.network.aws_route_table_association.private-subnet-association" -> "[root] module.network.aws_route_table.dos-routetb-private"
+		"[root] module.network.aws_route_table_association.private-subnet-association" -> "[root] module.network.aws_subnet.dos-subnet-private-a"
+		"[root] module.network.aws_route_table_association.private-subnet-association-b" -> "[root] module.network.aws_route_table.dos-routetb-private"
+		"[root] module.network.aws_route_table_association.private-subnet-association-b" -> "[root] module.network.aws_subnet.dos-subnet-private-b"
+		"[root] module.network.aws_route_table_association.public-subnet-association" -> "[root] module.network.aws_route_table.dos-routetb-public"
+		"[root] module.network.aws_route_table_association.public-subnet-association" -> "[root] module.network.aws_subnet.dos-subnet-public-a"
+		"[root] module.network.aws_route_table_association.public-subnet-association-b" -> "[root] module.network.aws_route_table.dos-routetb-public"
+		"[root] module.network.aws_route_table_association.public-subnet-association-b" -> "[root] module.network.aws_subnet.dos-subnet-public-b"
+		"[root] module.network.aws_subnet.dos-subnet-db-a" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-db-a" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-db-a" -> "[root] module.network.var.subnet-a-name"
+		"[root] module.network.aws_subnet.dos-subnet-db-b" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-db-b" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-db-b" -> "[root] module.network.var.subnet-b-name"
+		"[root] module.network.aws_subnet.dos-subnet-private-a" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-private-a" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-private-a" -> "[root] module.network.var.subnet-a-name"
+		"[root] module.network.aws_subnet.dos-subnet-private-b" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-private-b" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-private-b" -> "[root] module.network.var.subnet-b-name"
+		"[root] module.network.aws_subnet.dos-subnet-public-a" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-public-a" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-public-a" -> "[root] module.network.var.subnet-a-name"
+		"[root] module.network.aws_subnet.dos-subnet-public-b" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.aws_subnet.dos-subnet-public-b" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.aws_subnet.dos-subnet-public-b" -> "[root] module.network.var.subnet-b-name"
+		"[root] module.network.aws_vpc.dos-vpc" -> "[root] module.network.var.vpc-cidr"
+		"[root] module.network.aws_vpc.dos-vpc" -> "[root] module.network.var.vpc-name"
+		"[root] module.network.aws_vpc.dos-vpc" -> "[root] provider.aws"
+		"[root] module.network.data.aws_availability_zones.available" -> "[root] provider.aws"
+		"[root] module.network.output.all-ip" -> "[root] module.network.var.all-ip"
+		"[root] module.network.output.availability-zone-a" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.output.availability-zone-b" -> "[root] module.network.data.aws_availability_zones.available"
+		"[root] module.network.output.hosted-zone-domain" -> "[root] module.network.var.hz-domain"
+		"[root] module.network.output.mongodb-server-domain" -> "[root] module.network.var.hz-domain"
+		"[root] module.network.output.mongodb-server-domain" -> "[root] module.network.var.mongo-rec"
+		"[root] module.network.output.mongodb-server-ip" -> "[root] module.network.var.mongo-server-ip"
+		"[root] module.network.output.redis-server-domain" -> "[root] module.network.var.hz-domain"
+		"[root] module.network.output.redis-server-domain" -> "[root] module.network.var.redis-rec"
+		"[root] module.network.output.subnet-db-a-id" -> "[root] module.network.aws_subnet.dos-subnet-db-a"
+		"[root] module.network.output.subnet-db-b-id" -> "[root] module.network.aws_subnet.dos-subnet-db-b"
+		"[root] module.network.output.subnet-priv-a-id" -> "[root] module.network.aws_subnet.dos-subnet-private-a"
+		"[root] module.network.output.subnet-priv-b-id" -> "[root] module.network.aws_subnet.dos-subnet-private-b"
+		"[root] module.network.output.subnet-pub-a-id" -> "[root] module.network.aws_subnet.dos-subnet-public-a"
+		"[root] module.network.output.subnet-pub-b-id" -> "[root] module.network.aws_subnet.dos-subnet-public-b"
+		"[root] module.network.output.vpc-id" -> "[root] module.network.aws_vpc.dos-vpc"
+		"[root] module.network.var.mongo-server-ip" -> "[root] module.instances.output.mongo-server-ip"
+		"[root] module.network.var.redis-server-ip" -> "[root] module.instances.output.redis-server-ip"
+		"[root] module.security.aws_key_pair.dos-key" -> "[root] module.security.var.key-name"
+		"[root] module.security.aws_key_pair.dos-key" -> "[root] module.security.var.pub-key"
+		"[root] module.security.aws_key_pair.dos-key" -> "[root] provider.aws"
+		"[root] module.security.aws_security_group.dos-backend" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-backend" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-bastion-access" -> "[root] module.security.data.http.my-ipaddress"
+		"[root] module.security.aws_security_group.dos-bastion-access" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-bastion-access" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-es-connect" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-es-connect" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-jenkins" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-jenkins" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-kibana-connect" -> "[root] module.security.data.http.my-ipaddress"
+		"[root] module.security.aws_security_group.dos-kibana-connect" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-kibana-connect" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-metrics-connect" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-metrics-connect" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-mongodb-connect" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-mongodb-connect" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-monitoring-access" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-monitoring-access" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-private-access" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-private-access" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group.dos-redis" -> "[root] module.security.var.sg-name"
+		"[root] module.security.aws_security_group.dos-redis" -> "[root] module.security.var.vpc-id"
+		"[root] module.security.aws_security_group_rule.dos-backend-egress-18080" -> "[root] module.security.aws_security_group.dos-backend"
+		"[root] module.security.aws_security_group_rule.dos-backend-egress-18090" -> "[root] module.security.aws_security_group.dos-backend"
+		"[root] module.security.aws_security_group_rule.dos-backend-egress-18100" -> "[root] module.security.aws_security_group.dos-backend"
+		"[root] module.security.aws_security_group_rule.dos-backend-ingress-18080" -> "[root] module.security.aws_security_group.dos-backend"
+		"[root] module.security.aws_security_group_rule.dos-backend-ingress-18090" -> "[root] module.security.aws_security_group.dos-backend"
+		"[root] module.security.aws_security_group_rule.dos-backend-ingress-18100" -> "[root] module.security.aws_security_group.dos-backend"
+		"[root] module.security.aws_security_group_rule.dos-jenkins-egress" -> "[root] module.security.aws_security_group.dos-jenkins"
+		"[root] module.security.aws_security_group_rule.dos-jenkins-ingress" -> "[root] module.security.aws_security_group.dos-jenkins"
+		"[root] module.security.aws_security_group_rule.dos-jenkins-ingress-ssh" -> "[root] module.security.aws_security_group.dos-jenkins"
+		"[root] module.security.aws_security_group_rule.dos-mongodb-egress" -> "[root] module.security.aws_security_group.dos-mongodb-connect"
+		"[root] module.security.aws_security_group_rule.dos-mongodb-ingress" -> "[root] module.security.aws_security_group.dos-mongodb-connect"
+		"[root] module.security.aws_security_group_rule.dos-private-access-ssh" -> "[root] module.security.aws_security_group.dos-bastion-access"
+		"[root] module.security.aws_security_group_rule.dos-private-access-ssh" -> "[root] module.security.aws_security_group.dos-private-access"
+		"[root] module.security.aws_security_group_rule.dos-redis-egress" -> "[root] module.security.aws_security_group.dos-redis"
+		"[root] module.security.aws_security_group_rule.dos-redis-ingress" -> "[root] module.security.aws_security_group.dos-redis"
+		"[root] module.security.aws_security_group_rule.jenkins-egress-ssh" -> "[root] module.security.aws_security_group.dos-jenkins"
+		"[root] module.security.data.http.my-ipaddress" -> "[root] module.security.var.my-ip"
+		"[root] module.security.data.http.my-ipaddress" -> "[root] provider.http"
+		"[root] module.security.output.id-sg-backend" -> "[root] module.security.aws_security_group.dos-backend"
+		"[root] module.security.output.id-sg-bastion" -> "[root] module.security.aws_security_group.dos-bastion-access"
+		"[root] module.security.output.id-sg-es" -> "[root] module.security.aws_security_group.dos-es-connect"
+		"[root] module.security.output.id-sg-jenkins" -> "[root] module.security.aws_security_group.dos-jenkins"
+		"[root] module.security.output.id-sg-kibana" -> "[root] module.security.aws_security_group.dos-kibana-connect"
+		"[root] module.security.output.id-sg-metrics" -> "[root] module.security.aws_security_group.dos-monitoring-access"
+		"[root] module.security.output.id-sg-mongodb" -> "[root] module.security.aws_security_group.dos-mongodb-connect"
+		"[root] module.security.output.id-sg-monitoring-access" -> "[root] module.security.aws_security_group.dos-monitoring-access"
+		"[root] module.security.output.id-sg-private" -> "[root] module.security.aws_security_group.dos-private-access"
+		"[root] module.security.output.id-sg-redis" -> "[root] module.security.aws_security_group.dos-redis"
+		"[root] module.security.output.key-name" -> "[root] module.security.var.key-name"
+		"[root] module.security.var.all-ip" -> "[root] module.network.output.all-ip"
+		"[root] module.security.var.vpc-id" -> "[root] module.network.output.vpc-id"
+		"[root] output.availability-zone-a" -> "[root] module.network.output.availability-zone-a"
+		"[root] output.availability-zone-b" -> "[root] module.network.output.availability-zone-b"
+		"[root] output.backend_s3_created_bucket_name" -> "[root] module.backend.output.backend_s3_created_bucket_name"
+		"[root] output.elasticsearch_ip" -> "[root] module.logging.output.elasticsearch_ip"
+		"[root] output.kibana_ip" -> "[root] module.logging.output.kibana_ip"
+		"[root] output.mongodb-server-domain" -> "[root] module.network.output.mongodb-server-domain"
+		"[root] output.mongodb-server-ip" -> "[root] module.network.output.mongodb-server-ip"
+		"[root] output.redis-server-domain" -> "[root] module.network.output.redis-server-domain"
+		"[root] output.redis-server-ip" -> "[root] module.instances.output.redis-server-ip"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_alb_listener.grafana_listener"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_alb_listener.jenkins_listener"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_alb_listener.kibana_listener"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_alb_listener_rule.app-cart-backend_rule"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_alb_listener_rule.app-navigation-backend_rule"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_alb_listener_rule.app-product-backend_rule"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_alb_listener_rule.tomcat_rule"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_alb_target_group_attachment.grafana_attachment"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_alb_target_group_attachment.kibana_attachment"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_autoscaling_attachment.app-cart-attachment"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_autoscaling_attachment.app-navigation-attachment"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_autoscaling_attachment.app-product-attachment"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_autoscaling_attachment.jenkins-attachment"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_autoscaling_attachment.tomcat-attachment"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.cart-asg-alarm-min"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.navigation-asg-alarm-min"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_cloudwatch_metric_alarm.product-asg-alarm-min"
+		"[root] provider.aws (close)" -> "[root] module.backend.aws_iam_role_policy.s3_policy"
+		"[root] provider.aws (close)" -> "[root] module.instances.aws_autoscaling_group.dos-bastion-asg"
+		"[root] provider.aws (close)" -> "[root] module.monitoring.aws_iam_role_policy.discovery_policy"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_main_route_table_association.set-main-routetb"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route.dos-db-route"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route.dos-private-route"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route.dos-public-route"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route53_record.dos-rec-set-mongo"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route53_record.dos-rec-set-redis"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route_table_association.db-subnet-association"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route_table_association.db-subnet-association-b"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route_table_association.private-subnet-association"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route_table_association.private-subnet-association-b"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route_table_association.public-subnet-association"
+		"[root] provider.aws (close)" -> "[root] module.network.aws_route_table_association.public-subnet-association-b"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_key_pair.dos-key"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group.dos-metrics-connect"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-backend-egress-18080"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-backend-egress-18090"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-backend-egress-18100"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-backend-ingress-18080"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-backend-ingress-18090"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-backend-ingress-18100"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-jenkins-egress"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-jenkins-ingress"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-jenkins-ingress-ssh"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-mongodb-egress"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-mongodb-ingress"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-private-access-ssh"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-redis-egress"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.dos-redis-ingress"
+		"[root] provider.aws (close)" -> "[root] module.security.aws_security_group_rule.jenkins-egress-ssh"
+		"[root] provider.aws" -> "[root] var.aws-region"
+		"[root] provider.http (close)" -> "[root] module.security.data.http.my-ipaddress"
+		"[root] provider.random (close)" -> "[root] module.backend.random_string.random"
+		"[root] provider.template (close)" -> "[root] module.backend.data.template_file.backend_cart_template"
+		"[root] provider.template (close)" -> "[root] module.backend.data.template_file.backend_navigation_template"
+		"[root] provider.template (close)" -> "[root] module.backend.data.template_file.backend_product_template"
+		"[root] provider.template (close)" -> "[root] module.backend.data.template_file.backend_tomcat_template"
+		"[root] provider.template (close)" -> "[root] module.instances.data.template_file.userdata-bastion"
+		"[root] provider.template (close)" -> "[root] module.jenkins.data.template_file.install-jenkins"
+		"[root] provider.template (close)" -> "[root] module.logging.data.template_file.scriptkibana"
+		"[root] provider.template (close)" -> "[root] module.monitoring.data.template_file.init"
+		"[root] root" -> "[root] meta.count-boundary (EachMode fixup)"
+		"[root] root" -> "[root] provider.aws (close)"
+		"[root] root" -> "[root] provider.http (close)"
+		"[root] root" -> "[root] provider.random (close)"
+		"[root] root" -> "[root] provider.template (close)"
+	}
+}
+

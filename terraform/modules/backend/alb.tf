@@ -1,8 +1,9 @@
 resource "aws_alb" "main" {
   name = "devops-school"
   # subnets need some fixes
-  subnets         = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}"]
-  security_groups = ["${var.id-sg-backend}", "${var.id-sg-jenkins}", "${var.id-sg-monitoring-access}", "${var.id-sg-kibana}"]
+  subnets = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}"]
+  # security_groups = ["${var.id-sg-backend}", "${var.id-sg-jenkins}", "${var.id-sg-monitoring-access}", "${var.id-sg-kibana}"]
+  security_groups = ["${var.id-sg-load}"]
 
 }
 ##################################################################
@@ -296,7 +297,7 @@ resource "aws_alb_listener" "kibana_listener" {
     field  = "path-pattern"
     values = ["/kibana/*"]
   }
-} 
+}
  */
 resource "aws_alb_listener" "jenkins_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
@@ -319,7 +320,7 @@ resource "aws_alb_listener" "jenkins_listener" {
     field  = "path-pattern"
     values = ["/jenkins/*"]
   }
-} 
+}
  */
 resource "aws_alb_listener" "tomcat_listener" {
   load_balancer_arn = "${aws_alb.main.id}"

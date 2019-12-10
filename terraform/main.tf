@@ -49,6 +49,7 @@ module "jenkins" {
   jenkins_pass     = "${var.jenkins_pass}"
   iam_role         = module.backend.iam_s3
   elsip            = module.logging.elasticsearch_ip
+  id-sg-load       = module.security.id-sg-load
 }
 
 module "backend" {
@@ -74,6 +75,7 @@ module "backend" {
   grafana_id              = module.monitoring.grafana_id
   jenkins_asg_id          = module.jenkins.jenkins_asg_id
   es_ip                   = module.logging.elasticsearch_ip
+  id-sg-load              = module.security.id-sg-load
   s3force                 = true
 
 }
@@ -88,7 +90,7 @@ module "monitoring" {
   id-sg-private                  = module.security.id-sg-es
   subnet-priv-a-id               = module.network.subnet-priv-a-id
   subnet-priv-b-id               = module.network.subnet-priv-b-id
-  # NEED S3 ROLE 
+  # NEED S3 ROLE
 }
 
 module "logging" {

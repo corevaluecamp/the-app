@@ -38,7 +38,8 @@ resource "aws_instance" "dos-mongodb" {
   vpc_security_group_ids = [
     "${var.id-sg-private}",
     "${var.id-sg-mongodb}",
-    "${var.id-sg-jenkins}"
+    "${var.id-sg-jenkins}",
+
   ]
   subnet_id = "${var.subnet-db-a-id}"
   user_data = templatefile("${var.userdata-path}/userdata-mongo.tpl", {

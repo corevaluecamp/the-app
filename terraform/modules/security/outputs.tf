@@ -43,3 +43,7 @@ output "id-sg-redis" {
   description = "The ID of security group for Elasticsearch and Filebeat"
   value       = "${aws_security_group.dos-redis.id}"
 }
+output "id-sg-load" {
+  description = "The ID of security group for Elasticsearch and Filebeat"
+  value       = "${aws_security_group.dos-load-bal.id}"
+}
