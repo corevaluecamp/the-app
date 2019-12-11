@@ -1,13 +1,19 @@
 pipeline {
   agent any
   stages {
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/corevaluecamp/the-app'
+      }
+    }
+    
     stage('Build') {
       steps {
         echo 'Building...'
         //sh 'cd ../../../'
-        //sh './gradlew -p ./microservice/frontend/catalog bower grunt_build'
-        //sh './gradlew -p ./microservice/frontend/catalog build'
-        sh './gradlew -p ./microservice/frontend/catalog packageToContainer'
+        sh './gradlew -p ./microservice/frontend/catalog bower grunt_build'
+        sh './gradlew -p ./microservice/frontend/catalog build'
+        //sh './gradlew -p ./microservice/frontend/catalog packageToContainer'
       }
     }
     stage('Test') { 
@@ -15,11 +21,12 @@ pipeline {
           echo 'Testing...'
           }
     }
+    
     stage('Deploy'){
         steps{
          echo 'Deploying...'
          echo 'Uploading artifact to s3...'
-       //  sh 'python3 s3.py microservice/service/cart/build/libs/cart-microservice-0.6.$BUILD_NUMBER.jar cart.jar'
+         sh 'python3 s3directory.py ./microservice/frontend/catalog/build/libs/shop-catalog-frontend-0.6.$BUILD_NUMBER.jar cart.jar'
         }
     }
     stage('Archive Artifacts') {
