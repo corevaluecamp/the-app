@@ -1,4 +1,3 @@
-def B_NAME
 pipeline {
   agent any
   stages {
@@ -7,7 +6,7 @@ pipeline {
          script{
         load "/var/lib/jenkins/.envvars/var.groovy"
         echo "${env.BUCKET_NAME}"
-        B_NAME="${env.BUCKET_NAME}"
+        def B_NAME = "${env.BUCKET_NAME}"
         echo '${B_NAME}'
         }
       }
