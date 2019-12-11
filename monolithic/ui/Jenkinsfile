@@ -16,9 +16,10 @@ pipeline {
           }
     stage('Deploy'){
         steps{
+        load "/var/lib/jenkins/.envvars/var.groovy"
         echo 'Deploying...'
         echo 'Uploading artifact to s3...'
-        sh 'python3 s3.py ./monolithic/ui/build/libs/monolithic-shop.war shop.war'
+        sh "python3 s3.py ./monolithic/ui/build/libs/monolithic-shop.war ${env.BUCKET_NAME} shop.war"
         }
     }
     stage('Archive Artifacts') {
