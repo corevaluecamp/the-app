@@ -340,7 +340,7 @@ resource "aws_security_group_rule" "dos-load-ingress-3000" {
   from_port         = 3000
   to_port           = 3000
   protocol          = "tcp"
-  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
+  cidr_blocks       = ["${var.all-ip}"]
   security_group_id = "${aws_security_group.dos-load-bal.id}"
 }
 resource "aws_security_group_rule" "dos-load-ingress-8080" {
@@ -348,7 +348,7 @@ resource "aws_security_group_rule" "dos-load-ingress-8080" {
   from_port         = 8080
   to_port           = 8080
   protocol          = "tcp"
-  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
+  cidr_blocks       = ["${var.all-ip}"]
   security_group_id = "${aws_security_group.dos-load-bal.id}"
 }
 resource "aws_security_group_rule" "dos-load-ingress-5601" {

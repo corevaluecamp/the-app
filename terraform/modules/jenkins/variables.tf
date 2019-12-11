@@ -41,3 +41,4 @@ variable "elsip" {}
 
 variable "iam_role" {}
 variable "id-sg-load" {}
+variable "id-sg-mongodb" {}

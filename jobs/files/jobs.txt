@@ -2,4 +2,4 @@ cart-pipeline
 navigation-pipeline
 product-pipeline
 monolithic-pipeline
-dump-restore
+dbrestore

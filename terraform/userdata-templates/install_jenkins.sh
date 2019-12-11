@@ -3,14 +3,14 @@
 ###################################
 # Installing and settings Jenkins #
 ###################################
- 
+
 # Install pre-requisites and updates
 echo "Install Jenkins"
-yum -y update 
+yum -y update
 rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
 curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
-yum -y install java-1.8.0-openjdk-devel jenkins git golang python-pip python3 docker gcc-c++ make nodejs 
+yum -y install java-1.8.0-openjdk-devel jenkins git golang python-pip python3 docker gcc-c++ make nodejs
 pip3 install boto3
 amazon-linux-extras install ruby2.6
 yum install -y ruby-devel
@@ -105,7 +105,7 @@ done
 # Downloading the node exporter package
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
 
-# Unpacking the tarball 
+# Unpacking the tarball
 tar xf /tmp/node_exporter-0.18.1.linux-amd64.tar.gz -C /opt/
 
 # Moving the node export binary to /usr/local/bin
@@ -162,3 +162,15 @@ sed -i '30c\    - /var/log/jenkins/jenkins.log' /etc/filebeat/filebeat.yml
 sed -i '31c\    - /home/ec2-user/logs/*.log' /etc/filebeat/filebeat.yml
 systemctl enable filebeat
 systemctl start filebeat
+# install MongoDB
+cat <<EOF > /etc/yum.repos.d/mongodb-org-4.2.repo
+[mongodb-org-4.2]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/4.2/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
+EOF
+
+yum install -y mongodb-org
+mongorestore --host mongodb.dos.net /var/lib/jenkins/appstash/dump

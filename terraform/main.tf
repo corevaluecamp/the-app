@@ -50,6 +50,7 @@ module "jenkins" {
   iam_role         = module.backend.iam_s3
   elsip            = module.logging.elasticsearch_ip
   id-sg-load       = module.security.id-sg-load
+  id-sg-mongodb    = module.security.id-sg-mongodb
 }
 
 module "backend" {
@@ -91,6 +92,7 @@ module "monitoring" {
   subnet-priv-a-id               = module.network.subnet-priv-a-id
   subnet-priv-b-id               = module.network.subnet-priv-b-id
   elasticip                      = module.logging.elasticsearch_ip
+  id-sg-load                     = module.security.id-sg-load
 }
 
 module "logging" {

@@ -15,3 +15,4 @@ variable "backend_s3_created_bucket_name" {}
 variable "subnet-priv-a-id" {}
 variable "subnet-priv-b-id" {}
 variable "elasticip" {}
+variable "id-sg-load" {}

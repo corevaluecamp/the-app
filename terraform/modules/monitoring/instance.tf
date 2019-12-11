@@ -2,8 +2,8 @@ data "template_file" "init" {
   template = "${file("${path.module}/init.sh")}"
   vars = {
     backend_s3_created_bucket_name = "${var.backend_s3_created_bucket_name}"
-    elastic_ip = "${var.elasticip}"
-    }
+    elastic_ip                     = "${var.elasticip}"
+  }
 }
 
 resource "aws_instance" "Monitoring" {
@@ -17,7 +17,8 @@ resource "aws_instance" "Monitoring" {
   vpc_security_group_ids = [
     "${var.id-sg-metrics}",
     "${var.id-sg-private}",
-    "${var.id-sg-monitoring-access}"
+    "${var.id-sg-monitoring-access}",
+    "${var.id-sg-load}"
   ]
   iam_instance_profile = "${aws_iam_instance_profile.monitoring-profile.name}"
 

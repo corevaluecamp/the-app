@@ -3,5 +3,4 @@ shop-monolitic-load-test
 shop-monolitic-production-deployment
 shop-monolitic-test-deployment
 shop-monolitic-ui-test
-dump-restore
 shop-microservice-catalog-ui-build
