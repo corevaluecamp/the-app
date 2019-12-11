@@ -42,3 +42,4 @@ variable "elsip" {}
 variable "iam_role" {}
 variable "id-sg-load" {}
 variable "id-sg-mongodb" {}
+variable "backend_s3_created_bucket_name" {}

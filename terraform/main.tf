@@ -51,6 +51,7 @@ module "jenkins" {
   elsip            = module.logging.elasticsearch_ip
   id-sg-load       = module.security.id-sg-load
   id-sg-mongodb    = module.security.id-sg-mongodb
+  backend_s3_created_bucket_name = module.backend.backend_s3_created_bucket_name
 }
 
 module "backend" {

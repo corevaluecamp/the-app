@@ -1,6 +1,12 @@
 pipeline {
   agent any
   stages {
+    stage('Pre Build') {
+      steps {
+        load "/var/lib/jenkins/.envvars/var.groovy"
+        echo "${env.BUCKET_NAME}"
+      }
+    }
     stage('Build') {
       steps {
         echo 'Building...'

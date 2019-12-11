@@ -4,6 +4,7 @@ data "template_file" "install-jenkins" {
     jenkins_user = "${var.jenkins_user}"
     jenkins_pass = "${var.jenkins_pass}"
     elastic_ip   = var.elsip
+    backend_s3_created_bucket_name = "${var.backend_s3_created_bucket_name}"
   }
 }
 

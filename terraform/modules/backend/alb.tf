@@ -393,3 +393,14 @@ resource "aws_alb_target_group_attachment" "kibana_attachment" {
   target_id        = "${var.kibana_id}"
   port             = 5601
 }
+
+###################################################################
+#---------------------  certificates  ----------------------------#
+###################################################################
+
+
+/* resource "aws_alb_listener_certificate" "tomcat" {
+  listener_arn    = "${aws_alb_listener.tomcat_listener.arn}"
+  certificate_arn = "${aws_acm_certificate.cert.arn}"
+}
+ */

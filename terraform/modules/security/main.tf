@@ -335,6 +335,14 @@ resource "aws_security_group" "dos-load-bal" {
     Name = "${var.sg-name[11]}"
   }
 }
+resource "aws_security_group_rule" "dos-load-ingress-80" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["${var.all-ip}"]
+  security_group_id = "${aws_security_group.dos-load-bal.id}"
+}
 resource "aws_security_group_rule" "dos-load-ingress-3000" {
   type              = "ingress"
   from_port         = 3000

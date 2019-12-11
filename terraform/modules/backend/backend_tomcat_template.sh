@@ -27,7 +27,7 @@ EOF
 cat <<EOF > /home/ec2-user/tomcat.sh
 #!/bin/bash
 
-systemctl stop tomcat
+#systemctl stop tomcat
 
 rm -rf /var/lib/tomcat/webapps/shop*
 mv shop.war /var/lib/tomcat/webapps/
