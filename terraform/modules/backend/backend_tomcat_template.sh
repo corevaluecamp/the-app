@@ -29,12 +29,10 @@ EOF
 cat <<EOF > /home/ec2-user/tomcat.sh
 #!/bin/bash
 
+rm -rf /var/lib/tomcat/webapps/*
+mv /home/ec2-user/war/shop.war /var/lib/tomcat/webapps/
 
-rm -rf /var/lib/tomcat/webapps/shop*
-mv shop.war /var/lib/tomcat/webapps/
-
-systemctl start tomcat
-EOF 
+EOF
 
 chmod +x /home/ec2-user/s3d.py
 chmod +x /home/ec2-user/tomcat.sh
@@ -42,9 +40,8 @@ chmod +x /home/ec2-user/tomcat.sh
 mkdir /home/ec2-user/war
 chmod +rw /home/ec2-user/war
 
-systemctl start tomcat
 sed -i 's/port="8080"/port="8880"/g' /etc/tomcat/server.xml 
-systemctl restart tomcat
+systemctl start tomcat
 systemctl start crond
 
 cat <<EOF >> /etc/crontab

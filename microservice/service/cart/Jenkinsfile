@@ -1,10 +1,10 @@
 pipeline {
   agent any
   stages {
-   stage('Build') {
+    stage('Build') {
       steps {
         echo 'Building...'
-        sh 'cd ../../../'
+        sh 'cd ../../'
         sh './gradlew -p ./microservice/service/cart build'
       }
     }
@@ -12,17 +12,15 @@ pipeline {
         steps {
           echo 'Testing...'
           }
-    }
+          }
     stage('Deploy'){
         steps{
-         load "/var/lib/jenkins/.envvars/var.groovy"
-         echo 'Deploying...'
-         echo 'Uploading artifact to s3...'
-         sh "python3 s3.py microservice/service/cart/build/libs/cart-microservice-0.6.$BUILD_NUMBER.jar ${env.BUCKET_NAME} cart.jar"
-         sh "python3 s3.py Node_Exporter_Prometheus-1575384595496.json ${env.BUCKET_NAME} Node_Exporter_Prometheus-1575384595496.json"
+        load "/var/lib/jenkins/.envvars/var.groovy"
+        echo 'Deploying...'
+        echo 'Uploading artifact to s3...'
+        sh "python3 s3.py ./microservice/service/cart/build/libs/cart-microservice-0.6.$BUILD_NUMBER.jar ${env.BUCKET_NAME} cart.jar"
         }
     }
-//need to fix build num
     stage('Archive Artifacts') {
       steps {
         archiveArtifacts(fingerprint: true, artifacts: '**/*.jar')
