@@ -4,9 +4,10 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building...'
-        sh 'cd ../../../'
-        sh './gradlew -p ./microservice/frontend/catalog bower grunt_build'
-        sh './gradlew -p ./microservice/frontend/catalog build'
+        //sh 'cd ../../../'
+        //sh './gradlew -p ./microservice/frontend/catalog bower grunt_build'
+        //sh './gradlew -p ./microservice/frontend/catalog build'
+        sh './gradlew -p ./microservice/frontend/catalog packageToContainer'
       }
     }
     stage('Test') { 
