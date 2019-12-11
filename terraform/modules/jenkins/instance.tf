@@ -1,9 +1,9 @@
 data "template_file" "install-jenkins" {
   template = "${file("${var.userdata-path}/install_jenkins.sh")}"
   vars = {
-    jenkins_user = "${var.jenkins_user}"
-    jenkins_pass = "${var.jenkins_pass}"
-    elastic_ip   = var.elsip
+    jenkins_user                   = "${var.jenkins_user}"
+    jenkins_pass                   = "${var.jenkins_pass}"
+    elastic_ip                     = var.elsip
     backend_s3_created_bucket_name = "${var.backend_s3_created_bucket_name}"
   }
 }
@@ -13,7 +13,7 @@ resource "aws_launch_template" "jenkins-launch-tmpl" {
   image_id                = "${var.instance-ami[0]}"
   instance_type           = "${var.instance-type[1]}"
   key_name                = "${var.key-name}"
-  vpc_security_group_ids  = ["${var.id-sg-jenkins}", "${var.id-sg-private}", "${var.id-sg-metrics}", "${var.id-sg-load}", "${var.id-sg-mongodb}"]
+  vpc_security_group_ids  = ["${var.id-sg-jenkins}", "${var.id-sg-private}", "${var.id-sg-metrics}", "${var.id-sg-mongodb}"]
   disable_api_termination = true
   iam_instance_profile {
     name = "${var.iam_role}"

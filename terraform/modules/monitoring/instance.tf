@@ -17,8 +17,7 @@ resource "aws_instance" "Monitoring" {
   vpc_security_group_ids = [
     "${var.id-sg-metrics}",
     "${var.id-sg-private}",
-    "${var.id-sg-monitoring-access}",
-    "${var.id-sg-load}"
+    "${var.id-sg-monitoring-access}"
   ]
   iam_instance_profile = "${aws_iam_instance_profile.monitoring-profile.name}"
 

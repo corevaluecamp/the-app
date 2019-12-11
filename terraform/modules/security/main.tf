@@ -35,7 +35,7 @@ resource "aws_security_group" "dos-private-access" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${var.all-ip}"]
   }
   tags = {
     Name = "${var.sg-name[1]}"
@@ -54,6 +54,12 @@ resource "aws_security_group" "dos-mongodb-connect" {
   name        = "dos-mongodb-connect"
   description = "Allow connection to MongoDB"
   vpc_id      = "${var.vpc-id}"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.all-ip}"]
+  }
   tags = {
     Name = "${var.sg-name[2]}"
   }
@@ -66,14 +72,14 @@ resource "aws_security_group_rule" "dos-mongodb-ingress" {
   self              = true
   security_group_id = "${aws_security_group.dos-mongodb-connect.id}"
 }
-resource "aws_security_group_rule" "dos-mongodb-egress" {
-  type              = "egress"
-  from_port         = 27017
-  to_port           = 27017
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-mongodb-connect.id}"
-}
+# resource "aws_security_group_rule" "dos-mongodb-egress" {
+#   type              = "egress"
+#   from_port         = 0
+#   to_port           = 65500
+#   protocol          = "tcp"
+#   cidr_blocks       = ["${var.all-ip}"]
+#   security_group_id = "${aws_security_group.dos-mongodb-connect.id}"
+# }
 # for replication servers only
 # resource "aws_security_group" "dos-mongodb-replica" {
 #   name        = "dos-mongodb-replica"
@@ -96,6 +102,12 @@ resource "aws_security_group" "dos-redis" {
   name        = "dos-redis"
   description = "Allow connection to Redis host"
   vpc_id      = "${var.vpc-id}"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.all-ip}"]
+  }
   tags = {
     Name = "${var.sg-name[3]}"
   }
@@ -108,41 +120,46 @@ resource "aws_security_group_rule" "dos-redis-ingress" {
   self              = true
   security_group_id = "${aws_security_group.dos-redis.id}"
 }
-resource "aws_security_group_rule" "dos-redis-egress" {
-  type              = "egress"
-  from_port         = 6379
-  to_port           = 6379
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-redis.id}"
-}
+# resource "aws_security_group_rule" "dos-redis-egress" {
+#   type              = "egress"
+#   from_port         = 0
+#   to_port           = 65500
+#   protocol          = "tcp"
+#   cidr_blocks       = ["${var.all-ip}"]
+#   security_group_id = "${aws_security_group.dos-redis.id}"
+# }
 # Jenkins security groups
 resource "aws_security_group" "dos-jenkins" {
   name        = "dos-jenkins"
   description = "For jenkins jobs"
   vpc_id      = "${var.vpc-id}"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.all-ip}"]
+  }
   tags = {
     Name = "${var.sg-name[4]}"
   }
 }
 resource "aws_security_group_rule" "dos-jenkins-ingress" {
-  type      = "ingress"
-  from_port = 8080
-  to_port   = 8080
-  protocol  = "tcp"
-  # cidr_blocks = ["0.0.0.0/0"]
-  self              = true
-  security_group_id = "${aws_security_group.dos-jenkins.id}"
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+  security_group_id        = "${aws_security_group.dos-jenkins.id}"
 }
-resource "aws_security_group_rule" "dos-jenkins-egress" {
-  type      = "egress"
-  from_port = 8080
-  to_port   = 8080
-  protocol  = "tcp"
-  # cidr_blocks = ["0.0.0.0/0"]
-  self              = true
-  security_group_id = "${aws_security_group.dos-jenkins.id}"
-}
+# resource "aws_security_group_rule" "dos-jenkins-egress" {
+#   type      = "egress"
+#   from_port = 0
+#   to_port   = 65500
+#   protocol  = "tcp"
+#   # cidr_blocks = ["0.0.0.0/0"]
+#   cidr_blocks       = ["${var.all-ip}"]
+#   security_group_id = "${aws_security_group.dos-jenkins.id}"
+# }
 resource "aws_security_group_rule" "dos-jenkins-ingress-ssh" {
   type              = "ingress"
   from_port         = 22
@@ -151,14 +168,14 @@ resource "aws_security_group_rule" "dos-jenkins-ingress-ssh" {
   self              = true
   security_group_id = "${aws_security_group.dos-jenkins.id}"
 }
-resource "aws_security_group_rule" "jenkins-egress-ssh" {
-  type              = "egress"
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-jenkins.id}"
-}
+# resource "aws_security_group_rule" "jenkins-egress-ssh" {
+#   type              = "egress"
+#   from_port         = 0
+#   to_port           = 65500
+#   protocol          = "tcp"
+#   cidr_blocks       = ["${var.all-ip}"]
+#   security_group_id = "${aws_security_group.dos-jenkins.id}"
+# }
 #comment here
 resource "aws_security_group" "dos-metrics-connect" {
   name        = "dos-metrics-connect"
@@ -171,10 +188,10 @@ resource "aws_security_group" "dos-metrics-connect" {
     self      = true
   }
   egress {
-    from_port = 9100
-    to_port   = 9100
-    protocol  = "tcp"
-    self      = true
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.all-ip}"]
   }
   tags = {
     Name = "${var.sg-name[7]}"
@@ -192,119 +209,137 @@ resource "aws_security_group" "dos-monitoring-access" {
   #   protocol    = "tcp"
   #   # cidr_blocks = ["${var.my_IP}"]
   # }
-  ingress {
-    from_port = 3000
-    to_port   = 3000
-    protocol  = "tcp"
-    self      = true
-    # cidr_blocks = ["${var.my_IP}"]
-  }
+  # ingress {
+  #   from_port   = 3000
+  #   to_port     = 3000
+  #   protocol    = "tcp"
+  #   cidr_blocks = ["${aws_security_group.dos-load-bal.id}"]
+  # }
   egress {
-    from_port = 3000
-    to_port   = 3000
-    protocol  = "tcp"
-    self      = true
-    # cidr_blocks     = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.all-ip}"]
   }
   tags = {
     Name = "${var.sg-name[8]}"
   }
+}
+resource "aws_security_group_rule" "dos-monitoring-access-ingress" {
+  type                     = "ingress"
+  from_port                = 3000
+  to_port                  = 3000
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+  security_group_id        = "${aws_security_group.dos-monitoring-access.id}"
 }
 # Backend security group
 resource "aws_security_group" "dos-backend" {
   name        = "dos-backend"
   description = "For backend"
   vpc_id      = "${var.vpc-id}"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.all-ip}"]
+  }
   tags = {
     Name = "${var.sg-name[6]}"
   }
 }
 resource "aws_security_group_rule" "dos-backend-ingress-18080" {
-  type              = "ingress"
-  from_port         = 18080
-  to_port           = 18080
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-backend.id}"
+  type                     = "ingress"
+  from_port                = 18080
+  to_port                  = 18080
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+  security_group_id        = "${aws_security_group.dos-backend.id}"
 }
 resource "aws_security_group_rule" "dos-backend-ingress-18090" {
-  type              = "ingress"
-  from_port         = 18090
-  to_port           = 18090
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-backend.id}"
+  type                     = "ingress"
+  from_port                = 18090
+  to_port                  = 18090
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+  security_group_id        = "${aws_security_group.dos-backend.id}"
 }
 resource "aws_security_group_rule" "dos-backend-ingress-18100" {
-  type              = "ingress"
-  from_port         = 18100
-  to_port           = 18100
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-backend.id}"
+  type                     = "ingress"
+  from_port                = 18100
+  to_port                  = 18100
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+  security_group_id        = "${aws_security_group.dos-backend.id}"
 }
 resource "aws_security_group_rule" "dos-backend-ingress-8880" {
-  type              = "ingress"
-  from_port         = 8880
-  to_port           = 8880
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-backend.id}"
+  type                     = "ingress"
+  from_port                = 8880
+  to_port                  = 8880
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+  security_group_id        = "${aws_security_group.dos-backend.id}"
 }
-resource "aws_security_group_rule" "dos-backend-egress-18080" {
-  type              = "egress"
-  from_port         = 18080
-  to_port           = 18080
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-backend.id}"
-}
-resource "aws_security_group_rule" "dos-backend-egress-18090" {
-  type              = "egress"
-  from_port         = 18090
-  to_port           = 18090
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-backend.id}"
-}
-resource "aws_security_group_rule" "dos-backend-egress-18100" {
-  type              = "egress"
-  from_port         = 18100
-  to_port           = 18100
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-backend.id}"
-}
-resource "aws_security_group_rule" "dos-backend-egress-8880" {
-  type              = "egress"
-  from_port         = 8880
-  to_port           = 8880
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-backend.id}"
-}
+# resource "aws_security_group_rule" "dos-backend-egress-18080" {
+#   type              = "egress"
+#   from_port         = 0
+#   to_port           = 65500
+#   protocol          = "tcp"
+#   cidr_blocks       = ["${var.all-ip}"]
+#   security_group_id = "${aws_security_group.dos-backend.id}"
+# }
+# resource "aws_security_group_rule" "dos-backend-egress-18090" {
+#   type              = "egress"
+#   from_port         = 0
+#   to_port           = 65500
+#   protocol          = "tcp"
+#   cidr_blocks       = ["${var.all-ip}"]
+#   security_group_id = "${aws_security_group.dos-backend.id}"
+# }
+# resource "aws_security_group_rule" "dos-backend-egress-18100" {
+#   type              = "egress"
+#   from_port         = 0
+#   to_port           = 65500
+#   protocol          = "tcp"
+#   cidr_blocks       = ["${var.all-ip}"]
+#   security_group_id = "${aws_security_group.dos-backend.id}"
+# }
+# resource "aws_security_group_rule" "dos-backend-egress-8880" {
+#   type              = "egress"
+#   from_port         = 0
+#   to_port           = 65500
+#   protocol          = "tcp"
+#   cidr_blocks       = ["${var.all-ip}"]
+#   security_group_id = "${aws_security_group.dos-backend.id}"
+# }
 # Kibana security group
 resource "aws_security_group" "dos-kibana-connect" {
   name        = "dos-kibana-connect"
   description = "Kibana web UI"
   vpc_id      = "${var.vpc-id}"
-  ingress {
-    from_port   = 5601
-    to_port     = 5601
-    protocol    = "tcp"
-    cidr_blocks = ["${chomp(data.http.my-ipaddress.body)}/32"]
-    # self      = true
-  }
+  # ingress {
+  #   from_port   = 5601
+  #   to_port     = 5601
+  #   protocol    = "tcp"
+  #   cidr_blocks = ["${aws_security_group.dos-load-bal.id}"]
+  # }
   egress {
-    from_port   = 5601
-    to_port     = 5601
-    protocol    = "tcp"
-    cidr_blocks = ["${chomp(data.http.my-ipaddress.body)}/32"]
-    # self      = true
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.all-ip}"]
   }
   tags = {
     Name = "${var.sg-name[9]}"
   }
+}
+resource "aws_security_group_rule" "dos-kibana-connect-ingress" {
+  type                     = "ingress"
+  from_port                = 5601
+  to_port                  = 5601
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+  security_group_id        = "${aws_security_group.dos-kibana-connect.id}"
 }
 resource "aws_security_group" "dos-es-connect" {
   name        = "dos-elasticsearch-connect"
@@ -317,20 +352,27 @@ resource "aws_security_group" "dos-es-connect" {
     self      = true
   }
   egress {
-    from_port = 9200
-    to_port   = 9300
-    protocol  = "tcp"
-    self      = true
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.all-ip}"]
   }
   tags = {
     Name = "${var.sg-name[10]}"
   }
 }
+
 # Load Balancer security group
 resource "aws_security_group" "dos-load-bal" {
   name        = "dos-load-bal"
   description = "For load balancer"
   vpc_id      = "${var.vpc-id}"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.all-ip}"]
+  }
   tags = {
     Name = "${var.sg-name[11]}"
   }
@@ -340,7 +382,7 @@ resource "aws_security_group_rule" "dos-load-ingress-80" {
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
-  cidr_blocks       = ["${var.all-ip}"]
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
   security_group_id = "${aws_security_group.dos-load-bal.id}"
 }
 resource "aws_security_group_rule" "dos-load-ingress-3000" {
@@ -348,7 +390,7 @@ resource "aws_security_group_rule" "dos-load-ingress-3000" {
   from_port         = 3000
   to_port           = 3000
   protocol          = "tcp"
-  cidr_blocks       = ["${var.all-ip}"]
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
   security_group_id = "${aws_security_group.dos-load-bal.id}"
 }
 resource "aws_security_group_rule" "dos-load-ingress-8080" {
@@ -356,7 +398,7 @@ resource "aws_security_group_rule" "dos-load-ingress-8080" {
   from_port         = 8080
   to_port           = 8080
   protocol          = "tcp"
-  cidr_blocks       = ["${var.all-ip}"]
+  cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
   security_group_id = "${aws_security_group.dos-load-bal.id}"
 }
 resource "aws_security_group_rule" "dos-load-ingress-5601" {
@@ -399,14 +441,14 @@ resource "aws_security_group_rule" "dos-load-ingress-8880" {
   cidr_blocks       = ["${chomp(data.http.my-ipaddress.body)}/32"]
   security_group_id = "${aws_security_group.dos-load-bal.id}"
 }
-resource "aws_security_group_rule" "dos-load-egress" {
-  type              = "egress"
-  from_port         = 0
-  to_port           = 65500
-  protocol          = "tcp"
-  cidr_blocks       = ["${var.all-ip}"]
-  security_group_id = "${aws_security_group.dos-load-bal.id}"
-}
+# resource "aws_security_group_rule" "dos-load-egress" {
+#   type              = "egress"
+#   from_port         = 0
+#   to_port           = 65500
+#   protocol          = "tcp"
+#   cidr_blocks       = ["${var.all-ip}"]
+#   security_group_id = "${aws_security_group.dos-load-bal.id}"
+# }
 # CREATE KEY PAIR
 resource "aws_key_pair" "dos-key" {
   key_name   = "${var.key-name}"
