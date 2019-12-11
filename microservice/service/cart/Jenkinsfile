@@ -8,7 +8,7 @@ pipeline {
         load "/var/lib/jenkins/.envvars/var.groovy"
         echo "${env.BUCKET_NAME}"
         B_NAME="${env.BUCKET_NAME}"
-        echo '$B_NAME'
+        echo '${B_NAME}'
         }
       }
     }
