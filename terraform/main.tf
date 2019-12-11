@@ -52,6 +52,7 @@ module "jenkins" {
   id-sg-load       = module.security.id-sg-load
   id-sg-mongodb    = module.security.id-sg-mongodb
   backend_s3_created_bucket_name = module.backend.backend_s3_created_bucket_name
+  application_load_balancer_DNS = module.backend.application_load_balancer_dns
 }
 
 module "backend" {

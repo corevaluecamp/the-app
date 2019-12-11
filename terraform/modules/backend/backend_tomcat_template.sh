@@ -8,6 +8,8 @@ pip3 install boto3
 
 echo "${redis} redis-node" >> /etc/hosts
 echo "${mongo} mongodb-node" >> /etc/hosts
+echo "export NAVIGATION_SERVICE_MONGODB_URL=mongodb.dos.net" >>  /home/ec2-user/.bashrc
+echo "export CART_SERVICE_REDIS_URL=redis.dos.net" >>  /home/ec2-user/.bashrc
 echo "export BUCKET_NAME=${s3_bucketname}" >>  /home/ec2-user/.bashrc
 echo "export NOW=$(date +'%b-%d-%H-%M-%S')" >>  /home/ec2-user/.bashrc
 
@@ -27,7 +29,6 @@ EOF
 cat <<EOF > /home/ec2-user/tomcat.sh
 #!/bin/bash
 
-#systemctl stop tomcat
 
 rm -rf /var/lib/tomcat/webapps/shop*
 mv shop.war /var/lib/tomcat/webapps/
