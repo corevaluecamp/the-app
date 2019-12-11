@@ -1,3 +1,4 @@
+def B_NAME
 pipeline {
   agent any
   stages {
@@ -5,6 +6,9 @@ pipeline {
       steps {
         load "/var/lib/jenkins/.envvars/var.groovy"
         echo "${env.BUCKET_NAME}"
+        script{
+          B_NAME="${env.BUCKET_NAME}"
+        }
       }
     }
     stage('Build') {
@@ -23,8 +27,8 @@ pipeline {
         steps{
          echo 'Deploying...'
          echo 'Uploading artifact to s3...'
-         sh 'python3 s3.py microservice/service/cart/build/libs/cart-microservice-0.6.$BUILD_NUMBER.jar ${env.BUCKET_NAME} cart.jar'
-         sh 'python3 s3.py Node_Exporter_Prometheus-1575384595496.json ${env.BUCKET_NAME} Node_Exporter_Prometheus-1575384595496.json'
+         sh 'python3 s3.py microservice/service/cart/build/libs/cart-microservice-0.6.$BUILD_NUMBER.jar ${B_NAME} cart.jar'
+         sh 'python3 s3.py Node_Exporter_Prometheus-1575384595496.json ${B_NAME} Node_Exporter_Prometheus-1575384595496.json'
         }
     }
 //need to fix build num
