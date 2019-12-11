@@ -7,6 +7,8 @@ pip3 install boto3
 
 echo "${redis} redis-node" >> /etc/hosts
 echo "${mongo} mongodb-node" >> /etc/hosts
+echo "export NAVIGATION_SERVICE_MONGODB_URL=mongodb.dos.net" >>  /home/ec2-user/.bashrc
+echo "export CART_SERVICE_REDIS_URL=redis.dos.net" >>  /home/ec2-user/.bashrc
 echo "export BUCKET_NAME=${s3_bucketname}" >>  /home/ec2-user/.bashrc
 echo "export NOW=$(date +'%b-%d-%H-%M-%S')" >>  /home/ec2-user/.bashrc
 
@@ -32,7 +34,7 @@ touch /home/ec2-user/logs/app-cart.log
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/14 * * * * root kill $(ps aux | grep java | grep -v 'grep' | awk '{print $2}')
+*/14 * * * * root pkill java
 */15 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} cart.jar /home/ec2-user/jar/cart.jar
 */16 * * * * root java -jar /home/ec2-user/jar/cart.jar >> /home/ec2-user/logs/app-cart.log
 EOF

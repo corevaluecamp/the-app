@@ -97,10 +97,11 @@ do
     fi
 done
 
-# var in jenkins
+# env var in jenkins
 mkdir /var/lib/jenkins/.envvars
 cat <<EOF > /var/lib/jenkins/.envvars/var.groovy
 env.BUCKET_NAME="${backend_s3_created_bucket_name}"
+env.ALB_DNS="${application_load_balancer_DNS}"
 EOF
 ######################################
 # Installing Node Exporter user-data #
