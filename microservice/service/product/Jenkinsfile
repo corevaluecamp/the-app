@@ -1,12 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('Pre Build') {
-      steps {
-        load "/var/lib/jenkins/.envvars/var.groovy"
-        echo "${env.BUCKET_NAME}"
-      }
-    }
     stage('Build') {
       steps {
         echo 'Building...'
@@ -21,9 +15,10 @@ pipeline {
           }
     stage('Deploy'){
         steps{
+        load "/var/lib/jenkins/.envvars/var.groovy"
         echo 'Deploying...'
         echo 'Uploading artifact to s3...'
-        sh 'python3 s3.py microservice/service/product/build/distributions/product-0.6.$BUILD_NUMBER.tar ${env.BUCKET_NAME} product.tar'
+        sh "python3 s3.py microservice/service/product/build/distributions/product-0.6.$BUILD_NUMBER.tar ${env.BUCKET_NAME} product.tar"
         }
     }
 

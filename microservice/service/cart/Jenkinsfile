@@ -1,17 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Pre Build') {
-      steps {
-         script{
-        load "/var/lib/jenkins/.envvars/var.groovy"
-        echo "${env.BUCKET_NAME}"
-        def B_NAME = "${env.BUCKET_NAME}"
-        echo '${B_NAME}'
-        }
-      }
-    }
-    stage('Build') {
+   stage('Build') {
       steps {
         echo 'Building...'
         sh 'cd ../../../'
@@ -21,16 +11,15 @@ pipeline {
     stage('Test') { 
         steps {
           echo 'Testing...'
-          echo '$B_NAME'
           }
     }
     stage('Deploy'){
         steps{
-         echo 'Deploying...'
          load "/var/lib/jenkins/.envvars/var.groovy"
+         echo 'Deploying...'
          echo 'Uploading artifact to s3...'
-         sh 'python3 s3.py microservice/service/cart/build/libs/cart-microservice-0.6.$BUILD_NUMBER.jar ${env.BUCKET_NAME} cart.jar'
-         sh 'python3 s3.py Node_Exporter_Prometheus-1575384595496.json ${env.BUCKET_NAME} Node_Exporter_Prometheus-1575384595496.json'
+         sh "python3 s3.py microservice/service/cart/build/libs/cart-microservice-0.6.$BUILD_NUMBER.jar ${env.BUCKET_NAME} cart.jar"
+         sh "python3 s3.py Node_Exporter_Prometheus-1575384595496.json ${env.BUCKET_NAME} Node_Exporter_Prometheus-1575384595496.json"
         }
     }
 //need to fix build num
