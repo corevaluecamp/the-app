@@ -34,6 +34,9 @@ scrape_configs:
         port: 9100
 #       access_key: 
 #       secret_key: 
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_Name]
+        target_label: instance
 EOF'
 
 sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml
@@ -161,6 +164,10 @@ EOF
 yum install filebeat -y
 sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+cat >> /etc/filebeat/filebeat.yml <<-EOF
+setup.ilm.rollover_alias: "monitoring"
+setup.ilm.overwrite: true
+EOF
 systemctl enable filebeat
 systemctl start filebeat
 

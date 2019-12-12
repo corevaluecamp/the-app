@@ -1,5 +1,5 @@
+dbrestore
 cart-pipeline
 navigation-pipeline
 product-pipeline
 monolithic-pipeline
-dbrestore

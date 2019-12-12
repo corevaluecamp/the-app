@@ -80,6 +80,13 @@ java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:$
 # Waiting for Jenkins restart
 sleep 60
 
+# env var in jenkins
+mkdir /var/lib/jenkins/.envvars
+cat <<EOF > /var/lib/jenkins/.envvars/var.groovy
+env.BUCKET_NAME="${backend_s3_created_bucket_name}"
+env.ALB_DNS="${application_load_balancer_DNS}"
+EOF
+
 # Restoring(Updating) Jobs
 for BUILD in $(cat /tmp/temp/jobs/files/jobs.txt)
 do
@@ -97,12 +104,8 @@ do
     fi
 done
 
-# env var in jenkins
-mkdir /var/lib/jenkins/.envvars
-cat <<EOF > /var/lib/jenkins/.envvars/var.groovy
-env.BUCKET_NAME="${backend_s3_created_bucket_name}"
-env.ALB_DNS="${application_load_balancer_DNS}"
-EOF
+java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} build dbrestore
+
 ######################################
 # Installing Node Exporter user-data #
 ######################################
@@ -165,6 +168,10 @@ sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
 sed -i '29c\    - /var/log/mongodb/mongodb.log' /etc/filebeat/filebeat.yml
 sed -i '30c\    - /var/log/jenkins/jenkins.log' /etc/filebeat/filebeat.yml
 sed -i '31c\    - /home/ec2-user/logs/*.log' /etc/filebeat/filebeat.yml
+cat >> /etc/filebeat/filebeat.yml <<-EOF
+setup.ilm.rollover_alias: "jenkins"
+setup.ilm.overwrite: true
+EOF
 systemctl enable filebeat
 systemctl start filebeat
 # install MongoDB

@@ -60,6 +60,15 @@ resource "aws_cloudwatch_metric_alarm" "cart-asg-alarm" {
   alarm_actions     = ["${aws_autoscaling_policy.cart-asg-policy.arn}"]
 }
 
+resource "aws_autoscaling_policy" "cart-asg-policy-min" {
+  name                   = "cart-asg-policy"
+  scaling_adjustment     = -1
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 300
+  autoscaling_group_name = "${aws_autoscaling_group.cart-asg.name}"
+}
+
+
 resource "aws_cloudwatch_metric_alarm" "cart-asg-alarm-min" {
   alarm_name          = "cart-asg-cw-alarm-min"
   comparison_operator = "LessThanThreshold"
@@ -75,7 +84,7 @@ resource "aws_cloudwatch_metric_alarm" "cart-asg-alarm-min" {
   }
 
   alarm_description = "This metric monitors ec2 cpu utilization"
-  alarm_actions     = ["${aws_autoscaling_policy.cart-asg-policy.arn}"]
+  alarm_actions     = ["${aws_autoscaling_policy.cart-asg-policy-min.arn}"]
 }
 
 ##############################################################################
@@ -141,6 +150,13 @@ resource "aws_cloudwatch_metric_alarm" "navigation-asg-alarm" {
   alarm_description = "This metric monitors ec2 cpu utilization"
   alarm_actions     = ["${aws_autoscaling_policy.navigation-asg-policy.arn}"]
 }
+resource "aws_autoscaling_policy" "navigation-asg-policy-min" {
+  name                   = "navigation-asg-policy"
+  scaling_adjustment     = -1
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 300
+  autoscaling_group_name = "${aws_autoscaling_group.navigation-asg.name}"
+}
 
 resource "aws_cloudwatch_metric_alarm" "navigation-asg-alarm-min" {
   alarm_name          = "navigation-asg-cw-alarm-min"
@@ -157,7 +173,7 @@ resource "aws_cloudwatch_metric_alarm" "navigation-asg-alarm-min" {
   }
 
   alarm_description = "This metric monitors ec2 cpu utilization"
-  alarm_actions     = ["${aws_autoscaling_policy.navigation-asg-policy.arn}"]
+  alarm_actions     = ["${aws_autoscaling_policy.navigation-asg-policy-min.arn}"]
 }
 
 
@@ -225,6 +241,14 @@ resource "aws_cloudwatch_metric_alarm" "product-asg-alarm" {
   alarm_actions     = ["${aws_autoscaling_policy.product-asg-policy.arn}"]
 }
 
+resource "aws_autoscaling_policy" "product-asg-policy-min" {
+  name                   = "product-asg-policy"
+  scaling_adjustment     = -1
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 300
+  autoscaling_group_name = "${aws_autoscaling_group.product-asg.name}"
+}
+
 resource "aws_cloudwatch_metric_alarm" "product-asg-alarm-min" {
   alarm_name          = "product-asg-cw-alarm-min"
   comparison_operator = "LessThanThreshold"
@@ -240,7 +264,7 @@ resource "aws_cloudwatch_metric_alarm" "product-asg-alarm-min" {
   }
 
   alarm_description = "This metric monitors ec2 cpu utilization"
-  alarm_actions     = ["${aws_autoscaling_policy.product-asg-policy.arn}"]
+  alarm_actions     = ["${aws_autoscaling_policy.product-asg-policy-min.arn}"]
 }
 
 ######################################################################################################
@@ -272,7 +296,7 @@ resource "aws_launch_template" "tomcat_lt" {
 
 resource "aws_autoscaling_group" "tomcat-asg" {
   desired_capacity    = 1
-  max_size            = 2
+  max_size            = 1
   min_size            = 1
   vpc_zone_identifier = ["${var.subnet-priv-a-id}", "${var.subnet-priv-b-id}"]
   launch_template {
@@ -307,6 +331,14 @@ resource "aws_cloudwatch_metric_alarm" "tomcat-asg-alarm" {
   alarm_actions     = ["${aws_autoscaling_policy.tomcat-asg-policy.arn}"]
 }
 
+resource "aws_autoscaling_policy" "tomcat-asg-policy-min" {
+  name                   = "tomcat-asg-policy"
+  scaling_adjustment     = -1
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 300
+  autoscaling_group_name = "${aws_autoscaling_group.tomcat-asg.name}"
+}
+
 resource "aws_cloudwatch_metric_alarm" "tomcat-asg-alarm-min" {
   alarm_name          = "tomcat-asg-cw-alarm-min"
   comparison_operator = "LessThanThreshold"
@@ -322,5 +354,5 @@ resource "aws_cloudwatch_metric_alarm" "tomcat-asg-alarm-min" {
   }
 
   alarm_description = "This metric monitors ec2 cpu utilization"
-  alarm_actions     = ["${aws_autoscaling_policy.tomcat-asg-policy.arn}"]
+  alarm_actions     = ["${aws_autoscaling_policy.tomcat-asg-policy-min.arn}"]
 }
