@@ -345,12 +345,6 @@ resource "aws_security_group" "dos-es-connect" {
   name        = "dos-elasticsearch-connect"
   description = "Elasticsearch and Filebeat"
   vpc_id      = "${var.vpc-id}"
-  ingress {
-    from_port = 9200
-    to_port   = 9300
-    protocol  = "tcp"
-    self      = true
-  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -360,6 +354,14 @@ resource "aws_security_group" "dos-es-connect" {
   tags = {
     Name = "${var.sg-name[10]}"
   }
+}
+resource "aws_security_group_rule" "dos-es-connect-ingress" {
+  type                     = "ingress"
+  from_port                = 9200
+  to_port                  = 9300
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.dos-kibana-connect.id}"
+  security_group_id        = "${aws_security_group.dos-es-connect.id}"
 }
 
 # Load Balancer security group
