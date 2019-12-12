@@ -34,6 +34,9 @@ scrape_configs:
         port: 9100
 #       access_key: 
 #       secret_key: 
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_Name]
+        target_label: instance
 EOF'
 
 sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml
