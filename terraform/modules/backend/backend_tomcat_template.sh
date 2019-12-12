@@ -45,7 +45,7 @@ systemctl start tomcat
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/5 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} shop.war /home/ec2-user/war/shop.war && /home/ec2-user/tomcat.sh 
+*/5 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} shop.war /home/ec2-user/war/shop.war ; /home/ec2-user/tomcat.sh 
 EOF
 
 systemctl restart crond
@@ -68,6 +68,11 @@ yum update -y
 yum install filebeat -y
 sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+# Create custom index name
+cat >> /etc/filebeat/filebeat.yml <<-EOF
+setup.ilm.rollover_alias: "tomcat"
+setup.ilm.overwrite: true
+EOF
 systemctl enable filebeat
 systemctl start filebeat
 

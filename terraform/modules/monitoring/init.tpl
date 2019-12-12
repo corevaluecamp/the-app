@@ -35,7 +35,7 @@ scrape_configs:
 #       access_key: 
 #       secret_key: 
     relabel_configs:
-      - source_labels: [__meta_ec2_tag_Name]
+      - source_labels: [__meta_ec2_tag_Name,__meta_ec2_instance_id]
         target_label: instance
 EOF'
 
@@ -195,7 +195,7 @@ systemctl start crond
 
 cat <<EOF >> /etc/crontab
 */5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Multiple-1576160531663.json /var/lib/grafana/dashboards/Node_Multiple-1576160531663.json
-*/5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Single-1576093428916.json /var/lib/grafana/dashboards/Node_Single-1576093428916.json
+*/5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Single-1576185900325.json /var/lib/grafana/dashboards/Node_Single-1576185900325.json
 EOF
 
 systemctl restart crond

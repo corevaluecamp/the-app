@@ -38,7 +38,7 @@ resource "aws_autoscaling_group" "dos-bastion-asg" {
 }
 resource "aws_instance" "dos-mongodb" {
   count         = 1
-  ami           = "${var.instance-ami[2]}"
+  ami           = "${var.instance-ami[0]}"
   instance_type = "${var.instance-type[0]}"
   key_name      = "${var.key-name}"
   vpc_security_group_ids = [

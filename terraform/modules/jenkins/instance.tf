@@ -16,6 +16,14 @@ resource "aws_launch_template" "jenkins-launch-tmpl" {
   key_name                = "${var.key-name}"
   vpc_security_group_ids  = ["${var.id-sg-jenkins}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.dos-metrics-logging}"]
   disable_api_termination = true
+
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = 30
+    }
+  }
+
   iam_instance_profile {
     name = "${var.iam_role}"
   }

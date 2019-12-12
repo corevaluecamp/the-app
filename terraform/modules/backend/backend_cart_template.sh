@@ -34,7 +34,7 @@ touch /home/ec2-user/logs/app-cart.log
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/14 * * * * root pkill java && /home/ec2-user/s3d.py ${s3_bucketname} cart.jar /home/ec2-user/jar/cart.jar && java -jar /home/ec2-user/jar/cart.jar >> /home/ec2-user/logs/app-cart.log
+*/10 * * * * root pkill java ; /home/ec2-user/s3d.py ${s3_bucketname} cart.jar /home/ec2-user/jar/cart.jar ; java -jar /home/ec2-user/jar/cart.jar >> /home/ec2-user/logs/app-cart.log
 EOF
 
 chmod +rw /home/ec2-user/logs
@@ -61,6 +61,11 @@ yum update -y
 yum install filebeat -y
 sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+# Create custom index name
+cat >> /etc/filebeat/filebeat.yml <<-EOF
+setup.ilm.rollover_alias: "cart_app"
+setup.ilm.overwrite: true
+EOF
 systemctl enable filebeat
 systemctl start filebeat
 

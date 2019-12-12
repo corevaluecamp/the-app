@@ -44,7 +44,7 @@ chmod +x /home/ec2-user/run.sh
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/14 * * * * root pkill product && /home/ec2-user/s3d.py ${s3_bucketname} product.tar /home/ec2-user/tar/product.tar && /home/ec2-user/run.sh 
+*/10 * * * * root pkill product ; /home/ec2-user/s3d.py ${s3_bucketname} product.tar /home/ec2-user/tar/product.tar ; /home/ec2-user/run.sh 
 EOF
 
 chmod +rw /home/ec2-user/logs
@@ -71,6 +71,11 @@ yum update -y
 yum install filebeat -y
 sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+# Create custom index name
+cat >> /etc/filebeat/filebeat.yml <<-EOF
+setup.ilm.rollover_alias: "product_app"
+setup.ilm.overwrite: true
+EOF
 systemctl enable filebeat
 systemctl start filebeat
 

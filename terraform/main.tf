@@ -57,6 +57,7 @@ module "jenkins" {
 }
 
 module "backend" {
+<<<<<<< HEAD
   source              = "./modules/backend"
   key                 = module.security.key-name
   s3_bucket_name      = "${var.s3_bucket_name}"
@@ -82,6 +83,33 @@ module "backend" {
   es_ip            = module.logging.elasticsearch_ip
   id-sg-load       = module.security.id-sg-load
   s3force          = true
+=======
+  source                  = "./modules/backend"
+  key                     = module.security.key-name
+  s3_bucket_name          = "${var.s3_bucket_name}"
+  id-sg-bastion           = module.security.id-sg-bastion
+  id-sg-backend           = module.security.id-sg-backend
+  id-sg-private           = module.security.id-sg-private
+  id-sg-mongodb           = module.security.id-sg-mongodb
+  id-sg-jenkins           = module.security.id-sg-jenkins
+  id-sg-redis             = module.security.id-sg-redis
+  id-sg-monitoring-access = module.security.id-sg-monitoring-access
+  id-sg-es                = module.security.id-sg-es
+  id-sg-metrics           = module.security.id-sg-metrics
+  subnet-pub-a-id         = module.network.subnet-pub-a-id
+  subnet-pub-b-id         = module.network.subnet-pub-b-id
+  subnet-priv-a-id        = module.network.subnet-priv-a-id
+  subnet-priv-b-id        = module.network.subnet-priv-b-id
+  my_vpc                  = module.network.vpc-id
+  mongo_ip                = module.instances.mongo-server-ip
+  redis_ip                = module.instances.redis-server-ip
+  kibana_id               = module.logging.kibana_id
+  grafana_id              = module.monitoring.grafana_id
+  jenkins_asg_id          = module.jenkins.jenkins_asg_id
+  es_ip                   = module.logging.elasticsearch_ip
+  id-sg-load              = module.security.id-sg-load
+  s3force                 = true
+>>>>>>> e1289c44810238c7ee23492f774d96938d43e2fe
 
 }
 

@@ -3,7 +3,11 @@ resource "aws_launch_template" "cart_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
+<<<<<<< HEAD
   vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.dos-metrics-logging}"]
+=======
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-es}", "${var.id-sg-mongodb}", "${var.id-sg-metrics}"]
+>>>>>>> e1289c44810238c7ee23492f774d96938d43e2fe
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -94,7 +98,11 @@ resource "aws_launch_template" "navigation_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
+<<<<<<< HEAD
   vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.dos-metrics-logging}"]
+=======
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-es}", "${var.id-sg-mongodb}", "${var.id-sg-metrics}"]
+>>>>>>> e1289c44810238c7ee23492f774d96938d43e2fe
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -184,7 +192,11 @@ resource "aws_launch_template" "product_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
+<<<<<<< HEAD
   vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.dos-metrics-logging}"]
+=======
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-es}", "${var.id-sg-mongodb}", "${var.id-sg-metrics}"]
+>>>>>>> e1289c44810238c7ee23492f774d96938d43e2fe
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
@@ -274,7 +286,11 @@ resource "aws_launch_template" "tomcat_lt" {
   image_id               = "${var.image_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key}"
+<<<<<<< HEAD
   vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.dos-metrics-logging}"]
+=======
+  vpc_security_group_ids = ["${var.id-sg-redis}", "${var.id-sg-backend}", "${var.id-sg-es}", "${var.id-sg-mongodb}", "${var.id-sg-metrics}"]
+>>>>>>> e1289c44810238c7ee23492f774d96938d43e2fe
 
   iam_instance_profile {
     name = "${aws_iam_instance_profile.s3_profile.name}"
