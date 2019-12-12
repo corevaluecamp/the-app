@@ -187,7 +187,8 @@ chmod +x /home/ec2-user/s3d.py
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Exporter_Prometheus-1575384595496.json /var/lib/grafana/dashboards/Node_Exporter_Prometheus-1575384595496.json
+*/5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Multiple-1576160531663.json /var/lib/grafana/dashboards/Node_Multiple-1576160531663.json
+*/5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Single-1576093428916.json /var/lib/grafana/dashboards/Node_Single-1576093428916.json
 EOF
 
 systemctl restart crond
