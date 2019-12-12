@@ -22,9 +22,6 @@ EOF
 systemctl daemon-reload
 systemctl enable kibana.service
 systemctl start kibana.service
-sleep 50
-# Set  dark mode
-curl -X POST "http://localhost:5601/api/kibana/settings" --header "Content-type: application/json" -H 'kbn-xsrf: true' -d '{"changes":{"theme:darkMode":true}}'
 # Install filebeat
 yum install filebeat -y
 # Configure filebeat
@@ -75,3 +72,6 @@ sudo systemctl start node_exporter
 
 # Enabling the node exporter service to the system startup *}
 sudo systemctl enable node_exporter
+sleep 50
+# Set  dark mode
+curl -X POST "http://localhost:5601/api/kibana/settings" --header "Content-type: application/json" -H 'kbn-xsrf: true' -d '{"changes":{"theme:darkMode":true}}'
