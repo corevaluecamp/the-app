@@ -312,35 +312,35 @@ resource "aws_security_group_rule" "dos-backend-ingress-8880" {
 #   cidr_blocks       = ["${var.all-ip}"]
 #   security_group_id = "${aws_security_group.dos-backend.id}"
 # }
-# Kibana security group
-resource "aws_security_group" "dos-kibana-connect" {
-  name        = "dos-kibana-connect"
-  description = "Kibana web UI"
-  vpc_id      = "${var.vpc-id}"
-  # ingress {
-  #   from_port   = 5601
-  #   to_port     = 5601
-  #   protocol    = "tcp"
-  #   cidr_blocks = ["${aws_security_group.dos-load-bal.id}"]
-  # }
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["${var.all-ip}"]
-  }
-  tags = {
-    Name = "${var.sg-name[9]}"
-  }
-}
-resource "aws_security_group_rule" "dos-kibana-connect-ingress" {
-  type                     = "ingress"
-  from_port                = 5601
-  to_port                  = 5601
-  protocol                 = "tcp"
-  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
-  security_group_id        = "${aws_security_group.dos-kibana-connect.id}"
-}
+# # Kibana security group
+# resource "aws_security_group" "dos-kibana-connect" {
+#   name        = "dos-kibana-connect"
+#   description = "Kibana web UI"
+#   vpc_id      = "${var.vpc-id}"
+#   # ingress {
+#   #   from_port   = 5601
+#   #   to_port     = 5601
+#   #   protocol    = "tcp"
+#   #   cidr_blocks = ["${aws_security_group.dos-load-bal.id}"]
+#   # }
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["${var.all-ip}"]
+#   }
+#   tags = {
+#     Name = "${var.sg-name[9]}"
+#   }
+# }
+# resource "aws_security_group_rule" "dos-kibana-connect-ingress" {
+#   type                     = "ingress"
+#   from_port                = 5601
+#   to_port                  = 5601
+#   protocol                 = "tcp"
+#   source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+#   security_group_id        = "${aws_security_group.dos-kibana-connect.id}"
+# }
 resource "aws_security_group" "dos-es-connect" {
   name        = "dos-elasticsearch-connect"
   description = "Elasticsearch and Filebeat"
@@ -356,14 +356,21 @@ resource "aws_security_group" "dos-es-connect" {
   }
 }
 resource "aws_security_group_rule" "dos-es-connect-ingress" {
+  type              = "ingress"
+  from_port         = 9200
+  to_port           = 9300
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-es-connect.id}"
+}
+resource "aws_security_group_rule" "dos-es-connect-ingress-5601" {
   type                     = "ingress"
-  from_port                = 9200
-  to_port                  = 9300
+  from_port                = 5601
+  to_port                  = 5601
   protocol                 = "tcp"
-  source_security_group_id = "${aws_security_group.dos-kibana-connect.id}"
+  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
   security_group_id        = "${aws_security_group.dos-es-connect.id}"
 }
-
 # Load Balancer security group
 resource "aws_security_group" "dos-load-bal" {
   name        = "dos-load-bal"
