@@ -18,7 +18,7 @@ sed -i -e 's/-Xms1g/-Xms512m/g' /etc/elasticsearch/jvm.options
 sed -i -e 's/-Xmx1g/-Xmx512m/g' /etc/elasticsearch/jvm.options
 # Configure elasticsearch
 cat >> /etc/elasticsearch/elasticsearch.yml <<-EOF
-network.host: _site_
+network.host: 0.0.0.0
 discovery.type: single-node
 EOF
 # Add elasticsearch to startup
