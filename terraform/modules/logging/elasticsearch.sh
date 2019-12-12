@@ -1,4 +1,5 @@
 #!/bin/bash
+# Download and install elasticsearch
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 cat > /etc/yum.repos.d/elasticsearch.repo <<-EOF
 [elasticsearch-7.x]
@@ -12,14 +13,17 @@ type=rpm-md
 EOF
 yum update -y
 yum install elasticsearch -y
+# Configure elasticsearch to run on low-power machines (t2.micro)
 sed -i -e 's/-Xms1g/-Xms512m/g' /etc/elasticsearch/jvm.options
 sed -i -e 's/-Xmx1g/-Xmx512m/g' /etc/elasticsearch/jvm.options
+# Configure elasticsearch
 cat >> /etc/elasticsearch/elasticsearch.yml <<-EOF
 network.host: _site_
 discovery.type: single-node
 EOF
-/bin/systemctl daemon-reload
-/bin/systemctl enable elasticsearch.service
+# Add elasticsearch to startup
+systemctl daemon-reload
+systemctl enable elasticsearch.service
 systemctl start elasticsearch.service
 # Downloading the node exporter package
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
