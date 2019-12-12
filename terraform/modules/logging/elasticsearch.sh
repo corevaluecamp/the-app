@@ -1,7 +1,7 @@
 #!/bin/bash
 # Download and install elasticsearch
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
-cat > /etc/yum.repos.d/elasticsearch.repo <<-EOF
+cat > /etc/yum.repos.d/elasticsearch.repo << EOF
 [elasticsearch-7.x]
 name=Elasticsearch repository for 7.x packages
 baseurl=https://artifacts.elastic.co/packages/7.x/yum
@@ -17,7 +17,7 @@ yum install elasticsearch -y
 sed -i -e 's/-Xms1g/-Xms512m/g' /etc/elasticsearch/jvm.options
 sed -i -e 's/-Xmx1g/-Xmx512m/g' /etc/elasticsearch/jvm.options
 # Configure elasticsearch
-cat >> /etc/elasticsearch/elasticsearch.yml <<-EOF
+cat >> /etc/elasticsearch/elasticsearch.yml << EOF
 network.host: 0.0.0.0
 discovery.type: single-node
 EOF
