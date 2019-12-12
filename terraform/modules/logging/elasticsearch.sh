@@ -25,6 +25,17 @@ EOF
 systemctl daemon-reload
 systemctl enable elasticsearch.service
 systemctl start elasticsearch.service
+# Install filebeat
+yum install filebeat -y
+# Configure filebeat
+#sed -i -e 's/localhost:9200/127.0.0.1:9200/g' /etc/filebeat/filebeat.yml
+sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+sed -i '31c\    - /home/ec2-user/logs/*.log' /etc/filebeat/filebeat.yml
+# Create custom index name
+cat >> /etc/filebeat/filebeat.yml <<-EOF
+setup.ilm.rollover_alias: "elasticsearch"
+setup.ilm.overwrite: true
+EOF
 # Downloading the node exporter package
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
 
