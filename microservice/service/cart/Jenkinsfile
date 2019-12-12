@@ -19,8 +19,6 @@ pipeline {
         echo 'Deploying...'
         echo 'Uploading artifact to s3...'
         sh "python3 s3.py ./microservice/service/cart/build/libs/cart-microservice-0.6.${env.BUILD_NUMBER}.jar ${env.BUCKET_NAME} cart.jar"
-        sh "python3 s3.py Node_Multiple-1576160531663.json ${env.BUCKET_NAME} Node_Multiple-1576160531663.json"
-        sh "python3 s3.py Node_Single-1576093428916.json ${env.BUCKET_NAME} Node_Single-1576093428916.json"
         }
     }
     stage('Archive Artifacts') {
