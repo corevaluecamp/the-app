@@ -65,10 +65,9 @@ sudo systemctl enable prometheus
 wget https://dl.grafana.com/oss/release/grafana-6.5.0-1.x86_64.rpm -P /tmp
 sudo yum install /tmp/grafana-6.5.0-1.x86_64.rpm -y
 
-
 # configuration of custom admin credentials
-sudo sed -i 's/^;admin_user = admin$/;admin_user = user/' /etc/grafana/grafana.ini
-sudo sed -i 's/^;admin_password = admin$/;admin_password = user/' /etc/grafana/grafana.ini
+sudo sed -i 's/^;admin_user = admin$/admin_user = user/' /etc/grafana/grafana.ini
+sudo sed -i 's/^;admin_password = admin$/admin_password = user/' /etc/grafana/grafana.ini
 
 sudo service grafana-server start
 sudo systemctl enable grafana-server.service
