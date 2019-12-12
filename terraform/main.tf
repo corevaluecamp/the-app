@@ -67,7 +67,7 @@ module "backend" {
   id-sg-jenkins           = module.security.id-sg-jenkins
   id-sg-redis             = module.security.id-sg-redis
   id-sg-monitoring-access = module.security.id-sg-monitoring-access
-  # id-sg-kibana            = module.security.id-sg-kibana
+  id-sg-es              = module.security.id-sg-es
   id-sg-metrics    = module.security.id-sg-metrics
   subnet-pub-a-id  = module.network.subnet-pub-a-id
   subnet-pub-b-id  = module.network.subnet-pub-b-id
