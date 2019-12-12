@@ -45,7 +45,7 @@ systemctl start tomcat
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/5 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} shop.war /home/ec2-user/war/shop.war && /home/ec2-user/tomcat.sh 
+*/5 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} shop.war /home/ec2-user/war/shop.war ; /home/ec2-user/tomcat.sh 
 EOF
 
 systemctl restart crond

@@ -34,7 +34,7 @@ touch /home/ec2-user/logs/app-cart.log
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/14 * * * * root pkill java && /home/ec2-user/s3d.py ${s3_bucketname} cart.jar /home/ec2-user/jar/cart.jar && java -jar /home/ec2-user/jar/cart.jar >> /home/ec2-user/logs/app-cart.log
+*/10 * * * * root pkill java ; /home/ec2-user/s3d.py ${s3_bucketname} cart.jar /home/ec2-user/jar/cart.jar ; java -jar /home/ec2-user/jar/cart.jar >> /home/ec2-user/logs/app-cart.log
 EOF
 
 chmod +rw /home/ec2-user/logs

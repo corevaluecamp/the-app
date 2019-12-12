@@ -34,7 +34,7 @@ touch /home/ec2-user/logs/app-navigation.log
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/14 * * * * root pkill java && /home/ec2-user/s3d.py ${s3_bucketname} navigation.jar /home/ec2-user/jar/navigation.jar && java -jar /home/ec2-user/jar/navigation.jar >> /home/ec2-user/logs/app-navigation.log
+*/10 * * * * root pkill java ; /home/ec2-user/s3d.py ${s3_bucketname} navigation.jar /home/ec2-user/jar/navigation.jar ; java -jar /home/ec2-user/jar/navigation.jar >> /home/ec2-user/logs/app-navigation.log
 EOF
 
 chmod +rw /home/ec2-user/logs
