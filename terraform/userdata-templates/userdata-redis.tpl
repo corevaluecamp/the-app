@@ -105,7 +105,7 @@ apt install filebeat -y
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/localhost:9200/${filebeat-es-ip}:9200/g' /etc/filebeat/filebeat.yml
 cat >> /etc/filebeat/filebeat.yml <<EOF
-setup.ilm.rollover_alias: "kibana"
+setup.ilm.rollover_alias: "redis"
 setup.ilm.overwrite: true
 EOF
 
