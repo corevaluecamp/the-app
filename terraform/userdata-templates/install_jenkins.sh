@@ -5,8 +5,19 @@
 ###################################
 
 # Install pre-requisites and updates
+# install MongoDB
+cat <<EOF > /etc/yum.repos.d/mongodb-org-4.2.repo
+[mongodb-org-4.2]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/4.2/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
+EOF
+
 echo "Install Jenkins"
 yum -y update
+yum install -y mongodb-org
 rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
 curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
@@ -174,15 +185,3 @@ setup.ilm.overwrite: true
 EOF
 systemctl enable filebeat
 systemctl start filebeat
-# install MongoDB
-cat <<EOF > /etc/yum.repos.d/mongodb-org-4.2.repo
-[mongodb-org-4.2]
-name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/4.2/x86_64/
-gpgcheck=1
-enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
-EOF
-
-yum install -y mongodb-org
-mongorestore --host mongodb.dos.net /var/lib/jenkins/appstash/dump
