@@ -1,5 +1,5 @@
 data "template_file" "init" {
-  template = "${file("${path.module}/init.sh")}"
+  template = "${file("${path.module}/init.tpl")}"
   vars = {
     backend_s3_created_bucket_name = "${var.backend_s3_created_bucket_name}"
     elastic_ip                     = "${var.elasticip}"
