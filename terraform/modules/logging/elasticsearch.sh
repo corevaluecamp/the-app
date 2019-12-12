@@ -36,6 +36,9 @@ cat >> /etc/filebeat/filebeat.yml <<-EOF
 setup.ilm.rollover_alias: "elasticsearch"
 setup.ilm.overwrite: true
 EOF
+# Add filebeat to startup
+systemctl enable filebeat
+systemctl start filebeat
 # Downloading the node exporter package
 wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz -P /tmp
 
