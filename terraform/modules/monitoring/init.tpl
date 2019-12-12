@@ -167,6 +167,7 @@ sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
 cat >> /etc/filebeat/filebeat.yml <<-EOF
 setup.ilm.rollover_alias: "monitoring"
 setup.ilm.overwrite: true
+EOF
 systemctl enable filebeat
 systemctl start filebeat
 
