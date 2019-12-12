@@ -3,36 +3,35 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/corevaluecamp/the-app'
+        git "https://github.com/corevaluecamp/the-app"
       }
     }
     
     stage('Build') {
       steps {
-        echo 'Building...'
-        //sh 'cd ../../../'
-        sh './gradlew -p ./microservice/frontend/catalog bower grunt_build'
-        sh './gradlew -p ./microservice/frontend/catalog build'
-        //sh './gradlew -p ./microservice/frontend/catalog packageToContainer'
+        echo "Building..."
+        //sh "cd ../../../"
+        //sh "./gradlew -p ./microservice/frontend/catalog bower grunt_build"
+        //sh "./gradlew -p ./microservice/frontend/catalog build"
+        //sh "./gradlew -p ./microservice/frontend/catalog packageToContainer"
+        sh "rm -rf /var/lib/jenkins/.npm/5fd4d489-ins-npm-lodash-2-4-1-package-tgz.lock"
+        sh "npm install grunt-cli"
+        sh "./gradlew -p microservice/frontend/catalog bower grunt_build --stacktrace"
+        sh "./gradlew -p microservice/frontend/catalog prepareDeb buildDeb --stacktrace"
       }
     }
     stage('Test') { 
         steps {
-          echo 'Testing...'
+          echo "Testing..."
           }
     }
     
     stage('Deploy'){
         steps{
-         echo 'Deploying...'
-         echo 'Uploading artifact to s3...'
-         sh 'python3 s3directory.py ./microservice/frontend/catalog/build/libs/shop-catalog-frontend-0.6.$BUILD_NUMBER.jar cart.jar'
+         echo "Deploying..."
+         echo "Uploading artifact to s3..."
+         sh "python3 s3directory.py ./microservice/frontend/catalog/dist"
         }
-    }
-    stage('Archive Artifacts') {
-      steps {
-        archiveArtifacts(fingerprint: true, artifacts: '**/*.jar')
-      }
     }
 
   }

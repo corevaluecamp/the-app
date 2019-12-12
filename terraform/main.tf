@@ -1,8 +1,6 @@
 # SET PROVIDER - AMAZON WEB SERVICES
 provider "aws" {
-  region = "${var.aws-region}"
-  access_key = "AKIAJPN2TCXONIFAAB5A"
-  secret_key = "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"
+  region = "${var.aws-region}" 
 }
 terraform {
   required_version = "> 0.12.08"
