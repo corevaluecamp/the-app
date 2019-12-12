@@ -83,5 +83,6 @@ EOF
 
 yum install filebeat -y
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+sed -i -e 's/localhost:9200/${filebeat-es-ip}:9200/g' /etc/filebeat/filebeat.yml
 systemctl enable filebeat
 systemctl start filebeat

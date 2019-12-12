@@ -17,7 +17,7 @@ output "id-sg-mongodb" {
 
 output "id-sg-metrics" {
   description = "The ID of security group for Node_Exporter metrics"
-  value       = "${aws_security_group.dos-monitoring-access.id}"
+  value       = "${aws_security_group.dos-metrics-connect.id}"
 }
 output "id-sg-monitoring-access" {
   description = "The ID of security group for Monitoring instance"

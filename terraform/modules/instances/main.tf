@@ -1,6 +1,8 @@
 data "template_file" "userdata-bastion" {
   template = "${file("${var.userdata-path}/userdata-bastion.tpl")}"
-  vars     = {}
+  vars = {
+    filebeat-es-ip = "${var.filebeat-es-ip}"
+  }
 }
 resource "aws_launch_template" "dos-bastion-launch-tmpl" {
   name                    = "${var.name-tag[0]}"
@@ -43,7 +45,8 @@ resource "aws_instance" "dos-mongodb" {
   ]
   subnet_id = "${var.subnet-db-a-id}"
   user_data = templatefile("${var.userdata-path}/userdata-mongo.tpl", {
-    dbhost = "${var.mongodb-server-domain}"
+    dbhost         = "${var.mongodb-server-domain}"
+    filebeat-es-ip = "${var.filebeat-es-ip}"
   })
   tags = {
     Name = "${var.name-tag[1]}"
