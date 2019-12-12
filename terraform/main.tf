@@ -67,21 +67,21 @@ module "backend" {
   id-sg-jenkins           = module.security.id-sg-jenkins
   id-sg-redis             = module.security.id-sg-redis
   id-sg-monitoring-access = module.security.id-sg-monitoring-access
-  id-sg-es              = module.security.id-sg-es
-  id-sg-metrics    = module.security.id-sg-metrics
-  subnet-pub-a-id  = module.network.subnet-pub-a-id
-  subnet-pub-b-id  = module.network.subnet-pub-b-id
-  subnet-priv-a-id = module.network.subnet-priv-a-id
-  subnet-priv-b-id = module.network.subnet-priv-b-id
-  my_vpc           = module.network.vpc-id
-  mongo_ip         = module.instances.mongo-server-ip
-  redis_ip         = module.instances.redis-server-ip
-  kibana_id        = module.logging.kibana_id
-  grafana_id       = module.monitoring.grafana_id
-  jenkins_asg_id   = module.jenkins.jenkins_asg_id
-  es_ip            = module.logging.elasticsearch_ip
-  id-sg-load       = module.security.id-sg-load
-  s3force          = true
+  id-sg-es                = module.security.id-sg-es
+  id-sg-metrics           = module.security.id-sg-metrics
+  subnet-pub-a-id         = module.network.subnet-pub-a-id
+  subnet-pub-b-id         = module.network.subnet-pub-b-id
+  subnet-priv-a-id        = module.network.subnet-priv-a-id
+  subnet-priv-b-id        = module.network.subnet-priv-b-id
+  my_vpc                  = module.network.vpc-id
+  mongo_ip                = module.instances.mongo-server-ip
+  redis_ip                = module.instances.redis-server-ip
+  kibana_id               = module.logging.kibana_id
+  grafana_id              = module.monitoring.grafana_id
+  jenkins_asg_id          = module.jenkins.jenkins_asg_id
+  es_ip                   = module.logging.elasticsearch_ip
+  id-sg-load              = module.security.id-sg-load
+  s3force                 = true
 
 }
 

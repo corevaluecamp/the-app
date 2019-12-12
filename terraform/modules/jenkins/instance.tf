@@ -18,9 +18,10 @@ resource "aws_launch_template" "jenkins-launch-tmpl" {
   disable_api_termination = true
 
   block_device_mappings {
-    ebs{
-    volume_size = 30
-  }
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = 30
+    }
   }
 
   iam_instance_profile {
