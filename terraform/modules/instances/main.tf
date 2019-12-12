@@ -1,13 +1,19 @@
 data "template_file" "userdata-bastion" {
   template = "${file("${var.userdata-path}/userdata-bastion.tpl")}"
-  vars     = {}
+  vars = {
+    filebeat-es-ip = "${var.filebeat-es-ip}",
+    hostname       = "${var.name-tag[0]}"
+  }
 }
 resource "aws_launch_template" "dos-bastion-launch-tmpl" {
-  name                    = "${var.name-tag[0]}"
-  image_id                = "${var.instance-ami[0]}"
-  instance_type           = "${var.instance-type[0]}"
-  key_name                = "${var.key-name}"
-  vpc_security_group_ids  = ["${var.id-sg-bastion}"]
+  name          = "${var.name-tag[0]}"
+  image_id      = "${var.instance-ami[0]}"
+  instance_type = "${var.instance-type[0]}"
+  key_name      = "${var.key-name}"
+  vpc_security_group_ids = [
+    "${var.id-sg-bastion}",
+    "${var.id-sg-es}"
+  ]
   disable_api_termination = true
   user_data               = "${base64encode(data.template_file.userdata-bastion.rendered)}"
   tag_specifications {
@@ -39,11 +45,13 @@ resource "aws_instance" "dos-mongodb" {
     "${var.id-sg-private}",
     "${var.id-sg-mongodb}",
     "${var.id-sg-jenkins}",
-
+    "${var.id-sg-es}"
   ]
   subnet_id = "${var.subnet-db-a-id}"
   user_data = templatefile("${var.userdata-path}/userdata-mongo.tpl", {
-    dbhost = "${var.mongodb-server-domain}"
+    dbhost         = "${var.mongodb-server-domain}"
+    filebeat-es-ip = "${var.filebeat-es-ip}"
+    hostname       = "${var.name-tag[1]}"
   })
   tags = {
     Name = "${var.name-tag[1]}"
@@ -56,11 +64,13 @@ resource "aws_instance" "dos-redis" {
   key_name      = "${var.key-name}"
   vpc_security_group_ids = [
     "${var.id-sg-private}",
-    "${var.id-sg-redis}"
+    "${var.id-sg-redis}",
+    "${var.id-sg-es}"
   ]
   subnet_id = "${var.subnet-db-a-id}"
   user_data = templatefile("${var.userdata-path}/userdata-redis.tpl", {
-    rdbhost = "${var.redis-server-domain}"
+    filebeat-es-ip = "${var.filebeat-es-ip}"
+    hostname       = "${var.name-tag[2]}"
   })
   tags = {
     Name = "${var.name-tag[2]}"

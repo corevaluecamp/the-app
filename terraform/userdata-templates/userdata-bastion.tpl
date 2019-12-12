@@ -54,7 +54,14 @@ autorefresh=1
 type=rpm-md
 EOF
 
-yum install filebeat -y > "/var/log/install-filebeat$(date +%d-%m-%Y@%k:%M:%S).log"
+yum install filebeat -y
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+sed -i -e 's/localhost:9200/${filebeat-es-ip}:9200/g' /etc/filebeat/filebeat.yml
+# Create custom index name
+cat <<EOF >> /etc/filebeat/filebeat.yml
+setup.ilm.rollover_alias: "bastion"
+setup.ilm.overwrite: true
+EOF
+
 systemctl enable filebeat
 systemctl start filebeat

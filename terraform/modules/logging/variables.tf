@@ -19,7 +19,7 @@ variable "subnet-pub-b-id" {}
 variable "subnet-priv-a-id" {}
 variable "subnet-priv-b-id" {}
 variable "id-sg-es" {}
-variable "id-sg-kibana" {}
+# variable "id-sg-kibana" {}
 variable "id-sg-private" {}
 variable "id-sg-jenkins" {}
 variable "id-sg-bastion" {}
