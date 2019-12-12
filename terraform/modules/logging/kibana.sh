@@ -1,7 +1,7 @@
 #!/bin/bash
 # Download and install kibana
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
-cat > /etc/yum.repos.d/elasticsearch.repo <<-EOF
+cat > /etc/yum.repos.d/elasticsearch.repo << EOF
 [elasticsearch-7.x]
 name=Elasticsearch repository for 7.x packages
 baseurl=https://artifacts.elastic.co/packages/7.x/yum
@@ -15,7 +15,7 @@ yum update -y
 yum install kibana -y
 # Configure kibana
 sed -i -e 's/#server.host: "localhost"/server.host: "0.0.0.0"/g' /etc/kibana/kibana.yml
-cat >> /etc/kibana/kibana.yml <<-EOF
+cat >> /etc/kibana/kibana.yml << EOF
 elasticsearch.hosts: ["http://${elastic_ip}:9200"]
 EOF
 # Add kibana to startup
@@ -27,9 +27,8 @@ yum install filebeat -y
 # Configure filebeat
 sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
-sed -i '31c\    - /home/ec2-user/logs/*.log' /etc/filebeat/filebeat.yml
 # Create custom index name
-cat >> /etc/filebeat/filebeat.yml <<-EOF
+cat >> /etc/filebeat/filebeat.yml << EOF
 setup.ilm.rollover_alias: "kibana"
 setup.ilm.overwrite: true
 EOF
@@ -72,6 +71,7 @@ sudo systemctl start node_exporter
 
 # Enabling the node exporter service to the system startup *}
 sudo systemctl enable node_exporter
-sleep 50
+
 # Set  dark mode
+sleep 150
 curl -X POST "http://localhost:5601/api/kibana/settings" --header "Content-type: application/json" -H 'kbn-xsrf: true' -d '{"changes":{"theme:darkMode":true}}'
