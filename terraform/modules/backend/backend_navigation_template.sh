@@ -59,13 +59,17 @@ type=rpm-md
 EOF
 yum update -y
 yum install filebeat -y
+# Configure filebeat
 sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+sed -i '29c\    - /var/log/*.log' /etc/filebeat/filebeat.yml
+sed -i '30c\    - /home/ec2-user/logs/*.log' /etc/filebeat/filebeat.yml
 # Create custom index name
 cat >> /etc/filebeat/filebeat.yml <<-EOF
-setup.ilm.rollover_alias: "navigation_app"
+setup.ilm.rollover_alias: "backend_navigation_app"
 setup.ilm.overwrite: true
 EOF
+# Add filebeat to startup
 systemctl enable filebeat
 systemctl start filebeat
 
