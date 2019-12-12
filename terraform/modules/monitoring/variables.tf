@@ -8,8 +8,8 @@ variable "my_ami" {
   default = "ami-0e9e6ba6d3d38faa8"
 }
 variable "key-name" {}
-variable "id-sg-metrics" {}
-variable "id-sg-monitoring-access" {}
+# variable "id-sg-metrics" {}
+variable "dos-metrics-logging" {}
 variable "id-sg-private" {}
 variable "backend_s3_created_bucket_name" {}
 variable "subnet-priv-a-id" {}

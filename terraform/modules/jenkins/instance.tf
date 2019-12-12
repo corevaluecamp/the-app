@@ -14,7 +14,7 @@ resource "aws_launch_template" "jenkins-launch-tmpl" {
   image_id                = "${var.instance-ami[0]}"
   instance_type           = "${var.instance-type[1]}"
   key_name                = "${var.key-name}"
-  vpc_security_group_ids  = ["${var.id-sg-jenkins}", "${var.id-sg-private}", "${var.id-sg-metrics}", "${var.id-sg-mongodb}"]
+  vpc_security_group_ids  = ["${var.id-sg-jenkins}", "${var.id-sg-private}", "${var.id-sg-mongodb}", "${var.dos-metrics-logging}"]
   disable_api_termination = true
   iam_instance_profile {
     name = "${var.iam_role}"

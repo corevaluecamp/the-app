@@ -46,7 +46,7 @@ variable "id-sg-private" {}
 variable "id-sg-mongodb" {}
 variable "id-sg-jenkins" {}
 variable "id-sg-redis" {}
-variable "id-sg-es" {}
+variable "dos-metrics-logging" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
 variable "subnet-priv-a-id" {}

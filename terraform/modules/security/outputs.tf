@@ -15,14 +15,14 @@ output "id-sg-mongodb" {
   value       = "${aws_security_group.dos-mongodb-connect.id}"
 }
 
-output "id-sg-metrics" {
-  description = "The ID of security group for Node_Exporter metrics"
-  value       = "${aws_security_group.dos-metrics-connect.id}"
-}
-output "id-sg-monitoring-access" {
-  description = "The ID of security group for Monitoring instance"
-  value       = "${aws_security_group.dos-monitoring-access.id}"
-}
+# output "id-sg-metrics" {
+#   description = "The ID of security group for Node_Exporter metrics"
+#   value       = "${aws_security_group.dos-metrics-connect.id}"
+# }
+# output "id-sg-monitoring-access" {
+#   description = "The ID of security group for Monitoring instance"
+#   value       = "${aws_security_group.dos-monitoring-access.id}"
+# }
 output "id-sg-jenkins" {
   description = "The ID of security group for Jenkins"
   value       = "${aws_security_group.dos-jenkins.id}"
@@ -35,10 +35,10 @@ output "id-sg-backend" {
 #   description = "The ID of security group for Kibana web UI"
 #   value       = "${aws_security_group.dos-kibana-connect.id}"
 # }
-output "id-sg-es" {
-  description = "The ID of security group for Elasticsearch and Filebeat"
-  value       = "${aws_security_group.dos-es-connect.id}"
-}
+# output "id-sg-es" {
+#   description = "The ID of security group for Elasticsearch and Filebeat"
+#   value       = "${aws_security_group.dos-es-connect.id}"
+# }
 output "id-sg-redis" {
   description = "The ID of security group for Elasticsearch and Filebeat"
   value       = "${aws_security_group.dos-redis.id}"
@@ -46,4 +46,8 @@ output "id-sg-redis" {
 output "id-sg-load" {
   description = "The ID of security group for Elasticsearch and Filebeat"
   value       = "${aws_security_group.dos-load-bal.id}"
+}
+output "dos-metrics-logging" {
+  description = "The ID of security group for Elasticsearch and Filebeat"
+  value       = "${aws_security_group.dos-metrics-logging.id}"
 }

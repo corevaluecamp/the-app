@@ -12,7 +12,7 @@ resource "aws_launch_template" "dos-bastion-launch-tmpl" {
   key_name      = "${var.key-name}"
   vpc_security_group_ids = [
     "${var.id-sg-bastion}",
-    "${var.id-sg-es}"
+    "${var.dos-metrics-logging}"
   ]
   disable_api_termination = true
   user_data               = "${base64encode(data.template_file.userdata-bastion.rendered)}"
@@ -45,7 +45,7 @@ resource "aws_instance" "dos-mongodb" {
     "${var.id-sg-private}",
     "${var.id-sg-mongodb}",
     "${var.id-sg-jenkins}",
-    "${var.id-sg-es}"
+    "${var.dos-metrics-logging}"
   ]
   subnet_id = "${var.subnet-db-a-id}"
   user_data = templatefile("${var.userdata-path}/userdata-mongo.tpl", {
@@ -65,7 +65,7 @@ resource "aws_instance" "dos-redis" {
   vpc_security_group_ids = [
     "${var.id-sg-private}",
     "${var.id-sg-redis}",
-    "${var.id-sg-es}"
+    "${var.dos-metrics-logging}"
   ]
   subnet_id = "${var.subnet-db-a-id}"
   user_data = templatefile("${var.userdata-path}/userdata-redis.tpl", {

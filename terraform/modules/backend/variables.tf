@@ -43,9 +43,9 @@ variable "id-sg-private" {}
 variable "id-sg-mongodb" {}
 variable "id-sg-jenkins" {}
 variable "id-sg-redis" {}
-# variable "id-sg-kibana" {}
-variable "id-sg-monitoring-access" {}
-variable "id-sg-metrics" {}
+variable "dos-metrics-logging" {}
+# variable "id-sg-monitoring-access" {}
+# variable "id-sg-metrics" {}
 variable "id-sg-load" {}
 variable "subnet-priv-a-id" {}
 variable "subnet-priv-b-id" {}

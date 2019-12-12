@@ -26,7 +26,7 @@ variable "key-name" {}
 variable "id-sg-bastion" {}
 variable "id-sg-jenkins" {}
 variable "id-sg-private" {}
-variable "id-sg-metrics" {}
+variable "dos-metrics-logging" {}
 variable "subnet-pub-a-id" {}
 variable "subnet-pub-b-id" {}
 variable "subnet-priv-a-id" {}

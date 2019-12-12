@@ -177,16 +177,16 @@ resource "aws_security_group_rule" "dos-jenkins-ingress-ssh" {
 #   security_group_id = "${aws_security_group.dos-jenkins.id}"
 # }
 #comment here
-resource "aws_security_group" "dos-metrics-connect" {
-  name        = "dos-metrics-connect"
-  description = "Allow Node Exporter metrics exchange"
+resource "aws_security_group" "dos-metrics-logging" {
+  name        = "dos-metrics-logging"
+  description = "Logging and monitoring"
   vpc_id      = "${var.vpc-id}"
-  ingress {
-    from_port = 9100
-    to_port   = 9100
-    protocol  = "tcp"
-    self      = true
-  }
+  # ingress {
+  #   from_port = 9100
+  #   to_port   = 9100
+  #   protocol  = "tcp"
+  #   self      = true
+  # }
   egress {
     from_port   = 0
     to_port     = 0
@@ -197,42 +197,82 @@ resource "aws_security_group" "dos-metrics-connect" {
     Name = "${var.sg-name[7]}"
   }
 }
-resource "aws_security_group" "dos-monitoring-access" {
-  name        = "dos-monitoring-access"
-  description = "Allows Grafana and Prometheus to work properly on monitoring machine"
-  vpc_id      = "${var.vpc-id}"
-
-  # Makes Prometheus closed to outher connections
-  # ingress {
-  #   from_port   = 9090
-  #   to_port     = 9090
-  #   protocol    = "tcp"
-  #   # cidr_blocks = ["${var.my_IP}"]
-  # }
-  # ingress {
-  #   from_port   = 3000
-  #   to_port     = 3000
-  #   protocol    = "tcp"
-  #   cidr_blocks = ["${aws_security_group.dos-load-bal.id}"]
-  # }
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["${var.all-ip}"]
-  }
-  tags = {
-    Name = "${var.sg-name[8]}"
-  }
+resource "aws_security_group_rule" "dos-metrics-ingress-9100" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-metrics-logging.id}"
 }
-resource "aws_security_group_rule" "dos-monitoring-access-ingress" {
+resource "aws_security_group_rule" "dos-metrics-ingress-9090" {
+  type              = "ingress"
+  from_port         = 9090
+  to_port           = 9090
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-metrics-logging.id}"
+}
+resource "aws_security_group_rule" "dos-metrics-ingress-3000" {
   type                     = "ingress"
   from_port                = 3000
   to_port                  = 3000
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.dos-load-bal.id}"
-  security_group_id        = "${aws_security_group.dos-monitoring-access.id}"
+  security_group_id        = "${aws_security_group.dos-metrics-logging.id}"
 }
+resource "aws_security_group_rule" "dos-es-connect-ingress" {
+  type              = "ingress"
+  from_port         = 9200
+  to_port           = 9300
+  protocol          = "tcp"
+  self              = true
+  security_group_id = "${aws_security_group.dos-metrics-logging.id}"
+}
+resource "aws_security_group_rule" "dos-es-connect-ingress-5601" {
+  type                     = "ingress"
+  from_port                = 5601
+  to_port                  = 5601
+  protocol                 = "tcp"
+  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+  security_group_id        = "${aws_security_group.dos-metrics-logging.id}"
+}
+# resource "aws_security_group" "dos-monitoring-access" {
+#   name        = "dos-monitoring-access"
+#   description = "Allows Grafana and Prometheus to work properly on monitoring machine"
+#   vpc_id      = "${var.vpc-id}"
+#
+#   # Makes Prometheus closed to outher connections
+#   # ingress {
+#   #   from_port   = 9090
+#   #   to_port     = 9090
+#   #   protocol    = "tcp"
+#   #   # cidr_blocks = ["${var.my_IP}"]
+#   # }
+#   # ingress {
+#   #   from_port   = 3000
+#   #   to_port     = 3000
+#   #   protocol    = "tcp"
+#   #   cidr_blocks = ["${aws_security_group.dos-load-bal.id}"]
+#   # }
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["${var.all-ip}"]
+#   }
+#   tags = {
+#     Name = "${var.sg-name[8]}"
+#   }
+# }
+# resource "aws_security_group_rule" "dos-monitoring-access-ingress" {
+#   type                     = "ingress"
+#   from_port                = 3000
+#   to_port                  = 3000
+#   protocol                 = "tcp"
+#   source_security_group_id = "${aws_security_group.dos-load-bal.id}"
+#   security_group_id        = "${aws_security_group.dos-monitoring-access.id}"
+# }
 # Backend security group
 resource "aws_security_group" "dos-backend" {
   name        = "dos-backend"
@@ -341,36 +381,20 @@ resource "aws_security_group_rule" "dos-backend-ingress-8880" {
 #   source_security_group_id = "${aws_security_group.dos-load-bal.id}"
 #   security_group_id        = "${aws_security_group.dos-kibana-connect.id}"
 # }
-resource "aws_security_group" "dos-es-connect" {
-  name        = "dos-elasticsearch-connect"
-  description = "Elasticsearch and Filebeat"
-  vpc_id      = "${var.vpc-id}"
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["${var.all-ip}"]
-  }
-  tags = {
-    Name = "${var.sg-name[10]}"
-  }
-}
-resource "aws_security_group_rule" "dos-es-connect-ingress" {
-  type              = "ingress"
-  from_port         = 9200
-  to_port           = 9300
-  protocol          = "tcp"
-  self              = true
-  security_group_id = "${aws_security_group.dos-es-connect.id}"
-}
-resource "aws_security_group_rule" "dos-es-connect-ingress-5601" {
-  type                     = "ingress"
-  from_port                = 5601
-  to_port                  = 5601
-  protocol                 = "tcp"
-  source_security_group_id = "${aws_security_group.dos-load-bal.id}"
-  security_group_id        = "${aws_security_group.dos-es-connect.id}"
-}
+# resource "aws_security_group" "dos-es-connect" {
+#   name        = "dos-elasticsearch-connect"
+#   description = "Elasticsearch and Filebeat"
+#   vpc_id      = "${var.vpc-id}"
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["${var.all-ip}"]
+#   }
+#   tags = {
+#     Name = "${var.sg-name[10]}"
+#   }
+# }
 # Load Balancer security group
 resource "aws_security_group" "dos-load-bal" {
   name        = "dos-load-bal"

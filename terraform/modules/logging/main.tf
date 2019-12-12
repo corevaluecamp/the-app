@@ -1,7 +1,7 @@
 resource "aws_instance" "ELSearch" {
   ami                    = var.instance-ami[0]
   instance_type          = var.instance-type[1]
-  vpc_security_group_ids = [var.id-sg-es, var.id-sg-private, var.id-sg-jenkins]
+  vpc_security_group_ids = [var.id-sg-private, var.id-sg-jenkins, var.dos-metrics-logging]
   key_name               = var.key-name
   user_data              = file("${path.module}/elasticsearch.sh")
   subnet_id              = "${var.subnet-priv-a-id}"
@@ -12,7 +12,7 @@ resource "aws_instance" "ELSearch" {
 resource "aws_instance" "Kibana" {
   ami                    = var.instance-ami[0]
   instance_type          = var.instance-type[1]
-  vpc_security_group_ids = [var.id-sg-private, var.id-sg-jenkins]
+  vpc_security_group_ids = [var.id-sg-private, var.id-sg-jenkins, var.dos-metrics-logging]
   # vpc_security_group_ids = [var.id-sg-es, var.id-sg-kibana, var.id-sg-private, var.id-sg-jenkins]
   # vpc_security_group_ids = [aws_security_group.security_for_kibana.id]
   key_name  = var.key-name
