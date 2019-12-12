@@ -66,6 +66,7 @@ chmod 755 /var/lib/redis
 chmod 644 /var/lib/redis/dump.rdb
 systemctl start redis-server
 systemctl enable redis-server
+systemctl restart redis-server
 
 ######################################
 # Installing Node Exporter user-data #

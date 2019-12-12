@@ -80,6 +80,13 @@ java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:$
 # Waiting for Jenkins restart
 sleep 60
 
+# env var in jenkins
+mkdir /var/lib/jenkins/.envvars
+cat <<EOF > /var/lib/jenkins/.envvars/var.groovy
+env.BUCKET_NAME="${backend_s3_created_bucket_name}"
+env.ALB_DNS="${application_load_balancer_DNS}"
+EOF
+
 # Restoring(Updating) Jobs
 for BUILD in $(cat /tmp/temp/jobs/files/jobs.txt)
 do
@@ -97,12 +104,8 @@ do
     fi
 done
 
-# env var in jenkins
-mkdir /var/lib/jenkins/.envvars
-cat <<EOF > /var/lib/jenkins/.envvars/var.groovy
-env.BUCKET_NAME="${backend_s3_created_bucket_name}"
-env.ALB_DNS="${application_load_balancer_DNS}"
-EOF
+java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} build dbrestore
+
 ######################################
 # Installing Node Exporter user-data #
 ######################################

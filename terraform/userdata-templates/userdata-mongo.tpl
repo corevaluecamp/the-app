@@ -9,7 +9,7 @@ gpgcheck=1
 enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
 EOF
-
+yum update -y 
 yum install -y mongodb-org
 service mongod stop
 cat <<EOF > /etc/mongod.conf
