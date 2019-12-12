@@ -14,10 +14,7 @@ resource "aws_instance" "Monitoring" {
   subnet_id                   = var.subnet-priv-a-id
   associate_public_ip_address = "false"
   user_data                   = "${data.template_file.init.rendered}"
-  vpc_security_group_ids = [
-    "${var.id-sg-private}",
-    "${var.dos-metrics-logging}"
-  ]
+  vpc_security_group_ids = ["${var.id-sg-private}","${var.dos-metrics-logging}"]
   iam_instance_profile = "${aws_iam_instance_profile.monitoring-profile.name}"
 
   tags = {
