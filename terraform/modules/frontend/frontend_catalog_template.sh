@@ -1,21 +1,37 @@
 #!/bin/bash
 
-#yum update -y
-yum remove java-1.7.0-openjdk
-yum install java-1.8.0-openjdk-devel -y
-yum update вЂ“y
+#java
+sudo yum remove java-1.7.0-openjdk
+sudo yum install java-1.8.0-openjdk-devel -y
 
 #tomcat
-yum -y install tomcat 
-systemctl enable tomcat 
-systemctl start tomcat 
+sudo yum -y install tomcat
+sudo yum update -y
+sudo systemctl enable tomcat
+sudo systemctl start tomcat
 #echo "welcome to tomcat,Hello World"
+
+#apache
+sudo yum -y install httpd
+#sudo yum update -y
+sudo systemctl start httpd
+
+cat > /the-app/microservice/frontend/catalog/config/environments/production.json <<- EOF
+"NAVIGATION_SERVICE_URL": "localhost:80/navigation/all"
+"PRODUCT_SERVICE_URL": "localhost:80/product/all",
+"CART_SERVICE_IMPL": "localhost:80/redis-microservice",
+"CART_SERVICE_GET_URL": "localhost:80/cart/get/",
+"CART_SERVICE_PUT_URL": "localhost:80/cart/create",
+"CART_SERVICE_POST_URL": "localhost:80/cart/add",
+"CART_SERVICE_DELETE_URL": "localhost:80/cart/removeItemFromCart",
+"CHECKOUT_BASE_URL": "http://shop.monolith.io:8080/shop/checkout",
+"GLOBAL_DISCOUNT": 0
+EOF
 
 #echo "ip redis-node" >> /etc/hosts
 #echo "ip mongodb-node" >> /etc/hosts
 echo "export BUCKET_NAME=${s3_bucketname}" >>  /home/ec2-user/.bashrc
 echo "export NOW=$(date +'%b-%d-%H-%M-%S')" >>  /home/ec2-user/.bashrc
-
 
 #set up Node.js on instance
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
@@ -25,24 +41,6 @@ node -e "console.log('Running Node.js ' + process.version)"
 
 mkdir /home/ec2-user/logs
 touch /home/ec2-user/logs/app-product.log
-
-#logging
-rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
-cat > /etc/yum.repos.d/elasticsearch.repo <<- EOF
-[elasticsearch-7.x]
-name=Elasticsearch repository for 7.x packages
-baseurl=https://artifacts.elastic.co/packages/7.x/yum
-gpgcheck=1
-gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
-enabled=1
-autorefresh=1
-type=rpm-md
-EOF
-yum install filebeat -y
-sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
-sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
-systemctl enable filebeat
-systemctl start filebeat
 
 
 #**************************************************************************#
