@@ -35,7 +35,7 @@ scrape_configs:
 #       access_key: 
 #       secret_key: 
     relabel_configs:
-      - source_labels: [__meta_ec2_tag_Name]
+      - source_labels: [__meta_ec2_tag_Name,__meta_ec2_instance_id]
         target_label: instance
 EOF'
 
