@@ -166,8 +166,9 @@ sed -i '29c\    - /var/log/mongodb/mongodb.log' /etc/filebeat/filebeat.yml
 sed -i '30c\    - /var/log/jenkins/jenkins.log' /etc/filebeat/filebeat.yml
 sed -i '31c\    - /home/ec2-user/logs/*.log' /etc/filebeat/filebeat.yml
 cat >> /etc/filebeat/filebeat.yml <<-EOF
-setup.ilm.rollover_alias: "jenkins"
+setup.ilm.rollover_alias: "customindexname"
 setup.ilm.overwrite: true
+EOF
 systemctl enable filebeat
 systemctl start filebeat
 # install MongoDB
