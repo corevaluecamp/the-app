@@ -164,6 +164,9 @@ EOF
 yum install filebeat -y
 sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
+cat >> /etc/filebeat/filebeat.yml <<-EOF
+setup.ilm.rollover_alias: "monitoring"
+setup.ilm.overwrite: true
 systemctl enable filebeat
 systemctl start filebeat
 
