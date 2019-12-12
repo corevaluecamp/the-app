@@ -65,10 +65,9 @@ sudo systemctl enable prometheus
 wget https://dl.grafana.com/oss/release/grafana-6.5.0-1.x86_64.rpm -P /tmp
 sudo yum install /tmp/grafana-6.5.0-1.x86_64.rpm -y
 
-
 # configuration of custom admin credentials
-sudo sed -i 's/^;admin_user = admin$/;admin_user = user/' /etc/grafana/grafana.ini
-sudo sed -i 's/^;admin_password = admin$/;admin_password = user/' /etc/grafana/grafana.ini
+sudo sed -i 's/^;admin_user = admin$/admin_user = user/' /etc/grafana/grafana.ini
+sudo sed -i 's/^;admin_password = admin$/admin_password = user/' /etc/grafana/grafana.ini
 
 sudo service grafana-server start
 sudo systemctl enable grafana-server.service
@@ -188,7 +187,8 @@ chmod +x /home/ec2-user/s3d.py
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
-*/5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Exporter_Prometheus-1575384595496.json /var/lib/grafana/dashboards/Node_Exporter_Prometheus-1575384595496.json
+*/5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Multiple-1576160531663.json /var/lib/grafana/dashboards/Node_Multiple-1576160531663.json
+*/5 * * * * root /home/ec2-user/s3d.py ${backend_s3_created_bucket_name} Node_Single-1576093428916.json /var/lib/grafana/dashboards/Node_Single-1576093428916.json
 EOF
 
 systemctl restart crond
