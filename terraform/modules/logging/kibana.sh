@@ -24,8 +24,7 @@ systemctl enable kibana.service
 systemctl start kibana.service
 sleep 50
 # Set  dark mode
-IP=`curl -k -s http://ifconfig.co`
-curl -X POST "http://$IP:5601/api/kibana/settings" --header "Content-type: application/json" -H 'kbn-xsrf: true' -d '{"changes":{"theme:darkMode":true}}'
+curl -X POST "http://localhost:5601/api/kibana/settings" --header "Content-type: application/json" -H 'kbn-xsrf: true' -d '{"changes":{"theme:darkMode":true}}'
 # Install filebeat
 yum install filebeat -y
 # Configure filebeat
