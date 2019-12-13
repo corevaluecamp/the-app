@@ -1,32 +1,12 @@
 resource "aws_alb" "main" {
   name = "devops-school"
-  # subnets need some fixes
   subnets = ["${var.subnet-pub-a-id}", "${var.subnet-pub-b-id}"]
-  # security_groups = ["${var.id-sg-backend}", "${var.id-sg-jenkins}", "${var.id-sg-monitoring-access}", "${var.id-sg-kibana}"]
   security_groups = ["${var.id-sg-load}"]
 
 }
 ##################################################################
 #*---------------------ALB target group ------------------------*#
 ##################################################################
-
-/* resource "aws_alb_target_group" "frontend" {
-  name     = "frontend-target-group"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = "${var.my_vpc}"
-
-
-  health_check {
-    healthy_threshold   = "3"
-    interval            = "30"
-    protocol            = "HTTP"
-    matcher             = "200"
-    timeout             = "3"
-    unhealthy_threshold = "2"
-  }
-} */
-
 resource "aws_alb_target_group" "app-cart" {
   name     = "app-cart-target-group"
   port     = 18100
@@ -36,7 +16,7 @@ resource "aws_alb_target_group" "app-cart" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "60"
+    interval            = "10"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
@@ -54,7 +34,7 @@ resource "aws_alb_target_group" "app-navigation" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "60"
+    interval            = "10"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
@@ -72,7 +52,7 @@ resource "aws_alb_target_group" "app-product" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "60"
+    interval            = "10"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
@@ -90,7 +70,7 @@ resource "aws_alb_target_group" "grafana" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "60"
+    interval            = "10"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
@@ -108,7 +88,7 @@ resource "aws_alb_target_group" "kibana" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "60"
+    interval            = "10"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
@@ -126,7 +106,7 @@ resource "aws_alb_target_group" "jenkins" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "60"
+    interval            = "10"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
@@ -144,7 +124,7 @@ resource "aws_alb_target_group" "tomcat" {
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "60"
+    interval            = "10"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
@@ -155,33 +135,6 @@ resource "aws_alb_target_group" "tomcat" {
 ##################################################################
 #*--------------------- ALB listener ---------------------------*#
 ##################################################################
-
-# Redirect all traffic from the ALB to the target group
-/* resource "aws_alb_listener" "frontend" {
-  load_balancer_arn = "${aws_alb.main.id}"
-  port              = 80
-  protocol          = "HTTP"
-
-  default_action {
-    target_group_arn = "${aws_alb_target_group.frontend.id}"
-    type             = "forward"
-
-  }
-
-
-} */
-/* resource "aws_alb_listener_rule" "frontend_rule" {
-  listener_arn = "${aws_alb_listener.frontend.arn}"
-  action {
-    type             = "forward"
-    target_group_arn = "${aws_alb_target_group.frontend.id}"
-  }
-  condition {
-    field  = "path-pattern"
-    values = ["/shop/*"]
-  }
-} */
-
 resource "aws_alb_listener" "app-cart-backend" {
   load_balancer_arn = "${aws_alb.main.id}"
   port              = 18100
@@ -263,20 +216,6 @@ resource "aws_alb_listener" "grafana_listener" {
   }
 }
 
-/* resource "aws_alb_listener_rule" "grafana_rule" {
-  listener_arn = "${aws_alb_listener.grafana_listener.arn}"
-  action {
-    type             = "forward"
-    target_group_arn = "${aws_alb_target_group.grafana.id}"
-
-  }
-  condition {
-    field  = "path-pattern"
-    values = ["/grafana/*"]
-  }
-} */
-
-
 resource "aws_alb_listener" "kibana_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
   port              = 5601
@@ -286,19 +225,6 @@ resource "aws_alb_listener" "kibana_listener" {
     type             = "forward"
   }
 }
-/*  resource "aws_alb_listener_rule" "kibana_rule" {
-  listener_arn = "${aws_alb_listener.kibana_listener.arn}"
-  action {
-    type             = "forward"
-    target_group_arn = "${aws_alb_target_group.kibana.id}"
-
-  }
-  condition {
-    field  = "path-pattern"
-    values = ["/kibana/*"]
-  }
-}
- */
 resource "aws_alb_listener" "jenkins_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
   port              = 8080
@@ -309,19 +235,6 @@ resource "aws_alb_listener" "jenkins_listener" {
   }
 }
 
-/*  resource "aws_alb_listener_rule" "jenkins_rule" {
-  listener_arn = "${aws_alb_listener.jenkins_listener.arn}"
-  action {
-    type             = "forward"
-    target_group_arn = "${aws_alb_target_group.jenkins.id}"
-
-  }
-  condition {
-    field  = "path-pattern"
-    values = ["/jenkins/*"]
-  }
-}
- */
 resource "aws_alb_listener" "tomcat_listener" {
   load_balancer_arn = "${aws_alb.main.id}"
   port              = 80
@@ -349,13 +262,6 @@ resource "aws_alb_listener_rule" "tomcat_rule" {
 ##################################################################
 #*---------------------ALB attachment---------------------------*#
 ##################################################################
-/* resource "aws_alb_target_group_attachment" "frontend-attachment" {
-  target_group_arn = "${aws_alb_target_group.frontend.arn}"
-  target_id        = "${aws_instance.frontend.id}"
-  port             = 80
-}
- */
-
 
 resource "aws_autoscaling_attachment" "app-cart-attachment" {
   alb_target_group_arn   = "${aws_alb_target_group.app-cart.arn}"
@@ -394,13 +300,3 @@ resource "aws_alb_target_group_attachment" "kibana_attachment" {
   port             = 5601
 }
 
-###################################################################
-#---------------------  certificates  ----------------------------#
-###################################################################
-
-
-/* resource "aws_alb_listener_certificate" "tomcat" {
-  listener_arn    = "${aws_alb_listener.tomcat_listener.arn}"
-  certificate_arn = "${aws_acm_certificate.cert.arn}"
-}
- */
