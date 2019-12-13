@@ -1,7 +1,7 @@
 #!/bin/bash
 # Download and install filebeat
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
-cat > /etc/yum.repos.d/elasticsearch.repo <<- EOF
+cat > /etc/yum.repos.d/elasticsearch.repo << EOF
 [elasticsearch-7.x]
 name=Elasticsearch repository for 7.x packages
 baseurl=https://artifacts.elastic.co/packages/7.x/yum
@@ -20,7 +20,7 @@ sed -i '29c\    - /var/log/mongodb/mongodb.log' /etc/filebeat/filebeat.yml
 sed -i '30c\    - /var/log/jenkins/jenkins.log' /etc/filebeat/filebeat.yml
 sed -i '31c\    - /home/ec2-user/logs/*.log' /etc/filebeat/filebeat.yml
 # Create custom index name
-cat >> /etc/filebeat/filebeat.yml <<-EOF
+cat >> /etc/filebeat/filebeat.yml << EOF
 setup.ilm.rollover_alias: "customindexname"
 setup.ilm.overwrite: true
 EOF
