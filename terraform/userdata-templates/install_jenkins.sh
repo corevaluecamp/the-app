@@ -183,12 +183,10 @@ yum install filebeat -y
 # Configure filebeat
 sed -i -e 's/localhost:9200/${elastic_ip}:9200/g' /etc/filebeat/filebeat.yml
 sed -i -e 's/enabled: false/enabled: true/g' /etc/filebeat/filebeat.yml
-sed -i '29c\    - /var/log/mongodb/mongodb.log' /etc/filebeat/filebeat.yml
 sed -i '30c\    - /var/log/jenkins/jenkins.log' /etc/filebeat/filebeat.yml
-sed -i '31c\    - /home/ec2-user/logs/*.log' /etc/filebeat/filebeat.yml
 # Create custom index name
 cat >> /etc/filebeat/filebeat.yml << EOF
-setup.ilm.rollover_alias: "customindexname"
+setup.ilm.rollover_alias: "jenkins"
 setup.ilm.overwrite: true
 EOF
 # Add filebeat to startup
