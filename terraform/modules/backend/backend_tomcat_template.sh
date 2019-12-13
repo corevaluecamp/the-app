@@ -45,6 +45,8 @@ systemctl start tomcat
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
+CART_SERVICE_REDIS_URL=redis.dos.net
+NAVIGATION_SERVICE_MONGODB_URL=mongodb.dos.net
 */5 * * * * root /home/ec2-user/s3d.py ${s3_bucketname} shop.war /home/ec2-user/war/shop.war ; /home/ec2-user/tomcat.sh 
 EOF
 

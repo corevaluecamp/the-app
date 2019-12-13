@@ -44,6 +44,9 @@ chmod +x /home/ec2-user/run.sh
 systemctl start crond
 
 cat <<EOF >> /etc/crontab
+CART_SERVICE_REDIS_URL=redis.dos.net
+NAVIGATION_SERVICE_MONGODB_URL=mongodb.dos.net
+
 */10 * * * * root pkill product ; /home/ec2-user/s3d.py ${s3_bucketname} product.tar /home/ec2-user/tar/product.tar ; /home/ec2-user/run.sh 
 EOF
 
