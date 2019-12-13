@@ -115,7 +115,10 @@ do
     fi
 done
 
-java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} build dbrestore
+for BUILD in $(cat /tmp/temp/jobs/files/jobs.txt)
+do
+		cat "/tmp/temp/jobs/files/$BUILD.xml" | java -jar /tmp/jenkins-cli.jar -s http://localhost:8080/ -auth ${jenkins_user}:${jenkins_pass} build "$BUILD"
+done
 
 ######################################
 # Installing Node Exporter user-data #
